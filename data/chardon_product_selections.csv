@@ -1,0 +1,617 @@
+
+Standard,Family,Product_Group,Voltage_kV,Current_A,Base_Code,Test_Point,Cable_Range_Code,Cable_OD_Min_mm,Cable_OD_Max_mm,Conductor_Code,Concentric_AWG,Concentric_mm2,Compact_AWG,Compact_mm2,Connector_Type,Fuse_Manufacturer,Final_Product_Code
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,A,14.61,18.8,01,#6,,#4,,Copper,,15-LE200A01C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,A,14.61,18.8,01,#6,,#4,,Bi-metal,,15-LE200A01B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,A,14.61,18.8,02,#4,,#3,25,Copper,,15-LE200A02C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,A,14.61,18.8,02,#4,,#3,25,Bi-metal,,15-LE200A02B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,A,14.61,18.8,03,#3,25,#2,35,Copper,,15-LE200A03C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,A,14.61,18.8,03,#3,25,#2,35,Bi-metal,,15-LE200A03B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,A,14.61,18.8,04,#2,35,#1,,Copper,,15-LE200A04C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,A,14.61,18.8,04,#2,35,#1,,Bi-metal,,15-LE200A04B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,A,14.61,18.8,05,#1,,1/0,50,Copper,,15-LE200A05C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,A,14.61,18.8,05,#1,,1/0,50,Bi-metal,,15-LE200A05B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,A,14.61,18.8,06,1/0,50,2/0,70,Copper,,15-LE200A06C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,A,14.61,18.8,06,1/0,50,2/0,70,Bi-metal,,15-LE200A06B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,A,14.61,18.8,07,2/0,70,3/0,,Copper,,15-LE200A07C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,A,14.61,18.8,07,2/0,70,3/0,,Bi-metal,,15-LE200A07B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,A,14.61,18.8,08,3/0,,4/0,95,Copper,,15-LE200A08C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,A,14.61,18.8,08,3/0,,4/0,95,Bi-metal,,15-LE200A08B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,A,14.61,18.8,09,4/0,95,250,120,Copper,,15-LE200A09C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,A,14.61,18.8,09,4/0,95,250,120,Bi-metal,,15-LE200A09B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,A,14.61,18.8,10,250,120,300,,Copper,,15-LE200A10C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,A,14.61,18.8,10,250,120,300,,Bi-metal,,15-LE200A10B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,B,16.26,22.99,01,#6,,#4,,Copper,,15-LE200B01C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,B,16.26,22.99,01,#6,,#4,,Bi-metal,,15-LE200B01B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,B,16.26,22.99,02,#4,,#3,25,Copper,,15-LE200B02C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,B,16.26,22.99,02,#4,,#3,25,Bi-metal,,15-LE200B02B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,B,16.26,22.99,03,#3,25,#2,35,Copper,,15-LE200B03C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,B,16.26,22.99,03,#3,25,#2,35,Bi-metal,,15-LE200B03B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,B,16.26,22.99,04,#2,35,#1,,Copper,,15-LE200B04C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,B,16.26,22.99,04,#2,35,#1,,Bi-metal,,15-LE200B04B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,B,16.26,22.99,05,#1,,1/0,50,Copper,,15-LE200B05C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,B,16.26,22.99,05,#1,,1/0,50,Bi-metal,,15-LE200B05B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,B,16.26,22.99,06,1/0,50,2/0,70,Copper,,15-LE200B06C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,B,16.26,22.99,06,1/0,50,2/0,70,Bi-metal,,15-LE200B06B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,B,16.26,22.99,07,2/0,70,3/0,,Copper,,15-LE200B07C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,B,16.26,22.99,07,2/0,70,3/0,,Bi-metal,,15-LE200B07B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,B,16.26,22.99,08,3/0,,4/0,95,Copper,,15-LE200B08C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,B,16.26,22.99,08,3/0,,4/0,95,Bi-metal,,15-LE200B08B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,B,16.26,22.99,09,4/0,95,250,120,Copper,,15-LE200B09C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,B,16.26,22.99,09,4/0,95,250,120,Bi-metal,,15-LE200B09B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,B,16.26,22.99,10,250,120,300,,Copper,,15-LE200B10C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,B,16.26,22.99,10,250,120,300,,Bi-metal,,15-LE200B10B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,C,21.08,26.92,01,#6,,#4,,Copper,,15-LE200C01C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,C,21.08,26.92,01,#6,,#4,,Bi-metal,,15-LE200C01B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,C,21.08,26.92,02,#4,,#3,25,Copper,,15-LE200C02C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,C,21.08,26.92,02,#4,,#3,25,Bi-metal,,15-LE200C02B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,C,21.08,26.92,03,#3,25,#2,35,Copper,,15-LE200C03C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,C,21.08,26.92,03,#3,25,#2,35,Bi-metal,,15-LE200C03B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,C,21.08,26.92,04,#2,35,#1,,Copper,,15-LE200C04C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,C,21.08,26.92,04,#2,35,#1,,Bi-metal,,15-LE200C04B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,C,21.08,26.92,05,#1,,1/0,50,Copper,,15-LE200C05C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,C,21.08,26.92,05,#1,,1/0,50,Bi-metal,,15-LE200C05B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,C,21.08,26.92,06,1/0,50,2/0,70,Copper,,15-LE200C06C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,C,21.08,26.92,06,1/0,50,2/0,70,Bi-metal,,15-LE200C06B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,C,21.08,26.92,07,2/0,70,3/0,,Copper,,15-LE200C07C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,C,21.08,26.92,07,2/0,70,3/0,,Bi-metal,,15-LE200C07B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,C,21.08,26.92,08,3/0,,4/0,95,Copper,,15-LE200C08C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,C,21.08,26.92,08,3/0,,4/0,95,Bi-metal,,15-LE200C08B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,C,21.08,26.92,09,4/0,95,250,120,Copper,,15-LE200C09C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,C,21.08,26.92,09,4/0,95,250,120,Bi-metal,,15-LE200C09B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,C,21.08,26.92,10,250,120,300,,Copper,,15-LE200C10C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,C,21.08,26.92,10,250,120,300,,Bi-metal,,15-LE200C10B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,D,23.62,30.99,01,#6,,#4,,Copper,,15-LE200D01C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,D,23.62,30.99,01,#6,,#4,,Bi-metal,,15-LE200D01B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,D,23.62,30.99,02,#4,,#3,25,Copper,,15-LE200D02C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,D,23.62,30.99,02,#4,,#3,25,Bi-metal,,15-LE200D02B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,D,23.62,30.99,03,#3,25,#2,35,Copper,,15-LE200D03C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,D,23.62,30.99,03,#3,25,#2,35,Bi-metal,,15-LE200D03B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,D,23.62,30.99,04,#2,35,#1,,Copper,,15-LE200D04C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,D,23.62,30.99,04,#2,35,#1,,Bi-metal,,15-LE200D04B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,D,23.62,30.99,05,#1,,1/0,50,Copper,,15-LE200D05C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,D,23.62,30.99,05,#1,,1/0,50,Bi-metal,,15-LE200D05B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,D,23.62,30.99,06,1/0,50,2/0,70,Copper,,15-LE200D06C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,D,23.62,30.99,06,1/0,50,2/0,70,Bi-metal,,15-LE200D06B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,D,23.62,30.99,07,2/0,70,3/0,,Copper,,15-LE200D07C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,D,23.62,30.99,07,2/0,70,3/0,,Bi-metal,,15-LE200D07B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,D,23.62,30.99,08,3/0,,4/0,95,Copper,,15-LE200D08C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,D,23.62,30.99,08,3/0,,4/0,95,Bi-metal,,15-LE200D08B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,D,23.62,30.99,09,4/0,95,250,120,Copper,,15-LE200D09C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,D,23.62,30.99,09,4/0,95,250,120,Bi-metal,,15-LE200D09B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,D,23.62,30.99,10,250,120,300,,Copper,,15-LE200D10C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,D,23.62,30.99,10,250,120,300,,Bi-metal,,15-LE200D10B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,A,14.61,18.8,01,#6,,#4,,Copper,,15-LE200TA01C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,A,14.61,18.8,01,#6,,#4,,Bi-metal,,15-LE200TA01B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,A,14.61,18.8,02,#4,,#3,25,Copper,,15-LE200TA02C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,A,14.61,18.8,02,#4,,#3,25,Bi-metal,,15-LE200TA02B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,A,14.61,18.8,03,#3,25,#2,35,Copper,,15-LE200TA03C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,A,14.61,18.8,03,#3,25,#2,35,Bi-metal,,15-LE200TA03B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,A,14.61,18.8,04,#2,35,#1,,Copper,,15-LE200TA04C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,A,14.61,18.8,04,#2,35,#1,,Bi-metal,,15-LE200TA04B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,A,14.61,18.8,05,#1,,1/0,50,Copper,,15-LE200TA05C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,A,14.61,18.8,05,#1,,1/0,50,Bi-metal,,15-LE200TA05B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,A,14.61,18.8,06,1/0,50,2/0,70,Copper,,15-LE200TA06C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,A,14.61,18.8,06,1/0,50,2/0,70,Bi-metal,,15-LE200TA06B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,A,14.61,18.8,07,2/0,70,3/0,,Copper,,15-LE200TA07C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,A,14.61,18.8,07,2/0,70,3/0,,Bi-metal,,15-LE200TA07B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,A,14.61,18.8,08,3/0,,4/0,95,Copper,,15-LE200TA08C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,A,14.61,18.8,08,3/0,,4/0,95,Bi-metal,,15-LE200TA08B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,A,14.61,18.8,09,4/0,95,250,120,Copper,,15-LE200TA09C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,A,14.61,18.8,09,4/0,95,250,120,Bi-metal,,15-LE200TA09B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,A,14.61,18.8,10,250,120,300,,Copper,,15-LE200TA10C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,A,14.61,18.8,10,250,120,300,,Bi-metal,,15-LE200TA10B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,B,16.26,22.99,01,#6,,#4,,Copper,,15-LE200TB01C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,B,16.26,22.99,01,#6,,#4,,Bi-metal,,15-LE200TB01B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,B,16.26,22.99,02,#4,,#3,25,Copper,,15-LE200TB02C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,B,16.26,22.99,02,#4,,#3,25,Bi-metal,,15-LE200TB02B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,B,16.26,22.99,03,#3,25,#2,35,Copper,,15-LE200TB03C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,B,16.26,22.99,03,#3,25,#2,35,Bi-metal,,15-LE200TB03B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,B,16.26,22.99,04,#2,35,#1,,Copper,,15-LE200TB04C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,B,16.26,22.99,04,#2,35,#1,,Bi-metal,,15-LE200TB04B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,B,16.26,22.99,05,#1,,1/0,50,Copper,,15-LE200TB05C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,B,16.26,22.99,05,#1,,1/0,50,Bi-metal,,15-LE200TB05B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,B,16.26,22.99,06,1/0,50,2/0,70,Copper,,15-LE200TB06C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,B,16.26,22.99,06,1/0,50,2/0,70,Bi-metal,,15-LE200TB06B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,B,16.26,22.99,07,2/0,70,3/0,,Copper,,15-LE200TB07C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,B,16.26,22.99,07,2/0,70,3/0,,Bi-metal,,15-LE200TB07B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,B,16.26,22.99,08,3/0,,4/0,95,Copper,,15-LE200TB08C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,B,16.26,22.99,08,3/0,,4/0,95,Bi-metal,,15-LE200TB08B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,B,16.26,22.99,09,4/0,95,250,120,Copper,,15-LE200TB09C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,B,16.26,22.99,09,4/0,95,250,120,Bi-metal,,15-LE200TB09B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,B,16.26,22.99,10,250,120,300,,Copper,,15-LE200TB10C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,B,16.26,22.99,10,250,120,300,,Bi-metal,,15-LE200TB10B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,C,21.08,26.92,01,#6,,#4,,Copper,,15-LE200TC01C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,C,21.08,26.92,01,#6,,#4,,Bi-metal,,15-LE200TC01B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,C,21.08,26.92,02,#4,,#3,25,Copper,,15-LE200TC02C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,C,21.08,26.92,02,#4,,#3,25,Bi-metal,,15-LE200TC02B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,C,21.08,26.92,03,#3,25,#2,35,Copper,,15-LE200TC03C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,C,21.08,26.92,03,#3,25,#2,35,Bi-metal,,15-LE200TC03B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,C,21.08,26.92,04,#2,35,#1,,Copper,,15-LE200TC04C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,C,21.08,26.92,04,#2,35,#1,,Bi-metal,,15-LE200TC04B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,C,21.08,26.92,05,#1,,1/0,50,Copper,,15-LE200TC05C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,C,21.08,26.92,05,#1,,1/0,50,Bi-metal,,15-LE200TC05B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,C,21.08,26.92,06,1/0,50,2/0,70,Copper,,15-LE200TC06C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,C,21.08,26.92,06,1/0,50,2/0,70,Bi-metal,,15-LE200TC06B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,C,21.08,26.92,07,2/0,70,3/0,,Copper,,15-LE200TC07C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,C,21.08,26.92,07,2/0,70,3/0,,Bi-metal,,15-LE200TC07B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,C,21.08,26.92,08,3/0,,4/0,95,Copper,,15-LE200TC08C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,C,21.08,26.92,08,3/0,,4/0,95,Bi-metal,,15-LE200TC08B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,C,21.08,26.92,09,4/0,95,250,120,Copper,,15-LE200TC09C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,C,21.08,26.92,09,4/0,95,250,120,Bi-metal,,15-LE200TC09B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,C,21.08,26.92,10,250,120,300,,Copper,,15-LE200TC10C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,C,21.08,26.92,10,250,120,300,,Bi-metal,,15-LE200TC10B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,D,23.62,30.99,01,#6,,#4,,Copper,,15-LE200TD01C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,D,23.62,30.99,01,#6,,#4,,Bi-metal,,15-LE200TD01B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,D,23.62,30.99,02,#4,,#3,25,Copper,,15-LE200TD02C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,D,23.62,30.99,02,#4,,#3,25,Bi-metal,,15-LE200TD02B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,D,23.62,30.99,03,#3,25,#2,35,Copper,,15-LE200TD03C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,D,23.62,30.99,03,#3,25,#2,35,Bi-metal,,15-LE200TD03B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,D,23.62,30.99,04,#2,35,#1,,Copper,,15-LE200TD04C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,D,23.62,30.99,04,#2,35,#1,,Bi-metal,,15-LE200TD04B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,D,23.62,30.99,05,#1,,1/0,50,Copper,,15-LE200TD05C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,D,23.62,30.99,05,#1,,1/0,50,Bi-metal,,15-LE200TD05B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,D,23.62,30.99,06,1/0,50,2/0,70,Copper,,15-LE200TD06C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,D,23.62,30.99,06,1/0,50,2/0,70,Bi-metal,,15-LE200TD06B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,D,23.62,30.99,07,2/0,70,3/0,,Copper,,15-LE200TD07C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,D,23.62,30.99,07,2/0,70,3/0,,Bi-metal,,15-LE200TD07B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,D,23.62,30.99,08,3/0,,4/0,95,Copper,,15-LE200TD08C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,D,23.62,30.99,08,3/0,,4/0,95,Bi-metal,,15-LE200TD08B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,D,23.62,30.99,09,4/0,95,250,120,Copper,,15-LE200TD09C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,D,23.62,30.99,09,4/0,95,250,120,Bi-metal,,15-LE200TD09B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,D,23.62,30.99,10,250,120,300,,Copper,,15-LE200TD10C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,Capacitive,D,23.62,30.99,10,250,120,300,,Bi-metal,,15-LE200TD10B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,A,15.49,22.23,01,#6,,#4,,Copper,,25-LE200A01C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,A,15.49,22.23,01,#6,,#4,,Bi-metal,,25-LE200A01B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,A,15.49,22.23,02,#4,,#3,25,Copper,,25-LE200A02C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,A,15.49,22.23,02,#4,,#3,25,Bi-metal,,25-LE200A02B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,A,15.49,22.23,03,#3,25,#2,35,Copper,,25-LE200A03C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,A,15.49,22.23,03,#3,25,#2,35,Bi-metal,,25-LE200A03B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,A,15.49,22.23,04,#2,35,#1,,Copper,,25-LE200A04C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,A,15.49,22.23,04,#2,35,#1,,Bi-metal,,25-LE200A04B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,A,15.49,22.23,05,#1,,1/0,50,Copper,,25-LE200A05C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,A,15.49,22.23,05,#1,,1/0,50,Bi-metal,,25-LE200A05B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,A,15.49,22.23,06,1/0,50,2/0,70,Copper,,25-LE200A06C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,A,15.49,22.23,06,1/0,50,2/0,70,Bi-metal,,25-LE200A06B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,A,15.49,22.23,07,2/0,70,3/0,,Copper,,25-LE200A07C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,A,15.49,22.23,07,2/0,70,3/0,,Bi-metal,,25-LE200A07B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,A,15.49,22.23,08,3/0,,4/0,95,Copper,,25-LE200A08C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,A,15.49,22.23,08,3/0,,4/0,95,Bi-metal,,25-LE200A08B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,A,15.49,22.23,09,4/0,95,250,120,Copper,,25-LE200A09C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,A,15.49,22.23,09,4/0,95,250,120,Bi-metal,,25-LE200A09B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,A,15.49,22.23,10,250,120,300,,Copper,,25-LE200A10C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,A,15.49,22.23,10,250,120,300,,Bi-metal,,25-LE200A10B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,B,18.29,25.02,01,#6,,#4,,Copper,,25-LE200B01C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,B,18.29,25.02,01,#6,,#4,,Bi-metal,,25-LE200B01B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,B,18.29,25.02,02,#4,,#3,25,Copper,,25-LE200B02C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,B,18.29,25.02,02,#4,,#3,25,Bi-metal,,25-LE200B02B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,B,18.29,25.02,03,#3,25,#2,35,Copper,,25-LE200B03C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,B,18.29,25.02,03,#3,25,#2,35,Bi-metal,,25-LE200B03B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,B,18.29,25.02,04,#2,35,#1,,Copper,,25-LE200B04C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,B,18.29,25.02,04,#2,35,#1,,Bi-metal,,25-LE200B04B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,B,18.29,25.02,05,#1,,1/0,50,Copper,,25-LE200B05C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,B,18.29,25.02,05,#1,,1/0,50,Bi-metal,,25-LE200B05B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,B,18.29,25.02,06,1/0,50,2/0,70,Copper,,25-LE200B06C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,B,18.29,25.02,06,1/0,50,2/0,70,Bi-metal,,25-LE200B06B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,B,18.29,25.02,07,2/0,70,3/0,,Copper,,25-LE200B07C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,B,18.29,25.02,07,2/0,70,3/0,,Bi-metal,,25-LE200B07B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,B,18.29,25.02,08,3/0,,4/0,95,Copper,,25-LE200B08C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,B,18.29,25.02,08,3/0,,4/0,95,Bi-metal,,25-LE200B08B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,B,18.29,25.02,09,4/0,95,250,120,Copper,,25-LE200B09C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,B,18.29,25.02,09,4/0,95,250,120,Bi-metal,,25-LE200B09B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,B,18.29,25.02,10,250,120,300,,Copper,,25-LE200B10C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,B,18.29,25.02,10,250,120,300,,Bi-metal,,25-LE200B10B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,C,23.37,30.1,01,#6,,#4,,Copper,,25-LE200C01C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,C,23.37,30.1,01,#6,,#4,,Bi-metal,,25-LE200C01B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,C,23.37,30.1,02,#4,,#3,25,Copper,,25-LE200C02C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,C,23.37,30.1,02,#4,,#3,25,Bi-metal,,25-LE200C02B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,C,23.37,30.1,03,#3,25,#2,35,Copper,,25-LE200C03C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,C,23.37,30.1,03,#3,25,#2,35,Bi-metal,,25-LE200C03B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,C,23.37,30.1,04,#2,35,#1,,Copper,,25-LE200C04C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,C,23.37,30.1,04,#2,35,#1,,Bi-metal,,25-LE200C04B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,C,23.37,30.1,05,#1,,1/0,50,Copper,,25-LE200C05C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,C,23.37,30.1,05,#1,,1/0,50,Bi-metal,,25-LE200C05B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,C,23.37,30.1,06,1/0,50,2/0,70,Copper,,25-LE200C06C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,C,23.37,30.1,06,1/0,50,2/0,70,Bi-metal,,25-LE200C06B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,C,23.37,30.1,07,2/0,70,3/0,,Copper,,25-LE200C07C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,C,23.37,30.1,07,2/0,70,3/0,,Bi-metal,,25-LE200C07B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,C,23.37,30.1,08,3/0,,4/0,95,Copper,,25-LE200C08C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,C,23.37,30.1,08,3/0,,4/0,95,Bi-metal,,25-LE200C08B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,C,23.37,30.1,09,4/0,95,250,120,Copper,,25-LE200C09C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,C,23.37,30.1,09,4/0,95,250,120,Bi-metal,,25-LE200C09B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,C,23.37,30.1,10,250,120,300,,Copper,,25-LE200C10C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,C,23.37,30.1,10,250,120,300,,Bi-metal,,25-LE200C10B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,D,26.42,33.15,01,#6,,#4,,Copper,,25-LE200D01C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,D,26.42,33.15,01,#6,,#4,,Bi-metal,,25-LE200D01B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,D,26.42,33.15,02,#4,,#3,25,Copper,,25-LE200D02C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,D,26.42,33.15,02,#4,,#3,25,Bi-metal,,25-LE200D02B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,D,26.42,33.15,03,#3,25,#2,35,Copper,,25-LE200D03C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,D,26.42,33.15,03,#3,25,#2,35,Bi-metal,,25-LE200D03B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,D,26.42,33.15,04,#2,35,#1,,Copper,,25-LE200D04C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,D,26.42,33.15,04,#2,35,#1,,Bi-metal,,25-LE200D04B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,D,26.42,33.15,05,#1,,1/0,50,Copper,,25-LE200D05C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,D,26.42,33.15,05,#1,,1/0,50,Bi-metal,,25-LE200D05B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,D,26.42,33.15,06,1/0,50,2/0,70,Copper,,25-LE200D06C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,D,26.42,33.15,06,1/0,50,2/0,70,Bi-metal,,25-LE200D06B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,D,26.42,33.15,07,2/0,70,3/0,,Copper,,25-LE200D07C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,D,26.42,33.15,07,2/0,70,3/0,,Bi-metal,,25-LE200D07B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,D,26.42,33.15,08,3/0,,4/0,95,Copper,,25-LE200D08C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,D,26.42,33.15,08,3/0,,4/0,95,Bi-metal,,25-LE200D08B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,D,26.42,33.15,09,4/0,95,250,120,Copper,,25-LE200D09C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,D,26.42,33.15,09,4/0,95,250,120,Bi-metal,,25-LE200D09B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,D,26.42,33.15,10,250,120,300,,Copper,,25-LE200D10C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,None,D,26.42,33.15,10,250,120,300,,Bi-metal,,25-LE200D10B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,A,15.49,22.23,01,#6,,#4,,Copper,,25-LE200TA01C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,A,15.49,22.23,01,#6,,#4,,Bi-metal,,25-LE200TA01B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,A,15.49,22.23,02,#4,,#3,25,Copper,,25-LE200TA02C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,A,15.49,22.23,02,#4,,#3,25,Bi-metal,,25-LE200TA02B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,A,15.49,22.23,03,#3,25,#2,35,Copper,,25-LE200TA03C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,A,15.49,22.23,03,#3,25,#2,35,Bi-metal,,25-LE200TA03B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,A,15.49,22.23,04,#2,35,#1,,Copper,,25-LE200TA04C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,A,15.49,22.23,04,#2,35,#1,,Bi-metal,,25-LE200TA04B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,A,15.49,22.23,05,#1,,1/0,50,Copper,,25-LE200TA05C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,A,15.49,22.23,05,#1,,1/0,50,Bi-metal,,25-LE200TA05B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,A,15.49,22.23,06,1/0,50,2/0,70,Copper,,25-LE200TA06C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,A,15.49,22.23,06,1/0,50,2/0,70,Bi-metal,,25-LE200TA06B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,A,15.49,22.23,07,2/0,70,3/0,,Copper,,25-LE200TA07C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,A,15.49,22.23,07,2/0,70,3/0,,Bi-metal,,25-LE200TA07B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,A,15.49,22.23,08,3/0,,4/0,95,Copper,,25-LE200TA08C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,A,15.49,22.23,08,3/0,,4/0,95,Bi-metal,,25-LE200TA08B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,A,15.49,22.23,09,4/0,95,250,120,Copper,,25-LE200TA09C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,A,15.49,22.23,09,4/0,95,250,120,Bi-metal,,25-LE200TA09B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,A,15.49,22.23,10,250,120,300,,Copper,,25-LE200TA10C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,A,15.49,22.23,10,250,120,300,,Bi-metal,,25-LE200TA10B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,B,18.29,25.02,01,#6,,#4,,Copper,,25-LE200TB01C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,B,18.29,25.02,01,#6,,#4,,Bi-metal,,25-LE200TB01B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,B,18.29,25.02,02,#4,,#3,25,Copper,,25-LE200TB02C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,B,18.29,25.02,02,#4,,#3,25,Bi-metal,,25-LE200TB02B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,B,18.29,25.02,03,#3,25,#2,35,Copper,,25-LE200TB03C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,B,18.29,25.02,03,#3,25,#2,35,Bi-metal,,25-LE200TB03B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,B,18.29,25.02,04,#2,35,#1,,Copper,,25-LE200TB04C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,B,18.29,25.02,04,#2,35,#1,,Bi-metal,,25-LE200TB04B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,B,18.29,25.02,05,#1,,1/0,50,Copper,,25-LE200TB05C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,B,18.29,25.02,05,#1,,1/0,50,Bi-metal,,25-LE200TB05B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,B,18.29,25.02,06,1/0,50,2/0,70,Copper,,25-LE200TB06C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,B,18.29,25.02,06,1/0,50,2/0,70,Bi-metal,,25-LE200TB06B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,B,18.29,25.02,07,2/0,70,3/0,,Copper,,25-LE200TB07C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,B,18.29,25.02,07,2/0,70,3/0,,Bi-metal,,25-LE200TB07B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,B,18.29,25.02,08,3/0,,4/0,95,Copper,,25-LE200TB08C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,B,18.29,25.02,08,3/0,,4/0,95,Bi-metal,,25-LE200TB08B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,B,18.29,25.02,09,4/0,95,250,120,Copper,,25-LE200TB09C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,B,18.29,25.02,09,4/0,95,250,120,Bi-metal,,25-LE200TB09B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,B,18.29,25.02,10,250,120,300,,Copper,,25-LE200TB10C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,B,18.29,25.02,10,250,120,300,,Bi-metal,,25-LE200TB10B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,C,23.37,30.1,01,#6,,#4,,Copper,,25-LE200TC01C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,C,23.37,30.1,01,#6,,#4,,Bi-metal,,25-LE200TC01B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,C,23.37,30.1,02,#4,,#3,25,Copper,,25-LE200TC02C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,C,23.37,30.1,02,#4,,#3,25,Bi-metal,,25-LE200TC02B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,C,23.37,30.1,03,#3,25,#2,35,Copper,,25-LE200TC03C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,C,23.37,30.1,03,#3,25,#2,35,Bi-metal,,25-LE200TC03B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,C,23.37,30.1,04,#2,35,#1,,Copper,,25-LE200TC04C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,C,23.37,30.1,04,#2,35,#1,,Bi-metal,,25-LE200TC04B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,C,23.37,30.1,05,#1,,1/0,50,Copper,,25-LE200TC05C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,C,23.37,30.1,05,#1,,1/0,50,Bi-metal,,25-LE200TC05B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,C,23.37,30.1,06,1/0,50,2/0,70,Copper,,25-LE200TC06C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,C,23.37,30.1,06,1/0,50,2/0,70,Bi-metal,,25-LE200TC06B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,C,23.37,30.1,07,2/0,70,3/0,,Copper,,25-LE200TC07C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,C,23.37,30.1,07,2/0,70,3/0,,Bi-metal,,25-LE200TC07B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,C,23.37,30.1,08,3/0,,4/0,95,Copper,,25-LE200TC08C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,C,23.37,30.1,08,3/0,,4/0,95,Bi-metal,,25-LE200TC08B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,C,23.37,30.1,09,4/0,95,250,120,Copper,,25-LE200TC09C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,C,23.37,30.1,09,4/0,95,250,120,Bi-metal,,25-LE200TC09B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,C,23.37,30.1,10,250,120,300,,Copper,,25-LE200TC10C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,C,23.37,30.1,10,250,120,300,,Bi-metal,,25-LE200TC10B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,D,26.42,33.15,01,#6,,#4,,Copper,,25-LE200TD01C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,D,26.42,33.15,01,#6,,#4,,Bi-metal,,25-LE200TD01B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,D,26.42,33.15,02,#4,,#3,25,Copper,,25-LE200TD02C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,D,26.42,33.15,02,#4,,#3,25,Bi-metal,,25-LE200TD02B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,D,26.42,33.15,03,#3,25,#2,35,Copper,,25-LE200TD03C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,D,26.42,33.15,03,#3,25,#2,35,Bi-metal,,25-LE200TD03B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,D,26.42,33.15,04,#2,35,#1,,Copper,,25-LE200TD04C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,D,26.42,33.15,04,#2,35,#1,,Bi-metal,,25-LE200TD04B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,D,26.42,33.15,05,#1,,1/0,50,Copper,,25-LE200TD05C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,D,26.42,33.15,05,#1,,1/0,50,Bi-metal,,25-LE200TD05B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,D,26.42,33.15,06,1/0,50,2/0,70,Copper,,25-LE200TD06C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,D,26.42,33.15,06,1/0,50,2/0,70,Bi-metal,,25-LE200TD06B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,D,26.42,33.15,07,2/0,70,3/0,,Copper,,25-LE200TD07C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,D,26.42,33.15,07,2/0,70,3/0,,Bi-metal,,25-LE200TD07B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,D,26.42,33.15,08,3/0,,4/0,95,Copper,,25-LE200TD08C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,D,26.42,33.15,08,3/0,,4/0,95,Bi-metal,,25-LE200TD08B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,D,26.42,33.15,09,4/0,95,250,120,Copper,,25-LE200TD09C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,D,26.42,33.15,09,4/0,95,250,120,Bi-metal,,25-LE200TD09B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,D,26.42,33.15,10,250,120,300,,Copper,,25-LE200TD10C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,25,200,25-LE200,Capacitive,D,26.42,33.15,10,250,120,300,,Bi-metal,,25-LE200TD10B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,C,21.5,26.7,01,#6,,#4,,Copper,,35-LE200C01C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,C,21.5,26.7,01,#6,,#4,,Bi-metal,,35-LE200C01B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,C,21.5,26.7,02,#4,,#3,25,Copper,,35-LE200C02C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,C,21.5,26.7,02,#4,,#3,25,Bi-metal,,35-LE200C02B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,C,21.5,26.7,03,#3,25,#2,35,Copper,,35-LE200C03C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,C,21.5,26.7,03,#3,25,#2,35,Bi-metal,,35-LE200C03B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,C,21.5,26.7,04,#2,35,#1,,Copper,,35-LE200C04C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,C,21.5,26.7,04,#2,35,#1,,Bi-metal,,35-LE200C04B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,C,21.5,26.7,05,#1,,1/0,50,Copper,,35-LE200C05C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,C,21.5,26.7,05,#1,,1/0,50,Bi-metal,,35-LE200C05B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,C,21.5,26.7,06,1/0,50,2/0,70,Copper,,35-LE200C06C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,C,21.5,26.7,06,1/0,50,2/0,70,Bi-metal,,35-LE200C06B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,C,21.5,26.7,07,2/0,70,3/0,,Copper,,35-LE200C07C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,C,21.5,26.7,07,2/0,70,3/0,,Bi-metal,,35-LE200C07B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,C,21.5,26.7,08,3/0,,4/0,95,Copper,,35-LE200C08C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,C,21.5,26.7,08,3/0,,4/0,95,Bi-metal,,35-LE200C08B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,C,21.5,26.7,09,4/0,95,250,120,Copper,,35-LE200C09C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,C,21.5,26.7,09,4/0,95,250,120,Bi-metal,,35-LE200C09B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,C,21.5,26.7,10,250,120,300,,Copper,,35-LE200C10C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,C,21.5,26.7,10,250,120,300,,Bi-metal,,35-LE200C10B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,D,27.6,33.3,01,#6,,#4,,Copper,,35-LE200D01C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,D,27.6,33.3,01,#6,,#4,,Bi-metal,,35-LE200D01B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,D,27.6,33.3,02,#4,,#3,25,Copper,,35-LE200D02C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,D,27.6,33.3,02,#4,,#3,25,Bi-metal,,35-LE200D02B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,D,27.6,33.3,03,#3,25,#2,35,Copper,,35-LE200D03C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,D,27.6,33.3,03,#3,25,#2,35,Bi-metal,,35-LE200D03B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,D,27.6,33.3,04,#2,35,#1,,Copper,,35-LE200D04C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,D,27.6,33.3,04,#2,35,#1,,Bi-metal,,35-LE200D04B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,D,27.6,33.3,05,#1,,1/0,50,Copper,,35-LE200D05C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,D,27.6,33.3,05,#1,,1/0,50,Bi-metal,,35-LE200D05B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,D,27.6,33.3,06,1/0,50,2/0,70,Copper,,35-LE200D06C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,D,27.6,33.3,06,1/0,50,2/0,70,Bi-metal,,35-LE200D06B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,D,27.6,33.3,07,2/0,70,3/0,,Copper,,35-LE200D07C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,D,27.6,33.3,07,2/0,70,3/0,,Bi-metal,,35-LE200D07B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,D,27.6,33.3,08,3/0,,4/0,95,Copper,,35-LE200D08C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,D,27.6,33.3,08,3/0,,4/0,95,Bi-metal,,35-LE200D08B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,D,27.6,33.3,09,4/0,95,250,120,Copper,,35-LE200D09C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,D,27.6,33.3,09,4/0,95,250,120,Bi-metal,,35-LE200D09B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,D,27.6,33.3,10,250,120,300,,Copper,,35-LE200D10C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,D,27.6,33.3,10,250,120,300,,Bi-metal,,35-LE200D10B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,E,31.3,37.3,01,#6,,#4,,Copper,,35-LE200E01C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,E,31.3,37.3,01,#6,,#4,,Bi-metal,,35-LE200E01B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,E,31.3,37.3,02,#4,,#3,25,Copper,,35-LE200E02C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,E,31.3,37.3,02,#4,,#3,25,Bi-metal,,35-LE200E02B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,E,31.3,37.3,03,#3,25,#2,35,Copper,,35-LE200E03C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,E,31.3,37.3,03,#3,25,#2,35,Bi-metal,,35-LE200E03B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,E,31.3,37.3,04,#2,35,#1,,Copper,,35-LE200E04C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,E,31.3,37.3,04,#2,35,#1,,Bi-metal,,35-LE200E04B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,E,31.3,37.3,05,#1,,1/0,50,Copper,,35-LE200E05C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,E,31.3,37.3,05,#1,,1/0,50,Bi-metal,,35-LE200E05B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,E,31.3,37.3,06,1/0,50,2/0,70,Copper,,35-LE200E06C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,E,31.3,37.3,06,1/0,50,2/0,70,Bi-metal,,35-LE200E06B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,E,31.3,37.3,07,2/0,70,3/0,,Copper,,35-LE200E07C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,E,31.3,37.3,07,2/0,70,3/0,,Bi-metal,,35-LE200E07B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,E,31.3,37.3,08,3/0,,4/0,95,Copper,,35-LE200E08C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,E,31.3,37.3,08,3/0,,4/0,95,Bi-metal,,35-LE200E08B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,E,31.3,37.3,09,4/0,95,250,120,Copper,,35-LE200E09C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,E,31.3,37.3,09,4/0,95,250,120,Bi-metal,,35-LE200E09B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,E,31.3,37.3,10,250,120,300,,Copper,,35-LE200E10C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,E,31.3,37.3,10,250,120,300,,Bi-metal,,35-LE200E10B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,F,37.4,43.0,01,#6,,#4,,Copper,,35-LE200F01C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,F,37.4,43.0,01,#6,,#4,,Bi-metal,,35-LE200F01B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,F,37.4,43.0,02,#4,,#3,25,Copper,,35-LE200F02C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,F,37.4,43.0,02,#4,,#3,25,Bi-metal,,35-LE200F02B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,F,37.4,43.0,03,#3,25,#2,35,Copper,,35-LE200F03C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,F,37.4,43.0,03,#3,25,#2,35,Bi-metal,,35-LE200F03B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,F,37.4,43.0,04,#2,35,#1,,Copper,,35-LE200F04C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,F,37.4,43.0,04,#2,35,#1,,Bi-metal,,35-LE200F04B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,F,37.4,43.0,05,#1,,1/0,50,Copper,,35-LE200F05C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,F,37.4,43.0,05,#1,,1/0,50,Bi-metal,,35-LE200F05B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,F,37.4,43.0,06,1/0,50,2/0,70,Copper,,35-LE200F06C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,F,37.4,43.0,06,1/0,50,2/0,70,Bi-metal,,35-LE200F06B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,F,37.4,43.0,07,2/0,70,3/0,,Copper,,35-LE200F07C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,F,37.4,43.0,07,2/0,70,3/0,,Bi-metal,,35-LE200F07B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,F,37.4,43.0,08,3/0,,4/0,95,Copper,,35-LE200F08C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,F,37.4,43.0,08,3/0,,4/0,95,Bi-metal,,35-LE200F08B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,F,37.4,43.0,09,4/0,95,250,120,Copper,,35-LE200F09C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,F,37.4,43.0,09,4/0,95,250,120,Bi-metal,,35-LE200F09B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,F,37.4,43.0,10,250,120,300,,Copper,,35-LE200F10C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,None,F,37.4,43.0,10,250,120,300,,Bi-metal,,35-LE200F10B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,C,21.5,26.7,01,#6,,#4,,Copper,,35-LE200TC01C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,C,21.5,26.7,01,#6,,#4,,Bi-metal,,35-LE200TC01B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,C,21.5,26.7,02,#4,,#3,25,Copper,,35-LE200TC02C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,C,21.5,26.7,02,#4,,#3,25,Bi-metal,,35-LE200TC02B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,C,21.5,26.7,03,#3,25,#2,35,Copper,,35-LE200TC03C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,C,21.5,26.7,03,#3,25,#2,35,Bi-metal,,35-LE200TC03B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,C,21.5,26.7,04,#2,35,#1,,Copper,,35-LE200TC04C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,C,21.5,26.7,04,#2,35,#1,,Bi-metal,,35-LE200TC04B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,C,21.5,26.7,05,#1,,1/0,50,Copper,,35-LE200TC05C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,C,21.5,26.7,05,#1,,1/0,50,Bi-metal,,35-LE200TC05B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,C,21.5,26.7,06,1/0,50,2/0,70,Copper,,35-LE200TC06C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,C,21.5,26.7,06,1/0,50,2/0,70,Bi-metal,,35-LE200TC06B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,C,21.5,26.7,07,2/0,70,3/0,,Copper,,35-LE200TC07C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,C,21.5,26.7,07,2/0,70,3/0,,Bi-metal,,35-LE200TC07B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,C,21.5,26.7,08,3/0,,4/0,95,Copper,,35-LE200TC08C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,C,21.5,26.7,08,3/0,,4/0,95,Bi-metal,,35-LE200TC08B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,C,21.5,26.7,09,4/0,95,250,120,Copper,,35-LE200TC09C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,C,21.5,26.7,09,4/0,95,250,120,Bi-metal,,35-LE200TC09B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,C,21.5,26.7,10,250,120,300,,Copper,,35-LE200TC10C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,C,21.5,26.7,10,250,120,300,,Bi-metal,,35-LE200TC10B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,D,27.6,33.3,01,#6,,#4,,Copper,,35-LE200TD01C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,D,27.6,33.3,01,#6,,#4,,Bi-metal,,35-LE200TD01B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,D,27.6,33.3,02,#4,,#3,25,Copper,,35-LE200TD02C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,D,27.6,33.3,02,#4,,#3,25,Bi-metal,,35-LE200TD02B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,D,27.6,33.3,03,#3,25,#2,35,Copper,,35-LE200TD03C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,D,27.6,33.3,03,#3,25,#2,35,Bi-metal,,35-LE200TD03B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,D,27.6,33.3,04,#2,35,#1,,Copper,,35-LE200TD04C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,D,27.6,33.3,04,#2,35,#1,,Bi-metal,,35-LE200TD04B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,D,27.6,33.3,05,#1,,1/0,50,Copper,,35-LE200TD05C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,D,27.6,33.3,05,#1,,1/0,50,Bi-metal,,35-LE200TD05B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,D,27.6,33.3,06,1/0,50,2/0,70,Copper,,35-LE200TD06C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,D,27.6,33.3,06,1/0,50,2/0,70,Bi-metal,,35-LE200TD06B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,D,27.6,33.3,07,2/0,70,3/0,,Copper,,35-LE200TD07C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,D,27.6,33.3,07,2/0,70,3/0,,Bi-metal,,35-LE200TD07B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,D,27.6,33.3,08,3/0,,4/0,95,Copper,,35-LE200TD08C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,D,27.6,33.3,08,3/0,,4/0,95,Bi-metal,,35-LE200TD08B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,D,27.6,33.3,09,4/0,95,250,120,Copper,,35-LE200TD09C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,D,27.6,33.3,09,4/0,95,250,120,Bi-metal,,35-LE200TD09B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,D,27.6,33.3,10,250,120,300,,Copper,,35-LE200TD10C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,D,27.6,33.3,10,250,120,300,,Bi-metal,,35-LE200TD10B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,E,31.3,37.3,01,#6,,#4,,Copper,,35-LE200TE01C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,E,31.3,37.3,01,#6,,#4,,Bi-metal,,35-LE200TE01B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,E,31.3,37.3,02,#4,,#3,25,Copper,,35-LE200TE02C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,E,31.3,37.3,02,#4,,#3,25,Bi-metal,,35-LE200TE02B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,E,31.3,37.3,03,#3,25,#2,35,Copper,,35-LE200TE03C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,E,31.3,37.3,03,#3,25,#2,35,Bi-metal,,35-LE200TE03B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,E,31.3,37.3,04,#2,35,#1,,Copper,,35-LE200TE04C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,E,31.3,37.3,04,#2,35,#1,,Bi-metal,,35-LE200TE04B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,E,31.3,37.3,05,#1,,1/0,50,Copper,,35-LE200TE05C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,E,31.3,37.3,05,#1,,1/0,50,Bi-metal,,35-LE200TE05B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,E,31.3,37.3,06,1/0,50,2/0,70,Copper,,35-LE200TE06C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,E,31.3,37.3,06,1/0,50,2/0,70,Bi-metal,,35-LE200TE06B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,E,31.3,37.3,07,2/0,70,3/0,,Copper,,35-LE200TE07C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,E,31.3,37.3,07,2/0,70,3/0,,Bi-metal,,35-LE200TE07B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,E,31.3,37.3,08,3/0,,4/0,95,Copper,,35-LE200TE08C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,E,31.3,37.3,08,3/0,,4/0,95,Bi-metal,,35-LE200TE08B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,E,31.3,37.3,09,4/0,95,250,120,Copper,,35-LE200TE09C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,E,31.3,37.3,09,4/0,95,250,120,Bi-metal,,35-LE200TE09B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,E,31.3,37.3,10,250,120,300,,Copper,,35-LE200TE10C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,E,31.3,37.3,10,250,120,300,,Bi-metal,,35-LE200TE10B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,F,37.4,43.0,01,#6,,#4,,Copper,,35-LE200TF01C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,F,37.4,43.0,01,#6,,#4,,Bi-metal,,35-LE200TF01B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,F,37.4,43.0,02,#4,,#3,25,Copper,,35-LE200TF02C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,F,37.4,43.0,02,#4,,#3,25,Bi-metal,,35-LE200TF02B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,F,37.4,43.0,03,#3,25,#2,35,Copper,,35-LE200TF03C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,F,37.4,43.0,03,#3,25,#2,35,Bi-metal,,35-LE200TF03B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,F,37.4,43.0,04,#2,35,#1,,Copper,,35-LE200TF04C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,F,37.4,43.0,04,#2,35,#1,,Bi-metal,,35-LE200TF04B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,F,37.4,43.0,05,#1,,1/0,50,Copper,,35-LE200TF05C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,F,37.4,43.0,05,#1,,1/0,50,Bi-metal,,35-LE200TF05B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,F,37.4,43.0,06,1/0,50,2/0,70,Copper,,35-LE200TF06C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,F,37.4,43.0,06,1/0,50,2/0,70,Bi-metal,,35-LE200TF06B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,F,37.4,43.0,07,2/0,70,3/0,,Copper,,35-LE200TF07C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,F,37.4,43.0,07,2/0,70,3/0,,Bi-metal,,35-LE200TF07B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,F,37.4,43.0,08,3/0,,4/0,95,Copper,,35-LE200TF08C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,F,37.4,43.0,08,3/0,,4/0,95,Bi-metal,,35-LE200TF08B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,F,37.4,43.0,09,4/0,95,250,120,Copper,,35-LE200TF09C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,F,37.4,43.0,09,4/0,95,250,120,Bi-metal,,35-LE200TF09B
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,F,37.4,43.0,10,250,120,300,,Copper,,35-LE200TF10C
+IEEE/ANSI,Cable Accessories,Loadbreak Elbow,35,200,35-LE200,Capacitive,F,37.4,43.0,10,250,120,300,,Bi-metal,,35-LE200TF10B
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,A,14.61,18.8,01,#6,,#4,,Bi-metal,Hi-Tech,15-LFE200TAHE01
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,A,14.61,18.8,02,#4,,#3,25,Bi-metal,Hi-Tech,15-LFE200TAHE02
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,A,14.61,18.8,03,#3,25,#2,35,Bi-metal,Hi-Tech,15-LFE200TAHE03
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,A,14.61,18.8,04,#2,35,#1,,Bi-metal,Hi-Tech,15-LFE200TAHE04
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,A,14.61,18.8,05,#1,,1/0,50,Bi-metal,Hi-Tech,15-LFE200TAHE05
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,A,14.61,18.8,06,1/0,50,2/0,70,Bi-metal,Hi-Tech,15-LFE200TAHE06
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,A,14.61,18.8,07,2/0,70,3/0,,Bi-metal,Hi-Tech,15-LFE200TAHE07
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,A,14.61,18.8,08,3/0,,4/0,95,Bi-metal,Hi-Tech,15-LFE200TAHE08
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,A,14.61,18.8,09,4/0,95,250,120,Bi-metal,Hi-Tech,15-LFE200TAHE09
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,A,14.61,18.8,10,250,120,300,,Bi-metal,Hi-Tech,15-LFE200TAHE10
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,A,14.61,18.8,01,#6,,#4,,Bi-metal,Cooper,15-LFE200TACE01
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,A,14.61,18.8,02,#4,,#3,25,Bi-metal,Cooper,15-LFE200TACE02
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,A,14.61,18.8,03,#3,25,#2,35,Bi-metal,Cooper,15-LFE200TACE03
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,A,14.61,18.8,04,#2,35,#1,,Bi-metal,Cooper,15-LFE200TACE04
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,A,14.61,18.8,05,#1,,1/0,50,Bi-metal,Cooper,15-LFE200TACE05
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,A,14.61,18.8,06,1/0,50,2/0,70,Bi-metal,Cooper,15-LFE200TACE06
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,A,14.61,18.8,07,2/0,70,3/0,,Bi-metal,Cooper,15-LFE200TACE07
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,A,14.61,18.8,08,3/0,,4/0,95,Bi-metal,Cooper,15-LFE200TACE08
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,A,14.61,18.8,09,4/0,95,250,120,Bi-metal,Cooper,15-LFE200TACE09
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,A,14.61,18.8,10,250,120,300,,Bi-metal,Cooper,15-LFE200TACE10
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,A,14.61,18.8,01,#6,,#4,,Bi-metal,Chardon,15-LFE200TACH01
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,A,14.61,18.8,02,#4,,#3,25,Bi-metal,Chardon,15-LFE200TACH02
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,A,14.61,18.8,03,#3,25,#2,35,Bi-metal,Chardon,15-LFE200TACH03
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,A,14.61,18.8,04,#2,35,#1,,Bi-metal,Chardon,15-LFE200TACH04
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,A,14.61,18.8,05,#1,,1/0,50,Bi-metal,Chardon,15-LFE200TACH05
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,A,14.61,18.8,06,1/0,50,2/0,70,Bi-metal,Chardon,15-LFE200TACH06
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,A,14.61,18.8,07,2/0,70,3/0,,Bi-metal,Chardon,15-LFE200TACH07
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,A,14.61,18.8,08,3/0,,4/0,95,Bi-metal,Chardon,15-LFE200TACH08
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,A,14.61,18.8,09,4/0,95,250,120,Bi-metal,Chardon,15-LFE200TACH09
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,A,14.61,18.8,10,250,120,300,,Bi-metal,Chardon,15-LFE200TACH10
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,B,16.26,22.99,01,#6,,#4,,Bi-metal,Hi-Tech,15-LFE200TBHE01
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,B,16.26,22.99,02,#4,,#3,25,Bi-metal,Hi-Tech,15-LFE200TBHE02
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,B,16.26,22.99,03,#3,25,#2,35,Bi-metal,Hi-Tech,15-LFE200TBHE03
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,B,16.26,22.99,04,#2,35,#1,,Bi-metal,Hi-Tech,15-LFE200TBHE04
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,B,16.26,22.99,05,#1,,1/0,50,Bi-metal,Hi-Tech,15-LFE200TBHE05
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,B,16.26,22.99,06,1/0,50,2/0,70,Bi-metal,Hi-Tech,15-LFE200TBHE06
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,B,16.26,22.99,07,2/0,70,3/0,,Bi-metal,Hi-Tech,15-LFE200TBHE07
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,B,16.26,22.99,08,3/0,,4/0,95,Bi-metal,Hi-Tech,15-LFE200TBHE08
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,B,16.26,22.99,09,4/0,95,250,120,Bi-metal,Hi-Tech,15-LFE200TBHE09
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,B,16.26,22.99,10,250,120,300,,Bi-metal,Hi-Tech,15-LFE200TBHE10
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,B,16.26,22.99,01,#6,,#4,,Bi-metal,Cooper,15-LFE200TBCE01
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,B,16.26,22.99,02,#4,,#3,25,Bi-metal,Cooper,15-LFE200TBCE02
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,B,16.26,22.99,03,#3,25,#2,35,Bi-metal,Cooper,15-LFE200TBCE03
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,B,16.26,22.99,04,#2,35,#1,,Bi-metal,Cooper,15-LFE200TBCE04
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,B,16.26,22.99,05,#1,,1/0,50,Bi-metal,Cooper,15-LFE200TBCE05
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,B,16.26,22.99,06,1/0,50,2/0,70,Bi-metal,Cooper,15-LFE200TBCE06
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,B,16.26,22.99,07,2/0,70,3/0,,Bi-metal,Cooper,15-LFE200TBCE07
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,B,16.26,22.99,08,3/0,,4/0,95,Bi-metal,Cooper,15-LFE200TBCE08
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,B,16.26,22.99,09,4/0,95,250,120,Bi-metal,Cooper,15-LFE200TBCE09
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,B,16.26,22.99,10,250,120,300,,Bi-metal,Cooper,15-LFE200TBCE10
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,B,16.26,22.99,01,#6,,#4,,Bi-metal,Chardon,15-LFE200TBCH01
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,B,16.26,22.99,02,#4,,#3,25,Bi-metal,Chardon,15-LFE200TBCH02
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,B,16.26,22.99,03,#3,25,#2,35,Bi-metal,Chardon,15-LFE200TBCH03
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,B,16.26,22.99,04,#2,35,#1,,Bi-metal,Chardon,15-LFE200TBCH04
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,B,16.26,22.99,05,#1,,1/0,50,Bi-metal,Chardon,15-LFE200TBCH05
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,B,16.26,22.99,06,1/0,50,2/0,70,Bi-metal,Chardon,15-LFE200TBCH06
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,B,16.26,22.99,07,2/0,70,3/0,,Bi-metal,Chardon,15-LFE200TBCH07
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,B,16.26,22.99,08,3/0,,4/0,95,Bi-metal,Chardon,15-LFE200TBCH08
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,B,16.26,22.99,09,4/0,95,250,120,Bi-metal,Chardon,15-LFE200TBCH09
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,B,16.26,22.99,10,250,120,300,,Bi-metal,Chardon,15-LFE200TBCH10
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,C,21.08,26.92,01,#6,,#4,,Bi-metal,Hi-Tech,15-LFE200TCHE01
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,C,21.08,26.92,02,#4,,#3,25,Bi-metal,Hi-Tech,15-LFE200TCHE02
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,C,21.08,26.92,03,#3,25,#2,35,Bi-metal,Hi-Tech,15-LFE200TCHE03
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,C,21.08,26.92,04,#2,35,#1,,Bi-metal,Hi-Tech,15-LFE200TCHE04
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,C,21.08,26.92,05,#1,,1/0,50,Bi-metal,Hi-Tech,15-LFE200TCHE05
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,C,21.08,26.92,06,1/0,50,2/0,70,Bi-metal,Hi-Tech,15-LFE200TCHE06
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,C,21.08,26.92,07,2/0,70,3/0,,Bi-metal,Hi-Tech,15-LFE200TCHE07
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,C,21.08,26.92,08,3/0,,4/0,95,Bi-metal,Hi-Tech,15-LFE200TCHE08
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,C,21.08,26.92,09,4/0,95,250,120,Bi-metal,Hi-Tech,15-LFE200TCHE09
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,C,21.08,26.92,10,250,120,300,,Bi-metal,Hi-Tech,15-LFE200TCHE10
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,C,21.08,26.92,01,#6,,#4,,Bi-metal,Cooper,15-LFE200TCCE01
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,C,21.08,26.92,02,#4,,#3,25,Bi-metal,Cooper,15-LFE200TCCE02
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,C,21.08,26.92,03,#3,25,#2,35,Bi-metal,Cooper,15-LFE200TCCE03
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,C,21.08,26.92,04,#2,35,#1,,Bi-metal,Cooper,15-LFE200TCCE04
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,C,21.08,26.92,05,#1,,1/0,50,Bi-metal,Cooper,15-LFE200TCCE05
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,C,21.08,26.92,06,1/0,50,2/0,70,Bi-metal,Cooper,15-LFE200TCCE06
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,C,21.08,26.92,07,2/0,70,3/0,,Bi-metal,Cooper,15-LFE200TCCE07
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,C,21.08,26.92,08,3/0,,4/0,95,Bi-metal,Cooper,15-LFE200TCCE08
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,C,21.08,26.92,09,4/0,95,250,120,Bi-metal,Cooper,15-LFE200TCCE09
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,C,21.08,26.92,10,250,120,300,,Bi-metal,Cooper,15-LFE200TCCE10
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,C,21.08,26.92,01,#6,,#4,,Bi-metal,Chardon,15-LFE200TCCH01
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,C,21.08,26.92,02,#4,,#3,25,Bi-metal,Chardon,15-LFE200TCCH02
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,C,21.08,26.92,03,#3,25,#2,35,Bi-metal,Chardon,15-LFE200TCCH03
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,C,21.08,26.92,04,#2,35,#1,,Bi-metal,Chardon,15-LFE200TCCH04
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,C,21.08,26.92,05,#1,,1/0,50,Bi-metal,Chardon,15-LFE200TCCH05
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,C,21.08,26.92,06,1/0,50,2/0,70,Bi-metal,Chardon,15-LFE200TCCH06
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,C,21.08,26.92,07,2/0,70,3/0,,Bi-metal,Chardon,15-LFE200TCCH07
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,C,21.08,26.92,08,3/0,,4/0,95,Bi-metal,Chardon,15-LFE200TCCH08
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,C,21.08,26.92,09,4/0,95,250,120,Bi-metal,Chardon,15-LFE200TCCH09
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,C,21.08,26.92,10,250,120,300,,Bi-metal,Chardon,15-LFE200TCCH10
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,D,23.62,30.99,01,#6,,#4,,Bi-metal,Hi-Tech,15-LFE200TDHE01
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,D,23.62,30.99,02,#4,,#3,25,Bi-metal,Hi-Tech,15-LFE200TDHE02
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,D,23.62,30.99,03,#3,25,#2,35,Bi-metal,Hi-Tech,15-LFE200TDHE03
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,D,23.62,30.99,04,#2,35,#1,,Bi-metal,Hi-Tech,15-LFE200TDHE04
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,D,23.62,30.99,05,#1,,1/0,50,Bi-metal,Hi-Tech,15-LFE200TDHE05
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,D,23.62,30.99,06,1/0,50,2/0,70,Bi-metal,Hi-Tech,15-LFE200TDHE06
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,D,23.62,30.99,07,2/0,70,3/0,,Bi-metal,Hi-Tech,15-LFE200TDHE07
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,D,23.62,30.99,08,3/0,,4/0,95,Bi-metal,Hi-Tech,15-LFE200TDHE08
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,D,23.62,30.99,09,4/0,95,250,120,Bi-metal,Hi-Tech,15-LFE200TDHE09
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,D,23.62,30.99,10,250,120,300,,Bi-metal,Hi-Tech,15-LFE200TDHE10
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,D,23.62,30.99,01,#6,,#4,,Bi-metal,Cooper,15-LFE200TDCE01
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,D,23.62,30.99,02,#4,,#3,25,Bi-metal,Cooper,15-LFE200TDCE02
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,D,23.62,30.99,03,#3,25,#2,35,Bi-metal,Cooper,15-LFE200TDCE03
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,D,23.62,30.99,04,#2,35,#1,,Bi-metal,Cooper,15-LFE200TDCE04
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,D,23.62,30.99,05,#1,,1/0,50,Bi-metal,Cooper,15-LFE200TDCE05
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,D,23.62,30.99,06,1/0,50,2/0,70,Bi-metal,Cooper,15-LFE200TDCE06
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,D,23.62,30.99,07,2/0,70,3/0,,Bi-metal,Cooper,15-LFE200TDCE07
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,D,23.62,30.99,08,3/0,,4/0,95,Bi-metal,Cooper,15-LFE200TDCE08
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,D,23.62,30.99,09,4/0,95,250,120,Bi-metal,Cooper,15-LFE200TDCE09
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,D,23.62,30.99,10,250,120,300,,Bi-metal,Cooper,15-LFE200TDCE10
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,D,23.62,30.99,01,#6,,#4,,Bi-metal,Chardon,15-LFE200TDCH01
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,D,23.62,30.99,02,#4,,#3,25,Bi-metal,Chardon,15-LFE200TDCH02
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,D,23.62,30.99,03,#3,25,#2,35,Bi-metal,Chardon,15-LFE200TDCH03
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,D,23.62,30.99,04,#2,35,#1,,Bi-metal,Chardon,15-LFE200TDCH04
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,D,23.62,30.99,05,#1,,1/0,50,Bi-metal,Chardon,15-LFE200TDCH05
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,D,23.62,30.99,06,1/0,50,2/0,70,Bi-metal,Chardon,15-LFE200TDCH06
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,D,23.62,30.99,07,2/0,70,3/0,,Bi-metal,Chardon,15-LFE200TDCH07
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,D,23.62,30.99,08,3/0,,4/0,95,Bi-metal,Chardon,15-LFE200TDCH08
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,D,23.62,30.99,09,4/0,95,250,120,Bi-metal,Chardon,15-LFE200TDCH09
+IEEE/ANSI,Cable Accessories,Loadbreak Fused Elbow,15,200,15-LFE200,Capacitive,D,23.62,30.99,10,250,120,300,,Bi-metal,Chardon,15-LFE200TDCH10
+IEEE/ANSI,Cable Accessories,Loadbreak Bushing Insert,15,200,15-LBI200,,,,,,,,,,,,15-LBI200
+IEEE/ANSI,Cable Accessories,Loadbreak Junction,15,200,15-LJ200,,,,,,,,,,,,15-LJ200
+IEEE/ANSI,Cable Accessories,Loadbreak Feed-Thru Insert,15,200,15-LFTI,,,,,,,,,,,,15-LFTI
+IEEE/ANSI,Cable Accessories,Loadbreak Portable Feed Thru,15,200,15-LPFT200,,,,,,,,,,,,15-LPFT200
+IEEE/ANSI,Cable Accessories,Loadbreak Protective Cap,15,200,15-LIC200,,,,,,,,,,,,15-LIC200
+IEEE/ANSI,Cable Accessories,Loadbreak Bushing Insert,25,200,25-LBI200,,,,,,,,,,,,25-LBI200
+IEEE/ANSI,Cable Accessories,Loadbreak Junction,25,200,25-LJ200,,,,,,,,,,,,25-LJ200
+IEEE/ANSI,Cable Accessories,Loadbreak Feed-Thru Insert,25,200,25-LFTI,,,,,,,,,,,,25-LFTI
+IEEE/ANSI,Cable Accessories,Loadbreak Portable Feed Thru,25,200,25-LPFT200,,,,,,,,,,,,25-LPFT200
+IEEE/ANSI,Cable Accessories,Loadbreak Protective Cap,25,200,25-LIC200,,,,,,,,,,,,25-LIC200
+IEEE/ANSI,Cable Accessories,Loadbreak Bushing Insert,35,200,35-LBI200,,,,,,,,,,,,35-LBI200
+IEEE/ANSI,Cable Accessories,Loadbreak Junction,35,200,35-LJ200,,,,,,,,,,,,35-LJ200
+IEEE/ANSI,Cable Accessories,Loadbreak Feed-Thru Insert,35,200,35-LFTI,,,,,,,,,,,,35-LFTI
+IEEE/ANSI,Cable Accessories,Loadbreak Portable Feed Thru,35,200,35-LPFT200,,,,,,,,,,,,35-LPFT200
+IEEE/ANSI,Cable Accessories,Loadbreak Protective Cap,35,200,35-LIC200,,,,,,,,,,,,35-LIC200
