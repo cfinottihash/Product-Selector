@@ -42,13 +42,6 @@ def find_cable_range_code(diameter: float, voltage: int, db: Dict[str, pd.DataFr
     """Finds the cable range code based on diameter and voltage."""
     table_name = f"opcoes_range_cabo_{voltage}kv"
     
-    # --- DEBUG START ---
-    st.write("--- Depurando `find_cable_range_code` ---")
-    st.write(f"Diâmetro recebido: `{diameter}`")
-    st.write(f"Tensão selecionada: `{voltage}kV`")
-    st.write(f"Procurando tabela: `{table_name}`")
-    # --- DEBUG END ---
-
     if table_name not in db:
         st.warning(f"Tabela de range para {voltage}kV ('{table_name}.csv') não encontrada.")
         return "ERR"
@@ -59,17 +52,12 @@ def find_cable_range_code(diameter: float, voltage: int, db: Dict[str, pd.DataFr
         max_val = row["max_mm"]
         code = row["codigo_retorno"]
         
-        # --- DEBUG START ---
-        st.write(f"Testando range '{code}': {min_val} <= {diameter} <= {max_val} ?")
-        # --- DEBUG END ---
-        
         if min_val <= diameter <= max_val:
             st.success(f"✔️ Encontrado! O código é: {code}") # Adiciona uma mensagem de sucesso
             return str(code)
             
-    st.error("❌ Não encontrou nenhum range compatível.") # Adiciona mensagem de erro
-    return "N/A"
-
+ return "N/A" # Not Applicable / Not Found
+ 
 def find_conductor_code(cond_type: str, cond_size: int, db: Dict[str, pd.DataFrame]) -> str:
     """Finds the two-digit conductor code."""
     table_name = "opcoes_condutores_v1" # Assuming one table for now
