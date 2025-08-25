@@ -1,187 +1,171 @@
-# Streamlit product selector for Chardon
-# Save as app/product_selector_app.py and run:
+# Streamlit product selector for Chardon (minimal)
+# Run:
 #   python -m streamlit run app/product_selector_app.py --server.address 0.0.0.0
-# CSV is expected at ../data/chardon_product_selections.csv (relative to this file)
+# Expects CSV at ../data/chardon_product_selections.csv (relative to this file)
 
 import streamlit as st
 import pandas as pd
 from pathlib import Path
+import re
 
-# ---------- Config ----------
+st.set_page_config(page_title="Chardon Product Selector (minimal)", page_icon="🔌", layout="wide")
+
+# ---------- Paths ----------
 CSV_PATH = Path(__file__).parents[1] / "data" / "chardon_product_selections.csv"
-st.set_page_config(page_title="Chardon Product Selector (beta)", page_icon="🔌", layout="wide")
 
-# ---------- Utils ----------
+# ---------- Helpers ----------
 def norm_col(df: pd.DataFrame, col: str, default: str = "None") -> None:
     if col in df.columns:
         df[col] = df[col].fillna(default).astype(str)
     else:
-        # se a coluna não existir, cria para não quebrar filtros opcionais
         df[col] = default
 
 def uniq_opts(series: pd.Series):
-    # opções limpas para os selectboxes
-    return sorted([str(o) for o in series.dropna().unique() if str(o).strip() not in ("", "nan", "None")]) or ["None"]
+    vals = [str(o) for o in series.dropna().unique() if str(o).strip() not in ("", "nan")]
+    return sorted(vals)
 
-def pick_option(label: str, series: pd.Series, error_msg: str) -> str:
-    opts = uniq_opts(series)
-    if not opts:
-        st.error(error_msg)
-        st.stop()
-    return st.selectbox(label, opts, key=f"sel_{label}")
+def parse_int_safe(x, fallback=999):
+    try:
+        return int(re.sub(r"[^0-9]", "", str(x))) if re.search(r"\d", str(x)) else fallback
+    except Exception:
+        return fallback
 
-def stop_if_empty(df: pd.DataFrame, msg: str):
-    if df.empty:
-        st.error(msg)
+def range_rank(val):
+    # 'A' < 'B' < 'C' ... ; None/empty -> big rank
+    if not isinstance(val, str) or not val:
+        return 999
+    # If value like 'A1' or 'A/B', take first letter A-Z
+    m = re.search(r"[A-Z]", val.upper())
+    if not m:
+        return 999
+    return ord(m.group(0)) - ord('A') + 1
+
+def connector_rank(val):
+    # Prefer 'C' (plated copper), then 'B' (bi-metal), then others/None
+    v = str(val).upper()
+    if v == "C": return 1
+    if v == "B": return 2
+    if v in ("NONE", "", "NAN"): return 99
+    return 50
+
+def pick_option(label: str, options: list, help_msg: str = None):
+    if not options:
+        st.error(f"No options available for '{label}'.")
         st.stop()
+    return st.selectbox(label, options, help=help_msg)
+
+def suggest_row(df: pd.DataFrame) -> pd.Series:
+    """
+    With potentially multiple rows remaining (due to cable range, conductor code, connector, etc.),
+    pick a single deterministic 'suggested' SKU by a stable priority:
+      1) Lowest Cable_Range_Code (A < B < C ...)
+      2) Lowest Conductor_Code (numeric)
+      3) Preferred Connector_Type (C < B < others)
+      4) First by Final_Product_Code alphabetically
+    Columns are optional; missing ones get neutral high ranks.
+    """
+    # Ensure expected columns exist with safe defaults
+    for c in ("Cable_Range_Code", "Conductor_Code", "Connector_Type", "Final_Product_Code"):
+        if c not in df.columns:
+            df[c] = "None"
+
+    ranked = df.copy()
+    ranked["__r_range"] = ranked["Cable_Range_Code"].map(range_rank)
+    ranked["__r_cond"]  = ranked["Conductor_Code"].map(parse_int_safe)
+    ranked["__r_conn"]  = ranked["Connector_Type"].map(connector_rank)
+    ranked["__r_sku"]   = ranked["Final_Product_Code"].astype(str)
+
+    ranked = ranked.sort_values(
+        by=["__r_range", "__r_cond", "__r_conn", "__r_sku"],
+        ascending=[True, True, True, True],
+        kind="mergesort"
+    )
+    return ranked.iloc[0]
 
 # ---------- Data ----------
 @st.cache_data
 def load_data(path: Path) -> pd.DataFrame:
     df = pd.read_csv(path)
-    # Normalizações usadas nos filtros
+
+    # Normalize common option columns so filters don't break
     for c in ("Test_Point", "Fuse_Manufacturer", "Connector_Type"):
         norm_col(df, c, "None")
-    # Garantir tipos consistentes
+
+    # Normalize basic columns
+    if "Standard" not in df.columns: df["Standard"] = "IEEE/ANSI"
+    if "Product_Group" not in df.columns: df["Product_Group"] = "Unknown"
     for c in ("Voltage_kV", "Current_A"):
         if c in df.columns:
             df[c] = pd.to_numeric(df[c], errors="coerce")
+        else:
+            df[c] = None
+
+    # Ensure final code column exists
+    if "Final_Product_Code" not in df.columns:
+        df["Final_Product_Code"] = df.get("Base_Code", "UNKNOWN")
+
     return df
 
-# Carregar
+# Load
 try:
     df = load_data(CSV_PATH)
 except Exception as e:
-    st.error(f"Erro ao carregar CSV em {CSV_PATH}: {e}")
+    st.error(f"Erro ao carregar CSV em {CSV_PATH}:\n{e}")
     st.stop()
 
-st.title("🔌 Chardon Product Selector (beta)")
+st.title("🔌 Chardon Product Selector (minimal)")
 
-# ---------- Header / Info ----------
-with st.expander("Commercial info (opcional)"):
-    dest_state = st.selectbox("UF destino", ["SP", "MG", "RJ", "PR", "RS", "BA", "PE", "OUTROS"])
-    client_type = st.selectbox("Tipo de cliente", ["Revenda", "Distribuidor", "OEM Prysmian", "OEM Geral", "Utility"])
-    discount = st.number_input("Desconto %", min_value=0.0, max_value=50.0, value=0.0, step=0.5, format="%.1f")
+# ---------- Sidebar: context ----------
+with st.sidebar:
+    st.markdown("**Filtros mínimos** para sugerir o part number final.")
+    st.caption("Fatores usados: Standard, Product Group, Voltage (kV), Current (A) e Test Point.")
 
-# ---------- Core technical filters ----------
-# Standard
-standard = pick_option("Standard", df["Standard"], "Nenhum item com essa Norma.")
-filtered = df[df["Standard"].astype(str) == standard]
-stop_if_empty(filtered, "Sem itens após filtrar por Norma.")
+# ---------- Filters (only the 5 factors you requested) ----------
+col1, col2 = st.columns(2)
 
-# Family
-family = pick_option("Family", filtered["Family"], "Nenhum item nessa família.")
-filtered = filtered[filtered["Family"].astype(str) == family]
-stop_if_empty(filtered, "Sem itens após filtrar por Family.")
+with col1:
+    standards = uniq_opts(df["Standard"])
+    standard = pick_option("Standard", standards)
+    filtered = df[df["Standard"].astype(str) == standard]
 
-# Product group
-product_group = pick_option("Product group", filtered["Product_Group"], "Nenhum produto neste grupo.")
-filtered = filtered[filtered["Product_Group"].astype(str) == product_group]
-stop_if_empty(filtered, "Sem itens após filtrar por Product group.")
+    groups = uniq_opts(filtered["Product_Group"])
+    product_group = pick_option("Product Group", groups)
+    filtered = filtered[filtered["Product_Group"].astype(str) == product_group]
 
-# Voltage
-if "Voltage_kV" in filtered.columns:
-    volt_opts = sorted(filtered["Voltage_kV"].dropna().unique().tolist())
-    voltage = st.selectbox("Voltage (kV)", volt_opts, key="sel_voltage")
-    filtered = filtered[filtered["Voltage_kV"] == voltage]
-    stop_if_empty(filtered, "Sem itens após filtrar por Voltage (kV).")
+with col2:
+    voltages = sorted([v for v in filtered["Voltage_kV"].dropna().unique().tolist()])
+    if voltages:
+        voltage = st.selectbox("Voltage (kV)", voltages)
+        filtered = filtered[filtered["Voltage_kV"] == voltage]
+    else:
+        voltage = None  # Some products might not have Voltage_kV in CSV
 
-# Current
-if "Current_A" in filtered.columns and product_group.lower().find("elbow") != -1:
-    curr_opts = sorted(filtered["Current_A"].dropna().unique().tolist())
-    current = st.selectbox("Current (A)", curr_opts, key="sel_current")
-    filtered = filtered[filtered["Current_A"] == current]
-    stop_if_empty(filtered, "Sem itens após filtrar por Current (A).")
+    currents = sorted([c for c in filtered["Current_A"].dropna().unique().tolist()])
+    # Current may not exist for some product groups; make it optional
+    if currents:
+        current = st.selectbox("Current (A)", currents)
+        filtered = filtered[filtered["Current_A"] == current]
+    else:
+        current = None
 
-# ---------- Option-specific inputs ----------
-# Marcar quais colunas existem
-has_tp = "Test_Point" in filtered.columns
-has_cable_code = "Cable_Range_Code" in filtered.columns
-has_fuse = "Fuse_Manufacturer" in filtered.columns
-has_cond = "Conductor_Code" in filtered.columns
-has_conn = "Connector_Type" in filtered.columns
-has_od = {"Cable_OD_Min_mm", "Cable_OD_Max_mm"}.issubset(filtered.columns)
+# Test point flag (applies if column exists; otherwise ignored)
+need_tp = st.checkbox("Capacitive test point?", value=False)
+tp_label = "T" if need_tp else "None"
+if "Test_Point" in filtered.columns:
+    filtered = filtered[filtered["Test_Point"].fillna("None").astype(str) == tp_label]
 
-# Produtos com lógica "elbow"
-if product_group in ("Loadbreak Elbow", "Fused Loadbreak Elbow"):
-    # Test point (se existir)
-    if has_tp:
-        need_tp = st.checkbox("Capacitive test point?", value=False)
-        tp_label = "T" if need_tp else "None"
-        filtered = filtered[filtered["Test_Point"].fillna("None").astype(str) == tp_label]
-        stop_if_empty(filtered, "Não há variações com/sem Test Point para essa combinação.")
-
-    # Cable range code
-    if has_cable_code:
-        cable_code = pick_option("Cable range code", filtered["Cable_Range_Code"], "Sem faixas de diâmetro disponíveis.")
-        filtered = filtered[filtered["Cable_Range_Code"].astype(str) == cable_code]
-        stop_if_empty(filtered, "Nenhum SKU para essa faixa de diâmetro.")
-
-        # Mostrar faixa OD (se existir)
-        if has_od:
-            # após filtrar por cable_code deve existir alguma linha
-            od_min = filtered["Cable_OD_Min_mm"].iloc[0]
-            od_max = filtered["Cable_OD_Max_mm"].iloc[0]
-            try:
-                st.caption(f"Insulation Ø range: {float(od_min):.2f} – {float(od_max):.2f} mm")
-            except Exception:
-                st.caption(f"Insulation Ø range: {od_min} – {od_max} mm")
-
-    # Fused elbow: fabricante do fusível
-    if product_group == "Fused Loadbreak Elbow" and has_fuse:
-        fuse_mfr = pick_option("Fuse manufacturer", filtered["Fuse_Manufacturer"], "Nenhuma opção de fabricante de fusível.")
-        filtered = filtered[filtered["Fuse_Manufacturer"].astype(str) == fuse_mfr]
-        stop_if_empty(filtered, "Combinação inválida de faixa + fabricante de fusível.")
-
-    # Conductor code
-    if has_cond:
-        conductor_code = pick_option("Conductor code", filtered["Conductor_Code"], "Nenhum código de condutor disponível.")
-        filtered = filtered[filtered["Conductor_Code"].astype(str) == conductor_code]
-        stop_if_empty(filtered, "Combinação inválida de condutor.")
-
-    # Connector type (se existir no CSV)
-    if has_conn:
-        connector_type = pick_option("Connector type", filtered["Connector_Type"], "Nenhuma opção de conector disponível.")
-        filtered = filtered[filtered["Connector_Type"].astype(str) == connector_type]
-        stop_if_empty(filtered, "Combinação inválida de conector.")
-
-# Produtos “fixos” (sem opções) não precisam de inputs adicionais
-
-qty = st.number_input("Quantity", min_value=1, value=1, step=1)
-
-# ---------- Result ----------
+# ---------- Resolve result ----------
 if filtered.empty:
     st.error("No matching SKU with the selected combination.")
 else:
-    # Pode haver mais de uma linha (ex.: duplicidade por legado). Mostre a(s) opção(ões)
-    show_cols = [c for c in [
-        "Final_Product_Code", "Standard", "Family", "Product_Group",
-        "Voltage_kV", "Current_A", "Base_Code",
-        "Test_Point", "Cable_Range_Code", "Conductor_Code", "Connector_Type",
-        "Fuse_Manufacturer", "Cable_OD_Min_mm", "Cable_OD_Max_mm"
-    ] if c in filtered.columns]
-    result_df = filtered[show_cols].drop_duplicates().reset_index(drop=True)
-
-    # Mensagem principal
-    if "Final_Product_Code" in result_df.columns:
-        sku_list = result_df["Final_Product_Code"].dropna().unique().tolist()
-        if len(sku_list) == 1:
-            st.success(f"Resolved part number: **{sku_list[0]}**")
-        else:
-            st.success(f"{len(sku_list)} SKUs possíveis para a combinação atual.")
-    else:
-        st.info("Combinação encontrada, mas a coluna 'Final_Product_Code' não está no CSV.")
-
-    # Tabela e download
-    st.dataframe(result_df, use_container_width=True)
-    csv_bytes = result_df.to_csv(index=False).encode("utf-8")
-    st.download_button("⬇️ Download resultado (CSV)", data=csv_bytes, file_name="selector_result.csv", mime="text/csv")
-
-    # Botão RFQ (stub)
-    if st.button("Send RFQ"):
-        # Em produção, integrar com backend/email/CRM
-        if "Final_Product_Code" in result_df.columns and not result_df["Final_Product_Code"].isna().all():
-            sku_preview = ", ".join(result_df["Final_Product_Code"].dropna().astype(str).tolist()[:5])
-            st.info(f"RFQ para {qty}× [{sku_preview}] enviado para sales@chardon.com (simulado).")
-        else:
-            st.info(f"RFQ para {qty}× itens (sem coluna de SKU) enviado para sales@chardon.com (simulado).")
+    row = suggest_row(filtered)
+    sku = str(row.get("Final_Product_Code", "UNKNOWN")).strip()
+    st.subheader("✅ Suggested Part Number")
+    st.code(sku, language="text")
+    # Optionally show a tiny hint about what drove the suggestion
+    hint_parts = []
+    if "Cable_Range_Code" in row: hint_parts.append(f"Range={row['Cable_Range_Code']}")
+    if "Conductor_Code" in row:   hint_parts.append(f"Cond={row['Conductor_Code']}")
+    if "Connector_Type" in row:   hint_parts.append(f"Conn={row['Connector_Type']}")
+    if hint_parts:
+        st.caption("Heurística de desempate: " + " · ".join(hint_parts))
