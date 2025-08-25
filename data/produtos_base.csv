@@ -1,0 +1,3 @@
+padrao,classe_tensao,classe_corrente,id_familia,nome_exibicao,codigo_base,id_logica
+IEEE/ANSI,15,200,FAM01,Cotovelo Loadbreak,15-LE200,LOGICA_COTOVELO_200A
+IEEE/ANSI,25,200,FAM01,Cotovelo Loadbreak,25-LE200,LOGICA_COTOVELO_200A
