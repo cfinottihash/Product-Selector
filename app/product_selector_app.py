@@ -145,32 +145,21 @@ else:
             selected_product = selected_product_series.iloc[0]
             st.header("3. Configuração do Produto")
             
-            # --- NEW: Create columns for Image and Configurator ---
-            col_config, col_img = st.columns([2, 1]) # Configurator takes 2/3 of the space
-
-            with col_img:
-                # NEW: Logic to find and display the product image
-                image_filename = selected_product.get("imagem_arquivo")
-                if image_filename and isinstance(image_filename, str):
-                    image_path = IMAGES_DIR / image_filename
-                    if image_path.exists():
-                        st.image(str(image_path), caption=product_name)
-                    else:
-                        st.warning(f"Imagem '{image_filename}' não encontrada na pasta 'images'.")
-                else:
-                    st.info("Sem imagem cadastrada para este produto.")
+            # Create columns for Image and Configurator
+            col_config, col_img = st.columns([2, 1])
             
             # All configuration UI and logic goes into the left column
             with col_config:
                 base_code = selected_product["codigo_base"]
                 logic_id = selected_product["id_logica"]
-                part_number = [base_code]
                 
                 st.info(f"Configurando produto: **{product_name}** (Base: `{base_code}`)")
 
+                # Initialize a list for the live preview parts
+                preview_parts = [base_code]
+
                 # --- Logic for "LOGICA_COTOVELO_200A" ---
                 if logic_id == "LOGICA_COTOVELO_200A":
-                    # UI Components
                     has_tp = st.checkbox("Incluir Ponto de Teste Capacitivo?")
                     diameter = st.number_input("Diâmetro sobre a Isolação (mm)", min_value=0.0, step=0.1, format="%.2f", value=0.0)
                     st.markdown("**Especificações do Condutor:**")
@@ -184,35 +173,32 @@ else:
                         cond_size = st.selectbox("Seção do Condutor (mm²)", cond_sizes, index=None, placeholder="Selecione...")
                     connector_mat = st.radio("Material do Conector (Terminal)", ["Cobre", "Bimetálico"], index=None, horizontal=True)
                     
-                    # Final Result Generation
+                    # --- Live Preview Logic ---
+                    if has_tp: preview_parts.append("T")
+                    preview_parts.append(find_cable_range_code(diameter, voltage, current, db) if diameter > 0 else "[Range?]")
+                    preview_parts.append(find_conductor_code_200a(cond_type, cond_size, db) if cond_type and cond_size else "[Cond?]")
+                    preview_parts.append("C" if connector_mat == "Cobre" else "B" if connector_mat == "Bimetálico" else "[Mat?]")
+
+                    # --- Final Result Generation ---
                     all_fields_filled = (diameter > 0 and cond_type and cond_size and connector_mat)
                     if all_fields_filled:
-                        if has_tp: part_number.append("T")
-                        part_number.append(find_cable_range_code(diameter, voltage, current, db))
-                        part_number.append(find_conductor_code_200a(cond_type, cond_size, db))
-                        part_number.append("C" if connector_mat == "Cobre" else "B")
-                        
                         st.header("✅ Part Number Gerado")
-                        final_code = "".join(p for p in part_number if p and "ERR" not in p and "N/A" not in p and "NA" not in p)
+                        final_code = "".join(p for p in preview_parts if p and "[" not in p) # Use preview_parts
                         st.code(final_code, language="text")
                     else:
                         st.info("ℹ️ Preencha todos os campos da configuração para gerar o Part Number.")
 
                 # --- Logic for "LOGICA_CORPO_T_600A" ---
                 elif logic_id == "LOGICA_CORPO_T_600A":
-                    # UI Components
                     step1_col1, step1_col2 = st.columns(2)
                     with step1_col1:
                         amp_rating = st.radio("Classe de Corrente (Step 1)", ["600A", "900A"], index=None)
                     with step1_col2:
                         has_tp_600a = st.checkbox("Incluir Ponto de Teste?", value=True)
-                    
                     diameter = st.number_input("Diâmetro sobre a Isolação (mm) (Step 2)", min_value=0.0, step=0.1, format="%.2f", value=0.0)
-                    
                     st.markdown("**Especificações do Terminal (Step 3):**")
                     lug_type = st.radio("Tipo de Terminal", ["Compression Connector", "Shear Bolt Connector"], index=None)
 
-                    # Final Result Generation
                     final_lug_code = None
                     if lug_type == "Compression Connector":
                         comp_col1, comp_col2, comp_col3 = st.columns(3)
@@ -225,31 +211,47 @@ else:
                             cond_size = st.selectbox("Seção (mm²)", cond_sizes, index=None, placeholder="Selecione...")
                         with comp_col3:
                             comp_mat = st.radio("Material", ["Cobre", "Alumínio/Bimetálico"], index=None, horizontal=True)
-                        
                         if cond_type and cond_size and comp_mat:
                             comp_code = find_compression_lug_600a(cond_type, cond_size, db)
-                            suffix = "CC" if comp_mat == "Cobre" else "A" # Assuming 'A' for Aluminum
+                            suffix = "CC" if comp_mat == "Cobre" else "A"
                             final_lug_code = f"{comp_code}{suffix}"
-
                     elif lug_type == "Shear Bolt Connector":
-                        shear_table = db.get("opcoes_shear_bolt_v1", pd.DataFrame())
-                        # For Shear Bolt, we need to ask for a number and find the range
                         cond_size_shear_input = st.number_input("Seção do Condutor (mm²)", min_value=0.0, step=1.0, value=0.0)
                         if cond_size_shear_input > 0:
                             final_lug_code = find_shear_bolt_lug(cond_size_shear_input, db)
 
+                    # --- Live Preview Logic ---
+                    preview_parts.append(amp_rating.replace("A", "T" if has_tp_600a else "") if amp_rating else "[Amp?]")
+                    preview_parts.append(find_cable_range_code(diameter, voltage, current, db) if diameter > 0 else "[Range?]")
+                    preview_parts.append(final_lug_code if final_lug_code else "[Terminal?]")
+
+                    # --- Final Result Generation ---
                     all_fields_filled = (amp_rating and diameter > 0 and lug_type and final_lug_code)
                     if all_fields_filled:
-                        part_number = [base_code] # Reset part number
-                        part_number.append(amp_rating.replace("A", "T" if has_tp_600a else ""))
-                        part_number.append(find_cable_range_code(diameter, voltage, current, db))
-                        part_number.append(final_lug_code)
-                        
                         st.header("✅ Part Number Gerado")
-                        final_code = "".join(p for p in part_number if p and "ERR" not in p and "N/A" not in p and "NA" not in p)
+                        final_code = "".join(p for p in preview_parts if p and "[" not in p) # Use preview_parts
                         st.code(final_code, language="text")
                     else:
                         st.info("ℹ️ Preencha todos os campos da configuração para gerar o Part Number.")
 
                 else:
                     st.warning(f"A lógica de configuração para '{logic_id}' ainda não foi implementada.")
+            
+            with col_img:
+                # Logic to find and display the product image
+                image_filename = selected_product.get("imagem_arquivo")
+                if image_filename and isinstance(image_filename, str):
+                    image_path = IMAGES_DIR / image_filename
+                    if image_path.exists():
+                        st.image(str(image_path), caption=product_name)
+                    else:
+                        st.warning(f"Imagem '{image_filename}' não encontrada.")
+                else:
+                    st.info("Sem imagem cadastrada.")
+                
+                # --- NEW: Display the live preview code ---
+                st.markdown("---")
+                st.caption("Código em construção:")
+                preview_code_str = "".join(str(p) for p in preview_parts)
+                st.code(preview_code_str, language="text")
+
