@@ -86,6 +86,20 @@ def find_compression_lug_600a(cond_type: str, cond_size: int, db: Dict[str, pd.D
         return str(int(match.iloc[0]["codigo_retorno"])).zfill(4)
     return "NA"
 
+def find_shear_bolt_lug(cond_size: float, db: Dict[str, pd.DataFrame]) -> str:
+    """Finds the Shear Bolt connector code based on conductor size."""
+    table_name = "opcoes_shear_bolt_v1"
+    if table_name not in db:
+        st.warning(f"Tabela Shear Bolt ('{table_name}.csv') não encontrada.")
+        return "ER"
+        
+    df_shear = db[table_name]
+    for _, row in df_shear.iterrows():
+        if row["min_mm2"] <= cond_size <= row["max_mm2"]:
+            return str(row["codigo_retorno"])
+            
+    return "N/A"
+
 # --- Main App ---
 st.title("🛠️ Chardon Product Configurator")
 st.markdown("Selecione as opções para construir o Part Number do produto passo a passo.")
@@ -168,14 +182,25 @@ else:
                     
                     all_fields_filled = (diameter > 0 and cond_type and cond_size and connector_mat)
                     if all_fields_filled:
-                        if has_tp: part_number.append("T")
-                        part_number.append(find_cable_range_code(diameter, voltage, current, db))
-                        part_number.append(find_conductor_code_200a(cond_type, cond_size, db))
-                        part_number.append("C" if connector_mat == "Cobre" else "B")
-                        
-                        st.header("✅ Part Number Gerado")
-                        final_code = "".join(p for p in part_number if p and "ERR" not in p and "N/A" not in p and "NA" not in p)
-                        st.code(final_code, language="text")
+                        # First, validate inputs
+                        range_code = find_cable_range_code(diameter, voltage, current, db)
+                        conductor_code = find_conductor_code_200a(cond_type, cond_size, db)
+
+                        # Then, check for validation errors and show specific messages
+                        if range_code in ["N/A", "ERR"]:
+                            st.error(f"Valor Inválido: O diâmetro {diameter} mm está fora de qualquer range disponível para este produto.")
+                        elif conductor_code in ["NA", "ER"]:
+                             st.error("Combinação de condutor inválida. Verifique a tabela.")
+                        else:
+                            # If all is valid, build and show the part number
+                            if has_tp: part_number.append("T")
+                            part_number.append(range_code)
+                            part_number.append(conductor_code)
+                            part_number.append("C" if connector_mat == "Cobre" else "B")
+                            
+                            st.header("✅ Part Number Gerado")
+                            final_code = "".join(part_number)
+                            st.code(final_code, language="text")
                     else:
                         st.info("ℹ️ Preencha todos os campos da configuração para gerar o Part Number.")
 
@@ -214,24 +239,31 @@ else:
                     elif lug_type == "Shear Bolt Connector":
                         shear_table = db.get("opcoes_shear_bolt_v1", pd.DataFrame())
                         if not shear_table.empty:
-                            # Create user-friendly display options like "25 - 50 mm²"
                             shear_table['display_range'] = shear_table.apply(lambda row: f"{int(row['min_mm2'])} - {int(row['max_mm2'])} mm²", axis=1)
                             range_to_code_map = pd.Series(shear_table.codigo_retorno.values, index=shear_table.display_range).to_dict()
-                            
                             selected_range = st.selectbox("Faixa do Condutor (mm²)", range_to_code_map.keys(), index=None, placeholder="Selecione a faixa...")
-                            
                             if selected_range:
                                 final_lug_code = range_to_code_map.get(selected_range)
-
+                    
                     all_fields_filled = (amp_rating and diameter > 0 and lug_type and final_lug_code)
                     if all_fields_filled:
-                        part_number.append(amp_rating.replace("A", "T" if has_tp_600a else ""))
-                        part_number.append(find_cable_range_code(diameter, voltage, current, db))
-                        part_number.append(final_lug_code)
+                        # First, validate inputs
+                        range_code = find_cable_range_code(diameter, voltage, current, db)
                         
-                        st.header("✅ Part Number Gerado")
-                        final_code = "".join(p for p in part_number if p and "ERR" not in p and "N/A" not in p and "NA" not in p)
-                        st.code(final_code, language="text")
+                        # Then, check for validation errors
+                        if range_code in ["N/A", "ERR"]:
+                            st.error(f"Valor Inválido: O diâmetro {diameter} mm está fora de qualquer range disponível para este produto.")
+                        elif final_lug_code in ["N/A", "ERR", "NA", "ER"]:
+                            st.error("A seleção do terminal (lug) é inválida. Verifique os valores.")
+                        else:
+                            # If all is valid, build and show the part number
+                            part_number.append(amp_rating.replace("A", "T" if has_tp_600a else ""))
+                            part_number.append(range_code)
+                            part_number.append(final_lug_code)
+                            
+                            st.header("✅ Part Number Gerado")
+                            final_code = "".join(part_number)
+                            st.code(final_code, language="text")
                     else:
                         st.info("ℹ️ Preencha todos os campos da configuração para gerar o Part Number.")
 
