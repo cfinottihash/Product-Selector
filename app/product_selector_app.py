@@ -1,192 +1,177 @@
-# Streamlit product selector for Chardon (minimal, CSV-driven)
-# Run (Codespaces-friendly):
-#   python -m streamlit run app/product_selector_app.py --server.address 0.0.0.0
-# O app lê o CSV da pasta ../data com prefixo 'chardon_product_selections'
-# Ex.: data/chardon_product_selections.csv ou data/chardon_product_selections (1).csv
+# Streamlit Product Configurator for Chardon
+# This app BUILDS a part number based on user selections, following a defined logic.
+# It uses a "database" of CSV files from the /data directory.
 
 import streamlit as st
 import pandas as pd
 from pathlib import Path
-import re
-from typing import Optional, List
+from typing import Dict, Optional
 
-st.set_page_config(page_title="Chardon Product Selector", page_icon="🔌", layout="wide")
+st.set_page_config(page_title="Chardon Product Configurator", page_icon="🛠️", layout="wide")
 
-DATA_DIR = Path(__file__).parents[1] / "data"
+DATA_DIR = Path(__file__).parent / "data"
 
-# -------- CSV discovery (prioriza arquivo enviado por você) --------
-def discover_csv() -> Optional[Path]:
-    """Procura arquivos que começam com 'chardon_product_selections' em /data.
-       Escolhe o mais recente por mtime (p.ex., 'chardon_product_selections (1).csv')."""
-    if not DATA_DIR.exists():
-        return None
-    candidates: List[Path] = sorted(
-        DATA_DIR.glob("chardon_product_selections*.csv"),
-        key=lambda p: p.stat().st_mtime,
-        reverse=True,
-    )
-    return candidates[0] if candidates else None
-
-CSV_PATH = discover_csv()
-
-# -------- Helpers --------
-def tp_truthy(v) -> bool:
-    """Normaliza Test Point para booleano respeitando o que vier do CSV."""
-    s = str(v).strip().upper()
-    return s in {"T", "TP", "YES", "Y", "TRUE", "1"}
-
-def uniq_opts(series: pd.Series):
-    vals = [str(o) for o in series.dropna().unique() if str(o).strip() not in ("", "nan")]
-    return sorted(vals)
-
-def pick_option(label: str, options: list, help_msg: str = None):
-    if not options:
-        st.error(f"No options available for '{label}'.")
-        st.stop()
-    return st.selectbox(label, options, help=help_msg, key=f"sel_{label}")
-
-def parse_int_safe(x, fallback=999):
-    try:
-        return int(re.sub(r"[^0-9]", "", str(x))) if re.search(r"\d", str(x)) else fallback
-    except Exception:
-        return fallback
-
-def range_rank(val):
-    # 'A' < 'B' < 'C' ... ; None/empty -> big rank
-    if not isinstance(val, str) or not val:
-        return 999
-    m = re.search(r"[A-Z]", val.upper())
-    if not m:
-        return 999
-    return ord(m.group(0)) - ord('A') + 1
-
-def connector_rank(val):
-    # Prefer 'C' (plated copper), then 'B' (bi-metal), depois outros/None
-    v = str(val).upper()
-    if v == "C": return 1
-    if v == "B": return 2
-    if v in ("NONE", "", "NAN"): return 99
-    return 50
-
-def suggest_row(df: pd.DataFrame) -> pd.Series:
-    """
-    Se ainda sobrarem múltiplas linhas (ex.: variações de range/condutor/conector),
-    escolhe UMA sugestão estável:
-      1) Menor Cable_Range_Code (A < B < C …)
-      2) Menor Conductor_Code (numérico)
-      3) Conector preferido (C < B < outros)
-      4) Primeiro por Final_Product_Code (ordem alfabética)
-    """
-    for c in ("Cable_Range_Code", "Conductor_Code", "Connector_Type", "Final_Product_Code"):
-        if c not in df.columns:
-            df[c] = "None"
-
-    ranked = df.copy()
-    ranked["__r_range"] = ranked["Cable_Range_Code"].map(range_rank)
-    ranked["__r_cond"]  = ranked["Conductor_Code"].map(parse_int_safe)
-    ranked["__r_conn"]  = ranked["Connector_Type"].map(connector_rank)
-    ranked["__r_sku"]   = ranked["Final_Product_Code"].astype(str)
-
-    ranked = ranked.sort_values(
-        by=["__r_range", "__r_cond", "__r_conn", "__r_sku"],
-        ascending=[True, True, True, True],
-        kind="mergesort"
-    )
-    return ranked.iloc[0]
-
-# -------- Load CSV (obrigatório) --------
+# --- Database Loading ---
 @st.cache_data
-def load_data(csv_path: Path) -> pd.DataFrame:
-    df = pd.read_csv(csv_path)
+def load_database() -> Dict[str, pd.DataFrame]:
+    """
+    Loads all required CSVs from the /data directory into a dictionary of DataFrames.
+    'produtos_base' is the main table, others are option lookups.
+    """
+    if not DATA_DIR.exists():
+        st.error(f"Data directory not found at: {DATA_DIR}")
+        st.stop()
 
-    # Colunas mínimas esperadas do seu CSV
-    required = ["Standard", "Product_Group", "Final_Product_Code"]
-    for c in required:
-        if c not in df.columns:
-            raise ValueError(f"Missing required column in CSV: {c}")
+    db = {}
+    # Load the main product table
+    base_path = DATA_DIR / "produtos_base.csv"
+    if not base_path.exists():
+        st.error(f"Main product file not found: {base_path}")
+        st.stop()
+    db["produtos_base"] = pd.read_csv(base_path)
 
-    # Normaliza tipos básicos
-    if "Voltage_kV" in df.columns:
-        df["Voltage_kV"] = pd.to_numeric(df["Voltage_kV"], errors="coerce")
-    else:
-        df["Voltage_kV"] = None
+    # Load all option tables (opcoes_*.csv)
+    for csv_file in DATA_DIR.glob("opcoes_*.csv"):
+        key = csv_file.stem  # Use filename without extension as key
+        db[key] = pd.read_csv(csv_file)
+        
+    return db
 
-    if "Current_A" in df.columns:
-        df["Current_A"] = pd.to_numeric(df["Current_A"], errors="coerce")
-    else:
-        df["Current_A"] = None
+# --- Helper Functions for Logic ---
+def find_cable_range_code(diameter: float, voltage: int, db: Dict[str, pd.DataFrame]) -> str:
+    """Finds the cable range code based on diameter and voltage."""
+    table_name = f"opcoes_range_cabo_{voltage}kv"
+    if table_name not in db:
+        return "ERR"
+        
+    df_range = db[table_name]
+    for _, row in df_range.iterrows():
+        if row["min_mm"] <= diameter <= row["max_mm"]:
+            return str(row["codigo_retorno"])
+    return "N/A"
 
-    # Cria coluna booleana a partir do Test_Point do CSV (sem mudar o dado original)
-    if "Test_Point" in df.columns:
-        df["_TP_Flag"] = df["Test_Point"].map(tp_truthy)
-    else:
-        # Se não existir, assume False e não filtra por TP
-        df["_TP_Flag"] = False
+def find_conductor_code(cond_type: str, cond_size: int, db: Dict[str, pd.DataFrame]) -> str:
+    """Finds the two-digit conductor code."""
+    table_name = "opcoes_condutores_v1" # Assuming one table for now
+    if table_name not in db:
+        return "ER"
 
-    return df
+    df_cond = db[table_name]
+    match = df_cond[
+        (df_cond["tipo_condutor"] == cond_type) &
+        (df_cond["secao_mm2"] == cond_size)
+    ]
+    if not match.empty:
+        # Format as two digits (e.g., 3 -> "03")
+        return str(match.iloc[0]["codigo_retorno"]).zfill(2)
+    return "NA"
 
-if CSV_PATH is None:
-    st.error("CSV não encontrado em ./data (esperado prefixo 'chardon_product_selections').")
-    st.stop()
+
+# --- Main App ---
+st.title("🛠️ Chardon Product Configurator")
+st.markdown("Selecione as opções para construir o Part Number do produto passo a passo.")
 
 try:
-    df = load_data(CSV_PATH)
+    db = load_database()
+    df_base = db["produtos_base"]
 except Exception as e:
-    st.error(f"Erro ao carregar CSV '{CSV_PATH.name}':\n{e}")
+    st.error(f"Failed to load data files from the 'data' directory. Error: {e}")
     st.stop()
 
-st.title("🔌 Chardon Product Selector (CSV-driven)")
-
-with st.sidebar:
-    st.markdown("**CSV carregado:**")
-    st.code(str(CSV_PATH), language="text")
-    st.caption("Este app usa *exatamente* os campos do seu CSV (incluindo Test Point).")
-    st.caption("Filtros: Standard, Product Group, Voltage, Current, Test Point.")
-
-# -------- Filtros mínimos (5 fatores) --------
-col1, col2 = st.columns(2)
+# --- Level 1 & 2: Framework Selection ---
+st.header("1. Seleção Inicial")
+col1, col2, col3 = st.columns(3)
 
 with col1:
-    standards = uniq_opts(df["Standard"])
-    standard = pick_option("Standard", standards)
-    filtered = df[df["Standard"].astype(str) == standard]
+    standards = sorted(df_base["padrao"].unique())
+    standard = st.selectbox("Padrão Normativo", standards)
 
-    groups = uniq_opts(filtered["Product_Group"])
-    product_group = pick_option("Product Group", groups)
-    filtered = filtered[filtered["Product_Group"].astype(str) == product_group]
+# Filter based on previous selections
+df_filtered = df_base[df_base["padrao"] == standard]
 
 with col2:
-    voltages = sorted([v for v in filtered["Voltage_kV"].dropna().unique().tolist()])
-    if voltages:
-        voltage = st.selectbox("Voltage (kV)", voltages)
-        filtered = filtered[filtered["Voltage_kV"] == voltage]
-    else:
-        voltage = None
+    voltages = sorted(df_filtered["classe_tensao"].unique())
+    voltage = st.selectbox("Classe de Tensão (kV)", voltages)
+    
+df_filtered = df_filtered[df_filtered["classe_tensao"] == voltage]
 
-    currents = sorted([c for c in filtered["Current_A"].dropna().unique().tolist()])
-    if currents:
-        current = st.selectbox("Current (A)", currents)
-        filtered = filtered[filtered["Current_A"] == current]
-    else:
-        current = None
+with col3:
+    currents = sorted(df_filtered["classe_corrente"].unique())
+    current = st.selectbox("Classe de Corrente (A)", currents)
 
-# Test Point (depende do CSV; checkbox só aparece se a coluna existir no arquivo)
-if "_TP_Flag" in filtered.columns and "Test_Point" in df.columns:
-    # Descobre se existem variantes com e sem TP para essa combinação
-    sub = filtered.copy()
-    has_true = sub["_TP_Flag"].any()
-    has_false = (~sub["_TP_Flag"]).any()
+df_filtered = df_filtered[df_filtered["classe_corrente"] == current]
 
-    # Só mostra o checkbox se fizer diferença nessa filtragem
-    if has_true or has_false:
-        need_tp = st.checkbox("Capacitive test point?", value=False)
-        filtered = filtered[filtered["_TP_Flag"] == bool(need_tp)]
-
-# -------- Resultado: apenas o part number sugerido --------
-if filtered.empty:
-    st.error("No matching SKU with the selected combination.")
+# --- Level 3: Product Family Selection ---
+st.header("2. Seleção do Produto")
+if df_filtered.empty:
+    st.warning("Nenhum produto encontrado para a combinação inicial selecionada.")
 else:
-    row = suggest_row(filtered)
-    sku = str(row.get("Final_Product_Code", "UNKNOWN")).strip()
-    st.subheader("✅ Suggested Part Number")
-    st.code(sku, language="text")
+    product_options = df_filtered["nome_exibicao"].unique()
+    product_name = st.selectbox("Família do Produto", product_options)
+    
+    selected_product = df_filtered[df_filtered["nome_exibicao"] == product_name].iloc[0]
+    
+    # --- Level 4: Dynamic Product Configurator ---
+    st.header("3. Configuração do Produto")
+    
+    base_code = selected_product["codigo_base"]
+    logic_id = selected_product["id_logica"]
+    
+    # Initialize part number
+    part_number = [base_code]
+    
+    st.info(f"Configurando produto: **{product_name}** (Base: `{base_code}`)")
+
+    # --- Specific Logic for "LOGICA_COTOVELO_200A" ---
+    if logic_id == "LOGICA_COTOVELO_200A":
+        # Step 1: Test Point (W)
+        has_tp = st.checkbox("Incluir Ponto de Teste Capacitivo?")
+        if has_tp:
+            part_number.append("T")
+
+        # Step 2: Cable Range (X)
+        diameter = st.number_input("Diâmetro sobre a Isolação (mm)", min_value=0.0, step=0.1, format="%.2f")
+        if diameter > 0:
+            range_code = find_cable_range_code(diameter, voltage, db)
+            part_number.append(range_code)
+
+        # Step 3: Conductor Code (Y)
+        st.markdown("**Especificações do Condutor:**")
+        cond_col1, cond_col2 = st.columns(2)
+        
+        cond_table = db.get("opcoes_condutores_v1", pd.DataFrame())
+        
+        with cond_col1:
+            cond_types = sorted(cond_table["tipo_condutor"].unique()) if not cond_table.empty else []
+            cond_type = st.selectbox("Tipo de Condutor", cond_types)
+        
+        with cond_col2:
+            # Filter sizes based on selected type
+            if cond_type and not cond_table.empty:
+                cond_sizes = sorted(cond_table[cond_table["tipo_condutor"] == cond_type]["secao_mm2"].unique())
+            else:
+                cond_sizes = []
+            cond_size = st.selectbox("Seção do Condutor (mm²)", cond_sizes)
+
+        if cond_type and cond_size:
+            conductor_code = find_conductor_code(cond_type, cond_size, db)
+            part_number.append(conductor_code)
+
+        # Step 4: Connector Material (Z)
+        connector_mat = st.radio(
+            "Material do Conector (Terminal)",
+            ["Cobre (para cabos de cobre)", "Bimetálico (para cabos de cobre ou alumínio)"],
+            horizontal=True
+        )
+        if "Cobre" in connector_mat:
+            part_number.append("C")
+        else:
+            part_number.append("B")
+
+    else:
+        st.warning(f"A lógica de configuração para '{logic_id}' ainda não foi implementada.")
+
+    # --- Final Result ---
+    st.header("✅ Part Number Gerado")
+    final_code = "".join(part_number)
+    st.code(final_code, language="text")
