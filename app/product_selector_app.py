@@ -9,7 +9,7 @@ from typing import Dict, Optional
 
 st.set_page_config(page_title="Chardon Product Configurator", page_icon="🛠️", layout="wide")
 
-DATA_DIR = Path(__file__).parent / "data"
+DATA_DIR = Path(__file__).parent.parent / "data"
 
 # --- Database Loading ---
 @st.cache_data
