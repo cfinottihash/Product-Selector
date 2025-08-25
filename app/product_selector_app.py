@@ -156,13 +156,15 @@ else:
                 cond_table = db.get("opcoes_condutores_v1", pd.DataFrame())
                 
                 with cond_col1:
-                    cond_types = sorted(cond_table["tipo_conductor"].unique()) if not cond_table.empty else []
+                    # CORRECTED: 'tipo_condutor' instead of 'tipo_conductor'
+                    cond_types = sorted(cond_table["tipo_condutor"].unique()) if not cond_table.empty else []
                     cond_type = st.selectbox("Tipo de Condutor", cond_types, index=None, placeholder="Selecione...")
                 
                 with cond_col2:
                     # Filter sizes based on selected type
                     if cond_type and not cond_table.empty:
-                        cond_sizes = sorted(cond_table[cond_table["tipo_conductor"] == cond_type]["secao_mm2"].unique())
+                        # CORRECTED: 'tipo_condutor' instead of 'tipo_conductor'
+                        cond_sizes = sorted(cond_table[cond_table["tipo_condutor"] == cond_type]["secao_mm2"].unique())
                     else:
                         cond_sizes = []
                     cond_size = st.selectbox("Seção do Condutor (mm²)", cond_sizes, index=None, placeholder="Selecione...")
