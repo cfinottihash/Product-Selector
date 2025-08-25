@@ -19,14 +19,15 @@ def load_database() -> Dict[str, pd.DataFrame]:
     'produtos_base' is the main table, others are option lookups.
     """
     if not DATA_DIR.exists():
-        st.error(f"Data directory not found at: {DATA_DIR}")
+        st.error(f"Diretório de dados não encontrado em: {DATA_DIR}")
+        st.error("Por favor, verifique se a pasta 'data' está na raiz do projeto, ao lado da pasta 'app'.")
         st.stop()
 
     db = {}
     # Load the main product table
     base_path = DATA_DIR / "produtos_base.csv"
     if not base_path.exists():
-        st.error(f"Main product file not found: {base_path}")
+        st.error(f"Arquivo principal não encontrado: {base_path}")
         st.stop()
     db["produtos_base"] = pd.read_csv(base_path)
 
@@ -53,15 +54,15 @@ def find_cable_range_code(diameter: float, voltage: int, db: Dict[str, pd.DataFr
         code = row["codigo_retorno"]
         
         if min_val <= diameter <= max_val:
-            st.success(f"✔️ Encontrado! O código é: {code}") # Adiciona uma mensagem de sucesso
             return str(code)
             
- return "N/A" # Not Applicable / Not Found
+    return "N/A" # Not Applicable / Not Found
  
 def find_conductor_code(cond_type: str, cond_size: int, db: Dict[str, pd.DataFrame]) -> str:
     """Finds the two-digit conductor code."""
     table_name = "opcoes_condutores_v1" # Assuming one table for now
     if table_name not in db:
+        st.warning(f"Tabela de condutores ('{table_name}.csv') não encontrada.")
         return "ER"
 
     df_cond = db[table_name]
@@ -71,7 +72,7 @@ def find_conductor_code(cond_type: str, cond_size: int, db: Dict[str, pd.DataFra
     ]
     if not match.empty:
         # Format as two digits (e.g., 3 -> "03")
-        return str(match.iloc[0]["codigo_retorno"]).zfill(2)
+        return str(int(match.iloc[0]["codigo_retorno"])).zfill(2)
     return "NA"
 
 
@@ -83,7 +84,7 @@ try:
     db = load_database()
     df_base = db["produtos_base"]
 except Exception as e:
-    st.error(f"Failed to load data files from the 'data' directory. Error: {e}")
+    st.error(f"Falha ao carregar os arquivos de dados. Verifique a estrutura das pastas e o conteúdo dos CSVs. Erro: {e}")
     st.stop()
 
 # --- Level 1 & 2: Framework Selection ---
@@ -113,6 +114,7 @@ df_filtered = df_filtered[df_filtered["classe_corrente"] == current]
 st.header("2. Seleção do Produto")
 if df_filtered.empty:
     st.warning("Nenhum produto encontrado para a combinação inicial selecionada.")
+    st.stop()
 else:
     product_options = df_filtered["nome_exibicao"].unique()
     product_name = st.selectbox("Família do Produto", product_options)
@@ -138,7 +140,7 @@ else:
             part_number.append("T")
 
         # Step 2: Cable Range (X)
-        diameter = st.number_input("Diâmetro sobre a Isolação (mm)", min_value=0.0, step=0.1, format="%.2f")
+        diameter = st.number_input("Diâmetro sobre a Isolação (mm)", min_value=0.0, step=0.1, format="%.2f", value=0.0)
         if diameter > 0:
             range_code = find_cable_range_code(diameter, voltage, db)
             part_number.append(range_code)
@@ -151,7 +153,7 @@ else:
         
         with cond_col1:
             cond_types = sorted(cond_table["tipo_condutor"].unique()) if not cond_table.empty else []
-            cond_type = st.selectbox("Tipo de Condutor", cond_types)
+            cond_type = st.selectbox("Tipo de Condutor", cond_types, index=None, placeholder="Selecione...")
         
         with cond_col2:
             # Filter sizes based on selected type
@@ -159,7 +161,7 @@ else:
                 cond_sizes = sorted(cond_table[cond_table["tipo_condutor"] == cond_type]["secao_mm2"].unique())
             else:
                 cond_sizes = []
-            cond_size = st.selectbox("Seção do Condutor (mm²)", cond_sizes)
+            cond_size = st.selectbox("Seção do Condutor (mm²)", cond_sizes, index=None, placeholder="Selecione...")
 
         if cond_type and cond_size:
             conductor_code = find_conductor_code(cond_type, cond_size, db)
@@ -169,17 +171,21 @@ else:
         connector_mat = st.radio(
             "Material do Conector (Terminal)",
             ["Cobre (para cabos de cobre)", "Bimetálico (para cabos de cobre ou alumínio)"],
+            index=None,
             horizontal=True
         )
-        if "Cobre" in connector_mat:
-            part_number.append("C")
-        else:
-            part_number.append("B")
+        if connector_mat:
+            if "Cobre" in connector_mat:
+                part_number.append("C")
+            else:
+                part_number.append("B")
 
     else:
         st.warning(f"A lógica de configuração para '{logic_id}' ainda não foi implementada.")
 
     # --- Final Result ---
     st.header("✅ Part Number Gerado")
-    final_code = "".join(part_number)
+    # Filter out any potential error codes or empty values before joining
+    valid_parts = [str(p) for p in part_number if p and "ERR" not in str(p) and "N/A" not in str(p)]
+    final_code = "".join(valid_parts)
     st.code(final_code, language="text")
