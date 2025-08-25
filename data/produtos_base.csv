@@ -2,3 +2,5 @@ padrao,classe_tensao,classe_corrente,id_familia,nome_exibicao,codigo_base,id_log
 IEEE/ANSI,15,200,FAM01,Cotovelo Loadbreak,15-LE200,LOGICA_COTOVELO_200A
 IEEE/ANSI,25,200,FAM01,Cotovelo Loadbreak,25-LE200,LOGICA_COTOVELO_200A
 IEEE/ANSI,35,200,FAM01,Cotovelo Loadbreak,35-LE200,LOGICA_COTOVELO_200A
+IEEE/ANSI,25,600,FAM02,Corpo em T (T-Body),15/25-TB600,LOGICA_CORPO_T_600A
+IEEE/ANSI,35,600,FAM02,Corpo em T (T-Body),35-TB600,LOGICA_CORPO_T_600A

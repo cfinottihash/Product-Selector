@@ -1,0 +1,22 @@
+tipo_condutor,secao_mm2,codigo_retorno,awg_kcmil
+Concéntrico ou Comprimido,35,0002,#2
+Compacto ou Sólido,50,0001,#1
+Concéntrico ou Comprimido,50,0001,#1/0
+Compacto ou Sólido,70,0010,#2/0
+Concéntrico ou Comprimido,70,0020,#2/0
+Compacto ou Sólido,95,0030,#3/0
+Concéntrico ou Comprimido,95,0040,#4/0
+Compacto ou Sólido,120,0040,250
+Concéntrico ou Comprimido,120,0250,250
+Compacto ou Sólido,150,0250,300
+Concéntrico ou Comprimido,150,0300,300
+Compacto ou Sólido,185,0350,400
+Concéntrico ou Comprimido,185,0400,400
+Compacto ou Sólido,240,0450,500/550
+Concéntrico ou Comprimido,240,0500,500
+Compacto ou Sólido,300,0500,600
+Concéntrico ou Comprimido,300,0600,600
+Compacto ou Sólido,400,0650,750
+Concéntrico ou Comprimido,400,0750,750
+Compacto ou Sólido,500,0900,1000
+Concéntrico ou Comprimido,500,1000,1000

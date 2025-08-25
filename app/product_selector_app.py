@@ -39,42 +39,63 @@ def load_database() -> Dict[str, pd.DataFrame]:
     return db
 
 # --- Helper Functions for Logic ---
-def find_cable_range_code(diameter: float, voltage: int, db: Dict[str, pd.DataFrame]) -> str:
-    """Finds the cable range code based on diameter and voltage."""
-    table_name = f"opcoes_range_cabo_{voltage}kv"
+def find_cable_range_code(diameter: float, voltage: int, current: int, db: Dict[str, pd.DataFrame]) -> str:
+    """Finds the cable range code based on diameter, voltage, and current."""
+    if current == 600:
+        table_name = f"opcoes_range_cabo_{voltage}kv_600a"
+    else: # Default to 200A style
+        table_name = f"opcoes_range_cabo_{voltage}kv"
     
     if table_name not in db:
-        st.warning(f"Tabela de range para {voltage}kV ('{table_name}.csv') não encontrada.")
+        st.warning(f"Tabela de range ('{table_name}.csv') não encontrada.")
         return "ERR"
         
     df_range = db[table_name]
     for _, row in df_range.iterrows():
-        min_val = row["min_mm"]
-        max_val = row["max_mm"]
-        code = row["codigo_retorno"]
-        
-        if min_val <= diameter <= max_val:
-            return str(code)
+        if row["min_mm"] <= diameter <= row["max_mm"]:
+            return str(row["codigo_retorno"])
             
-    return "N/A" # Not Applicable / Not Found
- 
-def find_conductor_code(cond_type: str, cond_size: int, db: Dict[str, pd.DataFrame]) -> str:
-    """Finds the two-digit conductor code."""
-    table_name = "opcoes_condutores_v1" # Assuming one table for now
+    return "N/A"
+
+def find_conductor_code_200a(cond_type: str, cond_size: int, db: Dict[str, pd.DataFrame]) -> str:
+    """Finds the two-digit conductor code for 200A elbows."""
+    table_name = "opcoes_condutores_v1"
     if table_name not in db:
         st.warning(f"Tabela de condutores ('{table_name}.csv') não encontrada.")
         return "ER"
 
     df_cond = db[table_name]
-    match = df_cond[
-        (df_cond["tipo_condutor"] == cond_type) &
-        (df_cond["secao_mm2"] == cond_size)
-    ]
+    match = df_cond[(df_cond["tipo_condutor"] == cond_type) & (df_cond["secao_mm2"] == cond_size)]
     if not match.empty:
-        # Format as two digits (e.g., 3 -> "03")
         return str(int(match.iloc[0]["codigo_retorno"])).zfill(2)
     return "NA"
 
+def find_compression_lug_600a(cond_type: str, cond_size: int, db: Dict[str, pd.DataFrame]) -> str:
+    """Finds the four-digit compression lug code for 600A T-Bodies."""
+    table_name = "opcoes_condutores_600a_v1"
+    if table_name not in db:
+        st.warning(f"Tabela de condutores 600A ('{table_name}.csv') não encontrada.")
+        return "ER"
+    
+    df_cond = db[table_name]
+    match = df_cond[(df_cond["tipo_condutor"] == cond_type) & (df_cond["secao_mm2"] == cond_size)]
+    if not match.empty:
+        return str(int(match.iloc[0]["codigo_retorno"])).zfill(4)
+    return "NA"
+
+def find_shear_bolt_lug(cond_size: int, db: Dict[str, pd.DataFrame]) -> str:
+    """Finds the Shear Bolt connector code based on conductor size."""
+    table_name = "opcoes_shear_bolt_v1"
+    if table_name not in db:
+        st.warning(f"Tabela Shear Bolt ('{table_name}.csv') não encontrada.")
+        return "ER"
+        
+    df_shear = db[table_name]
+    for _, row in df_shear.iterrows():
+        if row["min_mm2"] <= cond_size <= row["max_mm2"]:
+            return str(row["codigo_retorno"])
+            
+    return "N/A"
 
 # --- Main App ---
 st.title("🛠️ Chardon Product Configurator")
@@ -84,7 +105,7 @@ try:
     db = load_database()
     df_base = db["produtos_base"]
 except Exception as e:
-    st.error(f"Falha ao carregar os arquivos de dados. Verifique a estrutura das pastas e o conteúdo dos CSVs. Erro: {e}")
+    st.error(f"Falha ao carregar os arquivos de dados. Erro: {e}")
     st.stop()
 
 # --- Level 1 & 2: Framework Selection ---
@@ -94,20 +115,16 @@ col1, col2, col3 = st.columns(3)
 with col1:
     standards = sorted(df_base["padrao"].unique())
     standard = st.selectbox("Padrão Normativo", standards)
-
-# Filter based on previous selections
 df_filtered = df_base[df_base["padrao"] == standard]
 
 with col2:
     voltages = sorted(df_filtered["classe_tensao"].unique())
     voltage = st.selectbox("Classe de Tensão (kV)", voltages)
-    
 df_filtered = df_filtered[df_filtered["classe_tensao"] == voltage]
 
 with col3:
     currents = sorted(df_filtered["classe_corrente"].unique())
     current = st.selectbox("Classe de Corrente (A)", currents)
-
 df_filtered = df_filtered[df_filtered["classe_corrente"] == current]
 
 # --- Level 3: Product Family Selection ---
@@ -119,90 +136,98 @@ else:
     product_options = df_filtered["nome_exibicao"].unique()
     product_name = st.selectbox("Família do Produto", product_options)
     
-    # Ensure a product is selected before proceeding
     if product_name:
         selected_product_series = df_filtered[df_filtered["nome_exibicao"] == product_name]
         if not selected_product_series.empty:
             selected_product = selected_product_series.iloc[0]
-        
-            # --- Level 4: Dynamic Product Configurator ---
             st.header("3. Configuração do Produto")
             
             base_code = selected_product["codigo_base"]
             logic_id = selected_product["id_logica"]
-            
-            # Initialize part number
             part_number = [base_code]
             
             st.info(f"Configurando produto: **{product_name}** (Base: `{base_code}`)")
 
-            # --- Specific Logic for "LOGICA_COTOVELO_200A" ---
+            # --- Logic for "LOGICA_COTOVELO_200A" ---
             if logic_id == "LOGICA_COTOVELO_200A":
-                # Step 1: Test Point (W)
+                # UI Components
                 has_tp = st.checkbox("Incluir Ponto de Teste Capacitivo?")
-                if has_tp:
-                    part_number.append("T")
-
-                # Step 2: Cable Range (X)
                 diameter = st.number_input("Diâmetro sobre a Isolação (mm)", min_value=0.0, step=0.1, format="%.2f", value=0.0)
-                
-                # Step 3: Conductor Code (Y)
                 st.markdown("**Especificações do Condutor:**")
                 cond_col1, cond_col2 = st.columns(2)
-                
                 cond_table = db.get("opcoes_condutores_v1", pd.DataFrame())
-                
                 with cond_col1:
                     cond_types = sorted(cond_table["tipo_condutor"].unique()) if not cond_table.empty else []
                     cond_type = st.selectbox("Tipo de Condutor", cond_types, index=None, placeholder="Selecione...")
-                
                 with cond_col2:
-                    # Filter sizes based on selected type
-                    if cond_type and not cond_table.empty:
-                        cond_sizes = sorted(cond_table[cond_table["tipo_condutor"] == cond_type]["secao_mm2"].unique())
-                    else:
-                        cond_sizes = []
+                    cond_sizes = sorted(cond_table[cond_table["tipo_condutor"] == cond_type]["secao_mm2"].unique()) if cond_type and not cond_table.empty else []
                     cond_size = st.selectbox("Seção do Condutor (mm²)", cond_sizes, index=None, placeholder="Selecione...")
-
-                # Step 4: Connector Material (Z)
-                connector_mat = st.radio(
-                    "Material do Conector (Terminal)",
-                    ["Cobre (para cabos de cobre)", "Bimetálico (para cabos de cobre ou alumínio)"],
-                    index=None,
-                    horizontal=True
-                )
+                connector_mat = st.radio("Material do Conector (Terminal)", ["Cobre", "Bimetálico"], index=None, horizontal=True)
                 
-                # --- Final Result Generation ---
-                # Check if all mandatory fields for this logic are filled
+                # Final Result Generation
                 all_fields_filled = (diameter > 0 and cond_type and cond_size and connector_mat)
-
                 if all_fields_filled:
-                    # Append calculated parts to the part number list
-                    range_code = find_cable_range_code(diameter, voltage, db)
-                    part_number.append(range_code)
+                    if has_tp: part_number.append("T")
+                    part_number.append(find_cable_range_code(diameter, voltage, current, db))
+                    part_number.append(find_conductor_code_200a(cond_type, cond_size, db))
+                    part_number.append("C" if connector_mat == "Cobre" else "B")
                     
-                    conductor_code = find_conductor_code(cond_type, cond_size, db)
-                    part_number.append(conductor_code)
-                    
-                    if "Cobre" in connector_mat:
-                        part_number.append("C")
-                    else:
-                        part_number.append("B")
-                    
-                    # --- Display Final Result ---
                     st.header("✅ Part Number Gerado")
-                    
-                    # Filter out any potential error codes or empty values before joining
-                    valid_parts = [str(p) for p in part_number if p and "ERR" not in str(p) and "N/A" not in str(p) and "NA" not in str(p)]
-                    
-                    # Extra check to ensure all components were found correctly
-                    expected_len = 5 if has_tp else 4
-                    if len(valid_parts) == expected_len:
-                        final_code = "".join(valid_parts)
-                        st.code(final_code, language="text")
-                    else:
-                        st.error("Valores inválidos selecionados (ex: diâmetro fora do range). Verifique as seleções.")
+                    final_code = "".join(p for p in part_number if p and "ERR" not in p and "N/A" not in p and "NA" not in p)
+                    st.code(final_code, language="text")
+                else:
+                    st.info("ℹ️ Preencha todos os campos da configuração para gerar o Part Number.")
 
+            # --- Logic for "LOGICA_CORPO_T_600A" ---
+            elif logic_id == "LOGICA_CORPO_T_600A":
+                # UI Components
+                step1_col1, step1_col2 = st.columns(2)
+                with step1_col1:
+                    amp_rating = st.radio("Classe de Corrente (Step 1)", ["600A", "900A"], index=None)
+                with step1_col2:
+                    has_tp_600a = st.checkbox("Incluir Ponto de Teste?", value=True)
+                
+                diameter = st.number_input("Diâmetro sobre a Isolação (mm) (Step 2)", min_value=0.0, step=0.1, format="%.2f", value=0.0)
+                
+                st.markdown("**Especificações do Terminal (Step 3):**")
+                lug_type = st.radio("Tipo de Terminal", ["Compression Connector", "Shear Bolt Connector"], index=None)
+
+                # Final Result Generation
+                final_lug_code = None
+                if lug_type == "Compression Connector":
+                    comp_col1, comp_col2, comp_col3 = st.columns(3)
+                    comp_table = db.get("opcoes_condutores_600a_v1", pd.DataFrame())
+                    with comp_col1:
+                        cond_types = sorted(comp_table["tipo_condutor"].unique()) if not comp_table.empty else []
+                        cond_type = st.selectbox("Tipo de Condutor", cond_types, index=None, placeholder="Selecione...")
+                    with comp_col2:
+                        cond_sizes = sorted(comp_table[comp_table["tipo_condutor"] == cond_type]["secao_mm2"].unique()) if cond_type and not comp_table.empty else []
+                        cond_size = st.selectbox("Seção (mm²)", cond_sizes, index=None, placeholder="Selecione...")
+                    with comp_col3:
+                        comp_mat = st.radio("Material", ["Cobre", "Alumínio/Bimetálico"], index=None, horizontal=True)
+                    
+                    if cond_type and cond_size and comp_mat:
+                        comp_code = find_compression_lug_600a(cond_type, cond_size, db)
+                        suffix = "CC" if comp_mat == "Cobre" else "A" # Assuming 'A' for Aluminum
+                        final_lug_code = f"{comp_code}{suffix}"
+
+                elif lug_type == "Shear Bolt Connector":
+                    shear_table = db.get("opcoes_shear_bolt_v1", pd.DataFrame())
+                    shear_size_options = sorted(shear_table["max_mm2"].unique()) if not shear_table.empty else []
+                    cond_size_shear = st.selectbox("Seção do Condutor (mm²)", shear_size_options, index=None, placeholder="Selecione...")
+                    if cond_size_shear:
+                        final_lug_code = find_shear_bolt_lug(cond_size_shear, db)
+
+                all_fields_filled = (amp_rating and diameter > 0 and lug_type and final_lug_code)
+                if all_fields_filled:
+                    part_number = [base_code] # Reset part number
+                    part_number.append(amp_rating.replace("A", "T" if has_tp_600a else ""))
+                    part_number.append(find_cable_range_code(diameter, voltage, current, db))
+                    part_number.append(final_lug_code)
+                    
+                    st.header("✅ Part Number Gerado")
+                    final_code = "".join(p for p in part_number if p and "ERR" not in p and "N/A" not in p and "NA" not in p)
+                    st.code(final_code, language="text")
                 else:
                     st.info("ℹ️ Preencha todos os campos da configuração para gerar o Part Number.")
 
