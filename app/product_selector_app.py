@@ -145,10 +145,7 @@ else:
 
                 # Step 2: Cable Range (X)
                 diameter = st.number_input("Diâmetro sobre a Isolação (mm)", min_value=0.0, step=0.1, format="%.2f", value=0.0)
-                if diameter > 0:
-                    range_code = find_cable_range_code(diameter, voltage, db)
-                    part_number.append(range_code)
-
+                
                 # Step 3: Conductor Code (Y)
                 st.markdown("**Especificações do Condutor:**")
                 cond_col1, cond_col2 = st.columns(2)
@@ -156,22 +153,16 @@ else:
                 cond_table = db.get("opcoes_condutores_v1", pd.DataFrame())
                 
                 with cond_col1:
-                    # CORRECTED: 'tipo_condutor' instead of 'tipo_conductor'
                     cond_types = sorted(cond_table["tipo_condutor"].unique()) if not cond_table.empty else []
                     cond_type = st.selectbox("Tipo de Condutor", cond_types, index=None, placeholder="Selecione...")
                 
                 with cond_col2:
                     # Filter sizes based on selected type
                     if cond_type and not cond_table.empty:
-                        # CORRECTED: 'tipo_condutor' instead of 'tipo_conductor'
                         cond_sizes = sorted(cond_table[cond_table["tipo_condutor"] == cond_type]["secao_mm2"].unique())
                     else:
                         cond_sizes = []
                     cond_size = st.selectbox("Seção do Condutor (mm²)", cond_sizes, index=None, placeholder="Selecione...")
-
-                if cond_type and cond_size:
-                    conductor_code = find_conductor_code(cond_type, cond_size, db)
-                    part_number.append(conductor_code)
 
                 # Step 4: Connector Material (Z)
                 connector_mat = st.radio(
@@ -180,19 +171,40 @@ else:
                     index=None,
                     horizontal=True
                 )
-                if connector_mat:
+                
+                # --- Final Result Generation ---
+                # Check if all mandatory fields for this logic are filled
+                all_fields_filled = (diameter > 0 and cond_type and cond_size and connector_mat)
+
+                if all_fields_filled:
+                    # Append calculated parts to the part number list
+                    range_code = find_cable_range_code(diameter, voltage, db)
+                    part_number.append(range_code)
+                    
+                    conductor_code = find_conductor_code(cond_type, cond_size, db)
+                    part_number.append(conductor_code)
+                    
                     if "Cobre" in connector_mat:
                         part_number.append("C")
                     else:
                         part_number.append("B")
+                    
+                    # --- Display Final Result ---
+                    st.header("✅ Part Number Gerado")
+                    
+                    # Filter out any potential error codes or empty values before joining
+                    valid_parts = [str(p) for p in part_number if p and "ERR" not in str(p) and "N/A" not in str(p) and "NA" not in str(p)]
+                    
+                    # Extra check to ensure all components were found correctly
+                    expected_len = 5 if has_tp else 4
+                    if len(valid_parts) == expected_len:
+                        final_code = "".join(valid_parts)
+                        st.code(final_code, language="text")
+                    else:
+                        st.error("Valores inválidos selecionados (ex: diâmetro fora do range). Verifique as seleções.")
+
+                else:
+                    st.info("ℹ️ Preencha todos os campos da configuração para gerar o Part Number.")
 
             else:
                 st.warning(f"A lógica de configuração para '{logic_id}' ainda não foi implementada.")
-
-            # --- Final Result ---
-            st.header("✅ Part Number Gerado")
-            # Filter out any potential error codes or empty values before joining
-            valid_parts = [str(p) for p in part_number if p and "ERR" not in str(p) and "N/A" not in str(p)]
-            final_code = "".join(valid_parts)
-            st.code(final_code, language="text")
-
