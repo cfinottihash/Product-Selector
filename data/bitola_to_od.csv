@@ -1,0 +1,488 @@
+Voltage,S_mm2,Brand,Cable,OD_iso_mm,Conductor_D_nominal_mm,Insulation_thickness_mm
+8.7/15 kV,25,Induscabos,Epronax 105,16.2,6.00,4.5
+8.7/15 kV,35,Induscabos,Epronax 105,17.3,7.10,4.5
+8.7/15 kV,50,Induscabos,Epronax 105,18.5,8.30,4.5
+8.7/15 kV,70,Induscabos,Epronax 105,19.8,9.60,4.5
+8.7/15 kV,95,Induscabos,Epronax 105,21.5,11.30,4.5
+8.7/15 kV,120,Induscabos,Epronax 105,22.9,12.70,4.5
+8.7/15 kV,150,Induscabos,Epronax 105,24.0,13.80,4.5
+8.7/15 kV,185,Induscabos,Epronax 105,25.7,15.50,4.5
+8.7/15 kV,240,Induscabos,Epronax 105,28.6,18.40,4.5
+8.7/15 kV,300,Induscabos,Epronax 105,30.7,20.50,4.5
+8.7/15 kV,400,Induscabos,Epronax 105,33.5,23.30,4.5
+8.7/15 kV,500,Induscabos,Epronax 105,36.6,26.40,4.5
+12/20 kV,35,Induscabos,Epronax 105,19.3,7.10,5.5
+12/20 kV,50,Induscabos,Epronax 105,20.5,8.30,5.5
+12/20 kV,70,Induscabos,Epronax 105,21.8,9.60,5.5
+12/20 kV,95,Induscabos,Epronax 105,23.5,11.30,5.5
+12/20 kV,120,Induscabos,Epronax 105,24.9,12.70,5.5
+12/20 kV,150,Induscabos,Epronax 105,26.0,13.80,5.5
+12/20 kV,185,Induscabos,Epronax 105,27.7,15.50,5.5
+12/20 kV,240,Induscabos,Epronax 105,30.6,18.40,5.5
+12/20 kV,300,Induscabos,Epronax 105,32.7,20.50,5.5
+12/20 kV,400,Induscabos,Epronax 105,35.5,23.30,5.5
+12/20 kV,500,Induscabos,Epronax 105,38.6,26.40,5.5
+15/25 kV,50,Induscabos,Epronax 105,23.1,8.3,6.8
+15/25 kV,70,Induscabos,Epronax 105,24.4,9.6,6.8
+15/25 kV,95,Induscabos,Epronax 105,26.1,11.3,6.8
+15/25 kV,120,Induscabos,Epronax 105,27.5,12.7,6.8
+15/25 kV,150,Induscabos,Epronax 105,28.6,13.8,6.8
+15/25 kV,185,Induscabos,Epronax 105,30.3,15.5,6.8
+15/25 kV,240,Induscabos,Epronax 105,33.2,18.4,6.8
+15/25 kV,300,Induscabos,Epronax 105,35.3,20.5,6.8
+15/25 kV,400,Induscabos,Epronax 105,38.1,23.3,6.8
+15/25 kV,500,Induscabos,Epronax 105,41.2,26.4,6.8
+20/35 kV,50,Induscabos,Epronax 105,27.1,8.3,8.8
+20/35 kV,70,Induscabos,Epronax 105,28.4,9.6,8.8
+20/35 kV,95,Induscabos,Epronax 105,30.1,11.3,8.8
+20/35 kV,120,Induscabos,Epronax 105,31.5,12.7,8.8
+20/35 kV,150,Induscabos,Epronax 105,32.6,13.8,8.8
+20/35 kV,185,Induscabos,Epronax 105,34.3,15.5,8.8
+20/35 kV,240,Induscabos,Epronax 105,37.2,18.4,8.8
+20/35 kV,300,Induscabos,Epronax 105,39.3,20.5,8.8
+20/35 kV,400,Induscabos,Epronax 105,42.1,23.3,8.8
+20/35 kV,500,Induscabos,Epronax 105,45.2,26.4,8.8
+8.7/15 kV,25,Induscabos,Epronax AL 105,16.2,6.00,4.5
+8.7/15 kV,35,Induscabos,Epronax AL 105,17.3,7.10,4.5
+8.7/15 kV,50,Induscabos,Epronax AL 105,18.5,8.30,4.5
+8.7/15 kV,70,Induscabos,Epronax AL 105,20.1,9.90,4.5
+8.7/15 kV,95,Induscabos,Epronax AL 105,22.0,11.80,4.5
+8.7/15 kV,120,Induscabos,Epronax AL 105,23.4,13.20,4.5
+8.7/15 kV,150,Induscabos,Epronax AL 105,25.0,14.80,4.5
+8.7/15 kV,185,Induscabos,Epronax AL 105,26.5,16.30,4.5
+8.7/15 kV,240,Induscabos,Epronax AL 105,28.7,18.50,4.5
+8.7/15 kV,300,Induscabos,Epronax AL 105,30.7,20.50,4.5
+8.7/15 kV,400,Induscabos,Epronax AL 105,33.5,23.30,4.5
+8.7/15 kV,500,Induscabos,Epronax AL 105,36.4,26.20,4.5
+12/20 kV,35,Induscabos,Epronax AL 105,19.3,7.10,5.5
+12/20 kV,50,Induscabos,Epronax AL 105,20.5,8.30,5.5
+12/20 kV,70,Induscabos,Epronax AL 105,22.1,9.90,5.5
+12/20 kV,95,Induscabos,Epronax AL 105,24.0,11.80,5.5
+12/20 kV,120,Induscabos,Epronax AL 105,25.4,13.20,5.5
+12/20 kV,150,Induscabos,Epronax AL 105,27.0,14.80,5.5
+12/20 kV,185,Induscabos,Epronax AL 105,28.5,16.30,5.5
+12/20 kV,240,Induscabos,Epronax AL 105,30.7,18.50,5.5
+12/20 kV,300,Induscabos,Epronax AL 105,32.7,20.50,5.5
+12/20 kV,400,Induscabos,Epronax AL 105,35.5,23.30,5.5
+12/20 kV,500,Induscabos,Epronax AL 105,38.4,26.20,5.5
+15/25 kV,50,Induscabos,Epronax AL 105,23.1,8.3,6.8
+15/25 kV,70,Induscabos,Epronax AL 105,24.7,9.9,6.8
+15/25 kV,95,Induscabos,Epronax AL 105,26.6,11.8,6.8
+15/25 kV,120,Induscabos,Epronax AL 105,28.0,13.2,6.8
+15/25 kV,150,Induscabos,Epronax AL 105,29.6,14.8,6.8
+15/25 kV,185,Induscabos,Epronax AL 105,31.1,16.3,6.8
+15/25 kV,240,Induscabos,Epronax AL 105,33.3,18.5,6.8
+15/25 kV,300,Induscabos,Epronax AL 105,35.3,20.5,6.8
+15/25 kV,400,Induscabos,Epronax AL 105,38.1,23.3,6.8
+15/25 kV,500,Induscabos,Epronax AL 105,41.0,26.2,6.8
+20/35 kV,50,Induscabos,Epronax AL 105,23.1,8.3,8.8
+20/35 kV,70,Induscabos,Epronax AL 105,24.7,9.9,8.8
+20/35 kV,95,Induscabos,Epronax AL 105,26.6,11.8,8.8
+20/35 kV,120,Induscabos,Epronax AL 105,28.0,13.2,8.8
+20/35 kV,150,Induscabos,Epronax AL 105,29.6,14.8,8.8
+20/35 kV,185,Induscabos,Epronax AL 105,31.1,16.3,8.8
+20/35 kV,240,Induscabos,Epronax AL 105,33.3,18.5,8.8
+20/35 kV,300,Induscabos,Epronax AL 105,35.3,20.5,8.8
+20/35 kV,400,Induscabos,Epronax AL 105,38.1,23.3,8.8
+20/35 kV,500,Induscabos,Epronax AL 105,41.0,26.2,8.8
+8.7/15 kV,35,Induscabos,Indulink,17.3,7.1,4.5
+8.7/15 kV,50,Induscabos,Indulink,18.5,8.3,4.5
+8.7/15 kV,70,Induscabos,Indulink,19.8,9.6,4.5
+8.7/15 kV,95,Induscabos,Indulink,21.5,11.3,4.5
+8.7/15 kV,120,Induscabos,Indulink,22.9,12.7,4.5
+8.7/15 kV,150,Induscabos,Indulink,24.0,13.8,4.5
+8.7/15 kV,185,Induscabos,Indulink,25.7,15.5,4.5
+8.7/15 kV,240,Induscabos,Indulink,28.6,18.4,4.5
+8.7/15 kV,300,Induscabos,Indulink,30.7,20.5,4.5
+8.7/15 kV,400,Induscabos,Indulink,33.5,23.3,4.5
+8.7/15 kV,500,Induscabos,Indulink,36.6,26.4,4.5
+12/20 kV,35,Induscabos,Indulink,19.3,7.1,5.5
+12/20 kV,50,Induscabos,Indulink,20.5,8.3,5.5
+12/20 kV,70,Induscabos,Indulink,21.8,9.6,5.5
+12/20 kV,95,Induscabos,Indulink,23.5,11.3,5.5
+12/20 kV,120,Induscabos,Indulink,24.9,12.7,5.5
+12/20 kV,150,Induscabos,Indulink,26.0,13.8,5.5
+12/20 kV,185,Induscabos,Indulink,27.7,15.5,5.5
+12/20 kV,240,Induscabos,Indulink,30.6,18.4,5.5
+12/20 kV,300,Induscabos,Indulink,32.7,20.5,5.5
+12/20 kV,400,Induscabos,Indulink,35.5,23.3,5.5
+12/20 kV,500,Induscabos,Indulink,38.6,26.4,5.5
+15/25 kV,50,Induscabos,Indulink,23.1,8.3,6.8
+15/25 kV,70,Induscabos,Indulink,24.4,9.6,6.8
+15/25 kV,95,Induscabos,Indulink,26.1,11.3,6.8
+15/25 kV,120,Induscabos,Indulink,27.5,12.7,6.8
+15/25 kV,150,Induscabos,Indulink,28.6,13.8,6.8
+15/25 kV,185,Induscabos,Indulink,30.3,15.5,6.8
+15/25 kV,240,Induscabos,Indulink,33.2,18.4,6.8
+15/25 kV,300,Induscabos,Indulink,35.3,20.5,6.8
+15/25 kV,400,Induscabos,Indulink,38.1,23.3,6.8
+15/25 kV,500,Induscabos,Indulink,41.2,26.4,6.8
+20/35 kV,50,Induscabos,Indulink,27.1,8.3,8.8
+20/35 kV,70,Induscabos,Indulink,28.4,9.6,8.8
+20/35 kV,95,Induscabos,Indulink,30.1,11.3,8.8
+20/35 kV,120,Induscabos,Indulink,31.5,12.7,8.8
+20/35 kV,150,Induscabos,Indulink,32.6,13.8,8.8
+20/35 kV,185,Induscabos,Indulink,34.3,15.5,8.8
+20/35 kV,240,Induscabos,Indulink,37.2,18.4,8.8
+20/35 kV,300,Induscabos,Indulink,39.3,20.5,8.8
+20/35 kV,400,Induscabos,Indulink,42.1,23.3,8.8
+20/35 kV,500,Induscabos,Indulink,45.2,26.4,8.8
+8.7/15 kV,35,Induscabos,Indulink AL,17.3,7.10,4.5
+8.7/15 kV,50,Induscabos,Indulink AL,18.5,8.30,4.5
+8.7/15 kV,70,Induscabos,Indulink AL,20.1,9.90,4.5
+8.7/15 kV,95,Induscabos,Indulink AL,22.0,11.80,4.5
+8.7/15 kV,120,Induscabos,Indulink AL,23.4,13.20,4.5
+8.7/15 kV,150,Induscabos,Indulink AL,25.0,14.80,4.5
+8.7/15 kV,185,Induscabos,Indulink AL,26.5,16.30,4.5
+8.7/15 kV,240,Induscabos,Indulink AL,28.7,18.50,4.5
+8.7/15 kV,300,Induscabos,Indulink AL,30.7,20.50,4.5
+8.7/15 kV,400,Induscabos,Indulink AL,33.5,23.30,4.5
+8.7/15 kV,500,Induscabos,Indulink AL,36.4,26.20,4.5
+12/20 kV,35,Induscabos,Indulink AL,19.3,7.10,5.5
+12/20 kV,50,Induscabos,Indulink AL,20.5,8.30,5.5
+12/20 kV,70,Induscabos,Indulink AL,22.1,9.90,5.5
+12/20 kV,95,Induscabos,Indulink AL,24.0,11.80,5.5
+12/20 kV,120,Induscabos,Indulink AL,25.4,13.20,5.5
+12/20 kV,150,Induscabos,Indulink AL,27.0,14.80,5.5
+12/20 kV,185,Induscabos,Indulink AL,28.5,16.30,5.5
+12/20 kV,240,Induscabos,Indulink AL,30.7,18.50,5.5
+12/20 kV,300,Induscabos,Indulink AL,32.7,20.50,5.5
+12/20 kV,400,Induscabos,Indulink AL,35.5,23.30,5.5
+12/20 kV,500,Induscabos,Indulink AL,38.4,26.20,5.5
+15/25 kV,50,Induscabos,Indulink AL,23.1,8.3,6.8
+15/25 kV,70,Induscabos,Indulink AL,24.7,9.9,6.8
+15/25 kV,95,Induscabos,Indulink AL,26.6,11.8,6.8
+15/25 kV,120,Induscabos,Indulink AL,28.0,13.2,6.8
+15/25 kV,150,Induscabos,Indulink AL,29.6,14.8,6.8
+15/25 kV,185,Induscabos,Indulink AL,31.1,16.3,6.8
+15/25 kV,240,Induscabos,Indulink AL,33.3,18.5,6.8
+15/25 kV,300,Induscabos,Indulink AL,35.3,20.5,6.8
+15/25 kV,400,Induscabos,Indulink AL,38.1,23.3,6.8
+15/25 kV,500,Induscabos,Indulink AL,41.0,26.2,6.8
+8.7/15 kV,16,Prysmian,Eprotenax Compact,13.1,4.7,3.5
+8.7/15 kV,25,Prysmian,Eprotenax Compact,13.1,5.8,3.0
+8.7/15 kV,35,Prysmian,Eprotenax Compact,14.2,6.9,3.0
+8.7/15 kV,50,Prysmian,Eprotenax Compact,15.3,8.0,3.0
+8.7/15 kV,70,Prysmian,Eprotenax Compact,17.1,9.8,3.0
+8.7/15 kV,95,Prysmian,Eprotenax Compact,18.6,11.3,3.0
+8.7/15 kV,120,Prysmian,Eprotenax Compact,19.9,12.6,3.0
+8.7/15 kV,150,Prysmian,Eprotenax Compact,21.3,14.0,3.0
+8.7/15 kV,185,Prysmian,Eprotenax Compact,23.3,16.0,3.0
+8.7/15 kV,240,Prysmian,Eprotenax Compact,26.5,18.1,3.5
+8.7/15 kV,300,Prysmian,Eprotenax Compact,28.9,20.6,3.5
+8.7/15 kV,400,Prysmian,Eprotenax Compact,31.7,23.3,3.5
+8.7/15 kV,500,Prysmian,Eprotenax Compact,34.8,26.5,3.5
+15/25 kV,35,Prysmian,Eprotenax Compact,20.9,6.9,6.2
+15/25 kV,50,Prysmian,Eprotenax Compact,20.5,8.0,5.5
+15/25 kV,70,Prysmian,Eprotenax Compact,22.3,9.8,5.5
+15/25 kV,95,Prysmian,Eprotenax Compact,23.8,11.3,5.5
+15/25 kV,120,Prysmian,Eprotenax Compact,25.1,12.6,5.5
+15/25 kV,150,Prysmian,Eprotenax Compact,26.5,14.0,5.5
+15/25 kV,185,Prysmian,Eprotenax Compact,28.5,16.0,5.5
+15/25 kV,240,Prysmian,Eprotenax Compact,29.6,18.1,5.0
+15/25 kV,300,Prysmian,Eprotenax Compact,32.0,20.6,5.0
+15/25 kV,400,Prysmian,Eprotenax Compact,34.8,23.3,5.0
+15/25 kV,500,Prysmian,Eprotenax Compact,38.0,26.5,5.0
+20/35 kV,50,Prysmian,Voltalene Grid,31.2,8.0,8.8
+20/35 kV,70,Prysmian,Voltalene Grid,31.5,9.8,8.8
+20/35 kV,95,Prysmian,Voltalene Grid,31.4,11.3,8.8
+20/35 kV,120,Prysmian,Voltalene Grid,31.9,12.6,8.8
+20/35 kV,150,Prysmian,Voltalene Grid,33.3,14.0,8.8
+20/35 kV,185,Prysmian,Voltalene Grid,35.3,16.0,8.8
+20/35 kV,240,Prysmian,Voltalene Grid,37.4,18.1,8.8
+20/35 kV,300,Prysmian,Voltalene Grid,39.8,20.5,8.8
+20/35 kV,400,Prysmian,Voltalene Grid,42.6,23.4,8.8
+20/35 kV,500,Prysmian,Voltalene Grid,45.5,26.2,8.8
+20/35 kV,630,Prysmian,Voltalene Grid,49.4,30.1,8.8
+20/35 kV,50,Prysmian,Voltalene Wind,27.0,8.0,8.8
+20/35 kV,70,Prysmian,Voltalene Wind,28.9,9.8,8.8
+20/35 kV,95,Prysmian,Voltalene Wind,30.4,11.3,8.8
+20/35 kV,120,Prysmian,Voltalene Wind,31.7,12.6,8.8
+20/35 kV,150,Prysmian,Voltalene Wind,33.1,14.0,8.8
+20/35 kV,185,Prysmian,Voltalene Wind,35.1,16.0,8.8
+20/35 kV,240,Prysmian,Voltalene Wind,37.2,18.1,8.8
+20/35 kV,300,Prysmian,Voltalene Wind,39.7,20.6,8.8
+20/35 kV,400,Prysmian,Voltalene Wind,42.4,23.3,8.8
+20/35 kV,500,Prysmian,Voltalene Wind,45.6,26.4,8.8
+20/35 kV,630,Prysmian,Voltalene Wind,50.0,30.1,8.8
+8.7/15 kV,16,Prysmian,Ecoplus Compact Copper,19.0,4.65,3.5
+8.7/15 kV,25,Prysmian,Ecoplus Compact Copper,20.8,5.85,3.0
+8.7/15 kV,35,Prysmian,Ecoplus Compact Copper,22.0,6.80,3.0
+8.7/15 kV,50,Prysmian,Ecoplus Compact Copper,23.1,8.02,3.0
+8.7/15 kV,70,Prysmian,Ecoplus Compact Copper,25.1,9.58,3.0
+8.7/15 kV,95,Prysmian,Ecoplus Compact Copper,27.1,11.20,3.0
+8.7/15 kV,120,Prysmian,Ecoplus Compact Copper,28.8,12.70,3.0
+8.7/15 kV,150,Prysmian,Ecoplus Compact Copper,30.4,14.10,3.0
+8.7/15 kV,185,Prysmian,Ecoplus Compact Copper,32.5,15.73,3.0
+8.7/15 kV,240,Prysmian,Ecoplus Compact Copper,36.4,18.04,3.5
+8.7/15 kV,300,Prysmian,Ecoplus Compact Copper,39.1,20.36,3.5
+8.7/15 kV,400,Prysmian,Ecoplus Compact Copper,42.3,23.10,3.5
+8.7/15 kV,500,Prysmian,Ecoplus Compact Copper,46.0,26.22,3.5
+8.7/15 kV,16,Prysmian,Ecoplus Compact Aluminum,19.0,4.60,3.5
+8.7/15 kV,25,Prysmian,Ecoplus Compact Aluminum,20.8,5.80,3.0
+8.7/15 kV,35,Prysmian,Ecoplus Compact Aluminum,22.0,6.87,3.0
+8.7/15 kV,50,Prysmian,Ecoplus Compact Aluminum,23.1,7.92,3.0
+8.7/15 kV,70,Prysmian,Ecoplus Compact Aluminum,25.1,9.58,3.0
+8.7/15 kV,95,Prysmian,Ecoplus Compact Aluminum,27.1,11.40,3.0
+8.7/15 kV,120,Prysmian,Ecoplus Compact Aluminum,28.8,12.78,3.0
+8.7/15 kV,150,Prysmian,Ecoplus Compact Aluminum,30.4,14.10,3.0
+8.7/15 kV,185,Prysmian,Ecoplus Compact Aluminum,32.5,16.00,3.0
+8.7/15 kV,240,Prysmian,Ecoplus Compact Aluminum,36.4,18.40,3.5
+8.7/15 kV,300,Prysmian,Ecoplus Compact Aluminum,39.1,20.42,3.5
+8.7/15 kV,400,Prysmian,Ecoplus Compact Aluminum,42.3,23.03,3.5
+8.7/15 kV,500,Prysmian,Ecoplus Compact Aluminum,46.0,26.20,3.5
+12/20 kV,16,Prysmian,Ecoplus Compact Copper,22.9,4.65,5.2
+12/20 kV,25,Prysmian,Ecoplus Compact Copper,23.1,5.85,4.7
+12/20 kV,35,Prysmian,Ecoplus Compact Copper,24.4,6.80,4.0
+12/20 kV,50,Prysmian,Ecoplus Compact Copper,25.5,8.02,4.0
+12/20 kV,70,Prysmian,Ecoplus Compact Copper,27.3,9.58,4.0
+12/20 kV,95,Prysmian,Ecoplus Compact Copper,29.5,11.20,4.0
+12/20 kV,120,Prysmian,Ecoplus Compact Copper,31.0,12.70,4.0
+12/20 kV,150,Prysmian,Ecoplus Compact Copper,32.8,14.10,4.0
+12/20 kV,185,Prysmian,Ecoplus Compact Copper,34.7,15.73,4.0
+12/20 kV,240,Prysmian,Ecoplus Compact Copper,38.8,18.04,4.5
+12/20 kV,300,Prysmian,Ecoplus Compact Copper,41.3,20.36,4.5
+12/20 kV,400,Prysmian,Ecoplus Compact Copper,44.3,23.10,4.5
+12/20 kV,500,Prysmian,Ecoplus Compact Copper,48.2,26.22,4.5
+12/20 kV,16,Prysmian,Ecoplus Compact Aluminum,22.9,4.60,5.2
+12/20 kV,25,Prysmian,Ecoplus Compact Aluminum,23.1,5.80,4.7
+12/20 kV,35,Prysmian,Ecoplus Compact Aluminum,24.4,6.87,4.0
+12/20 kV,50,Prysmian,Ecoplus Compact Aluminum,25.5,7.92,4.0
+12/20 kV,70,Prysmian,Ecoplus Compact Aluminum,27.3,9.58,4.0
+12/20 kV,95,Prysmian,Ecoplus Compact Aluminum,29.5,11.40,4.0
+12/20 kV,120,Prysmian,Ecoplus Compact Aluminum,31.0,12.78,4.0
+12/20 kV,150,Prysmian,Ecoplus Compact Aluminum,32.8,14.10,4.0
+12/20 kV,185,Prysmian,Ecoplus Compact Aluminum,34.7,16.00,4.0
+12/20 kV,240,Prysmian,Ecoplus Compact Aluminum,38.8,18.40,4.5
+12/20 kV,300,Prysmian,Ecoplus Compact Aluminum,41.3,20.42,4.5
+12/20 kV,400,Prysmian,Ecoplus Compact Aluminum,44.3,23.03,4.5
+12/20 kV,500,Prysmian,Ecoplus Compact Aluminum,48.2,26.20,4.5
+15/25 kV,35,Prysmian,Ecoplus Compact Copper,29.8,6.80,6.2
+15/25 kV,50,Prysmian,Ecoplus Compact Copper,29.5,8.02,5.5
+15/25 kV,70,Prysmian,Ecoplus Compact Copper,31.2,9.58,5.5
+15/25 kV,95,Prysmian,Ecoplus Compact Copper,33.1,11.20,5.5
+15/25 kV,120,Prysmian,Ecoplus Compact Copper,35.1,12.70,5.5
+15/25 kV,150,Prysmian,Ecoplus Compact Copper,36.5,14.10,5.5
+15/25 kV,185,Prysmian,Ecoplus Compact Copper,38.5,15.73,5.5
+15/25 kV,240,Prysmian,Ecoplus Compact Copper,39.8,18.04,5.0
+15/25 kV,300,Prysmian,Ecoplus Compact Copper,42.5,20.36,5.0
+15/25 kV,400,Prysmian,Ecoplus Compact Copper,45.6,23.10,5.0
+15/25 kV,500,Prysmian,Ecoplus Compact Copper,49.2,26.22,5.0
+15/25 kV,35,Prysmian,Ecoplus Compact Aluminum,29.8,6.87,5.5
+15/25 kV,50,Prysmian,Ecoplus Compact Aluminum,29.5,7.92,5.5
+15/25 kV,70,Prysmian,Ecoplus Compact Aluminum,31.2,9.58,5.5
+15/25 kV,95,Prysmian,Ecoplus Compact Aluminum,33.1,11.40,5.5
+15/25 kV,120,Prysmian,Ecoplus Compact Aluminum,35.1,12.78,5.5
+15/25 kV,150,Prysmian,Ecoplus Compact Aluminum,36.5,14.10,5.5
+15/25 kV,185,Prysmian,Ecoplus Compact Aluminum,38.5,16.00,5.5
+15/25 kV,240,Prysmian,Ecoplus Compact Aluminum,39.8,18.40,5.0
+15/25 kV,300,Prysmian,Ecoplus Compact Aluminum,42.5,20.42,5.0
+15/25 kV,400,Prysmian,Ecoplus Compact Aluminum,45.6,23.03,5.0
+15/25 kV,500,Prysmian,Ecoplus Compact Aluminum,49.2,26.20,5.0
+20/35 kV,50,Prysmian,Ecoplus Compact Copper,36.3,8.02,8.2
+20/35 kV,70,Prysmian,Ecoplus Compact Copper,36.3,9.58,7.5
+20/35 kV,95,Prysmian,Ecoplus Compact Copper,38.1,11.20,7.5
+20/35 kV,120,Prysmian,Ecoplus Compact Copper,39.4,12.70,7.5
+20/35 kV,150,Prysmian,Ecoplus Compact Copper,41.4,14.10,7.5
+20/35 kV,185,Prysmian,Ecoplus Compact Copper,40.8,15.73,6.5
+20/35 kV,240,Prysmian,Ecoplus Compact Copper,43.5,18.04,6.5
+20/35 kV,300,Prysmian,Ecoplus Compact Copper,46.2,20.36,6.5
+20/35 kV,400,Prysmian,Ecoplus Compact Copper,49.4,23.10,6.5
+20/35 kV,500,Prysmian,Ecoplus Compact Copper,52.9,26.22,6.5
+20/35 kV,50,Prysmian,Ecoplus Compact Aluminum,36.3,7.92,8.2
+20/35 kV,70,Prysmian,Ecoplus Compact Aluminum,36.3,9.58,7.5
+20/35 kV,95,Prysmian,Ecoplus Compact Aluminum,38.1,11.40,7.5
+20/35 kV,120,Prysmian,Ecoplus Compact Aluminum,39.4,12.78,7.5
+20/35 kV,150,Prysmian,Ecoplus Compact Aluminum,41.4,14.10,7.5
+20/35 kV,185,Prysmian,Ecoplus Compact Aluminum,40.8,16.00,6.5
+20/35 kV,240,Prysmian,Ecoplus Compact Aluminum,43.5,18.40,6.5
+20/35 kV,300,Prysmian,Ecoplus Compact Aluminum,46.2,20.42,6.5
+20/35 kV,400,Prysmian,Ecoplus Compact Aluminum,49.4,23.03,6.5
+20/35 kV,500,Prysmian,Ecoplus Compact Aluminum,52.9,26.20,6.5
+8.7/15 kV,25,Conduspar,MT105,16.1,5.89,4.5
+8.7/15 kV,35,Conduspar,MT105,17.2,6.95,4.5
+8.7/15 kV,50,Conduspar,MT105,18.4,8.15,4.5
+8.7/15 kV,70,Conduspar,MT105,19.8,9.55,4.5
+8.7/15 kV,95,Conduspar,MT105,21.5,11.33,4.5
+8.7/15 kV,120,Conduspar,MT105,23.1,12.85,4.5
+8.7/15 kV,150,Conduspar,MT105,24.2,14.00,4.5
+8.7/15 kV,185,Conduspar,MT105,26.0,15.78,4.5
+8.7/15 kV,240,Conduspar,MT105,28.4,18.15,4.5
+8.7/15 kV,300,Conduspar,MT105,30.4,20.15,4.5
+8.7/15 kV,400,Conduspar,MT105,33.2,22.99,4.5
+8.7/15 kV,500,Conduspar,MT105,36.7,26.45,4.5
+12/20 kV,35,Conduspar,MT105,19.2,6.95,5.5
+12/20 kV,50,Conduspar,MT105,20.4,8.15,5.5
+12/20 kV,70,Conduspar,MT105,21.8,9.55,5.5
+12/20 kV,95,Conduspar,MT105,23.5,11.33,5.5
+12/20 kV,120,Conduspar,MT105,25.1,12.85,5.5
+12/20 kV,150,Conduspar,MT105,26.2,14.00,5.5
+12/20 kV,185,Conduspar,MT105,28.0,15.78,5.5
+12/20 kV,240,Conduspar,MT105,30.4,18.15,5.5
+12/20 kV,300,Conduspar,MT105,32.4,20.15,5.5
+12/20 kV,400,Conduspar,MT105,35.2,22.99,5.5
+12/20 kV,500,Conduspar,MT105,38.7,26.45,5.5
+15/25 kV,50,Conduspar,MT105,23.0,8.15,6.8
+15/25 kV,70,Conduspar,MT105,24.4,9.55,6.8
+15/25 kV,95,Conduspar,MT105,26.1,11.33,6.8
+15/25 kV,120,Conduspar,MT105,27.7,12.85,6.8
+15/25 kV,150,Conduspar,MT105,28.8,14.00,6.8
+15/25 kV,185,Conduspar,MT105,30.6,15.78,6.8
+15/25 kV,240,Conduspar,MT105,33.0,18.15,6.8
+15/25 kV,300,Conduspar,MT105,35.0,20.15,6.8
+15/25 kV,400,Conduspar,MT105,37.8,22.99,6.8
+15/25 kV,500,Conduspar,MT105,41.3,26.45,6.8
+20/35 kV,50,Conduspar,MT105,27.0,8.15,8.8
+20/35 kV,70,Conduspar,MT105,28.4,9.55,8.8
+20/35 kV,95,Conduspar,MT105,30.1,11.33,8.8
+20/35 kV,120,Conduspar,MT105,31.7,12.85,8.8
+20/35 kV,150,Conduspar,MT105,32.8,14.00,8.8
+20/35 kV,185,Conduspar,MT105,34.6,15.78,8.8
+20/35 kV,240,Conduspar,MT105,37.0,18.15,8.8
+20/35 kV,300,Conduspar,MT105,39.0,20.15,8.8
+20/35 kV,400,Conduspar,MT105,41.8,22.99,8.8
+20/35 kV,500,Conduspar,MT105,45.3,26.45,8.8
+8.7/15 kV,16,Conduspar,MTS Toxfree,12.9,4.69,3.5
+8.7/15 kV,25,Conduspar,MTS Toxfree,13.1,5.89,3.0
+8.7/15 kV,35,Conduspar,MTS Toxfree,14.2,6.95,3.0
+8.7/15 kV,50,Conduspar,MTS Toxfree,15.4,8.15,3.0
+8.7/15 kV,70,Conduspar,MTS Toxfree,16.8,9.55,3.0
+8.7/15 kV,95,Conduspar,MTS Toxfree,18.5,11.33,3.0
+8.7/15 kV,120,Conduspar,MTS Toxfree,20.1,12.85,3.0
+8.7/15 kV,150,Conduspar,MTS Toxfree,21.2,14.00,3.0
+8.7/15 kV,185,Conduspar,MTS Toxfree,23.0,15.78,3.0
+8.7/15 kV,240,Conduspar,MTS Toxfree,28.4,18.15,3.5
+8.7/15 kV,300,Conduspar,MTS Toxfree,30.4,20.15,3.5
+8.7/15 kV,400,Conduspar,MTS Toxfree,31.2,22.99,3.5
+8.7/15 kV,500,Conduspar,MTS Toxfree,34.7,26.45,3.5
+12/20 kV,16,Conduspar,MTS Toxfree,16.3,4.69,5.2
+12/20 kV,25,Conduspar,MTS Toxfree,16.5,5.89,4.7
+12/20 kV,35,Conduspar,MTS Toxfree,16.2,6.95,4.0
+12/20 kV,50,Conduspar,MTS Toxfree,17.4,8.15,4.0
+12/20 kV,70,Conduspar,MTS Toxfree,18.8,9.55,4.0
+12/20 kV,95,Conduspar,MTS Toxfree,20.5,11.33,4.0
+12/20 kV,120,Conduspar,MTS Toxfree,22.1,12.85,4.0
+12/20 kV,150,Conduspar,MTS Toxfree,23.2,14.00,4.0
+12/20 kV,185,Conduspar,MTS Toxfree,25.0,15.78,4.0
+12/20 kV,240,Conduspar,MTS Toxfree,28.4,18.15,4.5
+12/20 kV,300,Conduspar,MTS Toxfree,30.4,20.15,4.5
+12/20 kV,400,Conduspar,MTS Toxfree,33.2,22.99,4.5
+12/20 kV,500,Conduspar,MTS Toxfree,36.7,26.45,4.5
+15/25 kV,35,Conduspar,MTS Toxfree,20.6,6.95,6.2
+15/25 kV,50,Conduspar,MTS Toxfree,20.4,8.15,5.5
+15/25 kV,70,Conduspar,MTS Toxfree,21.8,9.55,5.5
+15/25 kV,95,Conduspar,MTS Toxfree,23.5,11.33,5.5
+15/25 kV,120,Conduspar,MTS Toxfree,25.1,12.85,5.5
+15/25 kV,150,Conduspar,MTS Toxfree,26.2,14.00,5.5
+15/25 kV,185,Conduspar,MTS Toxfree,28.0,15.78,5.5
+15/25 kV,240,Conduspar,MTS Toxfree,29.4,18.15,5.0
+15/25 kV,300,Conduspar,MTS Toxfree,31.4,20.15,5.0
+15/25 kV,400,Conduspar,MTS Toxfree,34.2,22.99,5.0
+15/25 kV,500,Conduspar,MTS Toxfree,37.7,26.45,5.0
+20/35 kV,50,Conduspar,MTS Toxfree,25.8,8.15,8.2
+20/35 kV,70,Conduspar,MTS Toxfree,25.8,9.55,7.5
+20/35 kV,95,Conduspar,MTS Toxfree,27.5,11.33,7.5
+20/35 kV,120,Conduspar,MTS Toxfree,29.1,12.85,7.5
+20/35 kV,150,Conduspar,MTS Toxfree,30.2,14.00,7.5
+20/35 kV,185,Conduspar,MTS Toxfree,30.0,15.78,6.5
+20/35 kV,240,Conduspar,MTS Toxfree,32.4,18.15,6.5
+20/35 kV,300,Conduspar,MTS Toxfree,34.4,20.15,6.5
+20/35 kV,400,Conduspar,MTS Toxfree,37.2,22.99,6.5
+20/35 kV,500,Conduspar,MTS Toxfree,40.7,26.45,6.5
+20/35 kV,50,Conduspar,MTX GRID,27.5,8.15,8.8
+20/35 kV,70,Conduspar,MTX GRID,29.0,9.65,8.8
+20/35 kV,95,Conduspar,MTX GRID,30.9,11.45,8.8
+20/35 kV,120,Conduspar,MTX GRID,32.4,12.95,8.8
+20/35 kV,150,Conduspar,MTX GRID,33.9,14.40,8.8
+20/35 kV,185,Conduspar,MTX GRID,35.6,16.15,8.8
+20/35 kV,240,Conduspar,MTX GRID,37.8,18.29,8.8
+20/35 kV,300,Conduspar,MTX GRID,40.2,20.65,8.8
+20/35 kV,400,Conduspar,MTX GRID,43.3,23.65,8.8
+20/35 kV,500,Conduspar,MTX GRID,46.0,26.32,8.8
+20/35 kV,630,Conduspar,MTX GRID,49.7,29.90,8.8
+20/35 kV,50,Conduspar,MTS105 GRID,26.3,8.15,8.2
+20/35 kV,70,Conduspar,MTS105 GRID,26.4,9.65,7.5
+20/35 kV,95,Conduspar,MTS105 GRID,28.2,11.45,7.5
+20/35 kV,120,Conduspar,MTS105 GRID,29.7,12.95,7.5
+20/35 kV,150,Conduspar,MTS105 GRID,31.2,14.40,7.5
+20/35 kV,185,Conduspar,MTS105 GRID,31.0,16.15,6.5
+20/35 kV,240,Conduspar,MTS105 GRID,33.1,18.29,6.5
+20/35 kV,300,Conduspar,MTS105 GRID,35.5,20.65,6.5
+20/35 kV,400,Conduspar,MTS105 GRID,38.6,23.65,6.5
+20/35 kV,500,Conduspar,MTS105 GRID,41.3,26.32,6.5
+20/35 kV,630,Conduspar,MTS105 GRID,45.0,29.90,6.5
+8.7/15 kV,35,Alubar,Altec,16.95,6.75,4.5
+8.7/15 kV,50,Alubar,Altec,18.22,8.02,4.5
+8.7/15 kV,70,Alubar,Altec,19.80,9.60,4.5
+8.7/15 kV,95,Alubar,Altec,21.70,11.50,4.5
+8.7/15 kV,120,Alubar,Altec,23.00,12.80,4.5
+8.7/15 kV,150,Alubar,Altec,24.45,14.25,4.5
+8.7/15 kV,185,Alubar,Altec,26.25,16.05,4.5
+8.7/15 kV,240,Alubar,Altec,28.50,18.30,4.5
+8.7/15 kV,300,Alubar,Altec,31.00,20.80,4.5
+8.7/15 kV,400,Alubar,Altec,33.80,23.60,4.5
+8.7/15 kV,500,Alubar,Altec,36.60,26.40,4.5
+12/20 kV,35,Alubar,Altec,18.95,6.75,5.5
+12/20 kV,50,Alubar,Altec,20.22,8.02,5.5
+12/20 kV,70,Alubar,Altec,21.80,9.60,5.5
+12/20 kV,95,Alubar,Altec,23.70,11.50,5.5
+12/20 kV,120,Alubar,Altec,25.00,12.80,5.5
+12/20 kV,150,Alubar,Altec,26.45,14.25,5.5
+12/20 kV,185,Alubar,Altec,28.25,16.05,5.5
+12/20 kV,240,Alubar,Altec,30.50,18.30,5.5
+12/20 kV,300,Alubar,Altec,33.00,20.80,5.5
+12/20 kV,400,Alubar,Altec,35.80,23.60,5.5
+12/20 kV,500,Alubar,Altec,38.60,26.40,5.5
+15/25 kV,50,Alubar,Altec,22.82,8.02,6.8
+15/25 kV,70,Alubar,Altec,24.40,9.60,6.8
+15/25 kV,95,Alubar,Altec,26.30,11.50,6.8
+15/25 kV,120,Alubar,Altec,27.60,12.80,6.8
+15/25 kV,150,Alubar,Altec,29.05,14.25,6.8
+15/25 kV,185,Alubar,Altec,30.85,16.05,6.8
+15/25 kV,240,Alubar,Altec,33.10,18.30,6.8
+15/25 kV,300,Alubar,Altec,35.60,20.80,6.8
+15/25 kV,400,Alubar,Altec,38.40,23.60,6.8
+15/25 kV,500,Alubar,Altec,41.20,26.40,6.8
+20/35 kV,50,Alubar,Altec,26.82,8.02,8.8
+20/35 kV,70,Alubar,Altec,28.40,9.60,8.8
+20/35 kV,95,Alubar,Altec,30.30,11.50,8.8
+20/35 kV,120,Alubar,Altec,31.60,12.80,8.8
+20/35 kV,150,Alubar,Altec,33.05,14.25,8.8
+20/35 kV,185,Alubar,Altec,34.85,16.05,8.8
+20/35 kV,240,Alubar,Altec,37.10,18.30,8.8
+20/35 kV,300,Alubar,Altec,39.60,20.80,8.8
+20/35 kV,400,Alubar,Altec,42.40,23.60,8.8
+20/35 kV,500,Alubar,Altec,45.20,26.40,8.8
+8.7/15 kV,25,Alubar,Coppertec,16.2,5.95,4.5
+8.7/15 kV,35,Alubar,Coppertec,17.0,6.75,4.5
+8.7/15 kV,50,Alubar,Coppertec,18.2,8.02,4.5
+8.7/15 kV,70,Alubar,Coppertec,19.8,9.60,4.5
+8.7/15 kV,95,Alubar,Coppertec,21.7,11.50,4.5
+8.7/15 kV,120,Alubar,Coppertec,23.0,12.80,4.5
+8.7/15 kV,150,Alubar,Coppertec,24.5,14.25,4.5
+8.7/15 kV,185,Alubar,Coppertec,26.3,16.05,4.5
+8.7/15 kV,240,Alubar,Coppertec,28.5,18.30,4.5
+8.7/15 kV,300,Alubar,Coppertec,31.0,20.80,4.5
+8.7/15 kV,400,Alubar,Coppertec,33.8,23.60,4.5
+8.7/15 kV,500,Alubar,Coppertec,36.6,26.40,4.5
+12/20 kV,35,Alubar,Coppertec,19.0,6.75,5.5
+12/20 kV,50,Alubar,Coppertec,20.2,8.02,5.5
+12/20 kV,70,Alubar,Coppertec,21.8,9.60,5.5
+12/20 kV,95,Alubar,Coppertec,23.7,11.50,5.5
+12/20 kV,120,Alubar,Coppertec,25.0,12.80,5.5
+12/20 kV,150,Alubar,Coppertec,26.5,14.25,5.5
+12/20 kV,185,Alubar,Coppertec,28.3,16.05,5.5
+12/20 kV,240,Alubar,Coppertec,30.5,18.30,5.5
+12/20 kV,300,Alubar,Coppertec,33.0,20.80,5.5
+12/20 kV,400,Alubar,Coppertec,35.8,23.60,5.5
+12/20 kV,500,Alubar,Coppertec,38.6,26.40,5.5
+20/35 kV,50,Alubar,Coppertec,26.8,8.02,8.8
+20/35 kV,70,Alubar,Coppertec,28.4,9.60,8.8
+20/35 kV,95,Alubar,Coppertec,30.3,11.50,8.8
+20/35 kV,120,Alubar,Coppertec,31.6,12.80,8.8
+20/35 kV,150,Alubar,Coppertec,33.1,14.25,8.8
+20/35 kV,185,Alubar,Coppertec,34.9,16.05,8.8
+20/35 kV,240,Alubar,Coppertec,37.1,18.30,8.8
+20/35 kV,300,Alubar,Coppertec,39.6,20.80,8.8
+20/35 kV,400,Alubar,Coppertec,42.4,23.60,8.8
+20/35 kV,500,Alubar,Coppertec,45.2,26.40,8.8
