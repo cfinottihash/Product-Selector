@@ -1,4 +1,3 @@
-
 Standard,Family,Product_Group,Voltage_kV,Current_A,Base_Code,Test_Point,Cable_Range_Code,Cable_OD_Min_mm,Cable_OD_Max_mm,Conductor_Code,Concentric_AWG,Concentric_mm2,Compact_AWG,Compact_mm2,Connector_Type,Fuse_Manufacturer,Final_Product_Code
 IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,A,14.61,18.8,01,#6,,#4,,Copper,,15-LE200A01C
 IEEE/ANSI,Cable Accessories,Loadbreak Elbow,15,200,15-LE200,None,A,14.61,18.8,01,#6,,#4,,Bi-metal,,15-LE200A01B

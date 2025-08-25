@@ -1,4 +1,4 @@
-Voltage,S_mm2,Brand,Cable,OD_iso_mm,Conductor_D_nominal_mm,Insulation_thickness_mm
+Cable Voltage,S_mm2,Brand,Cable,OD_iso_mm,D_cond_mm,Insulation_thickness_mm
 8.7/15 kV,25,Induscabos,Epronax 105,16.2,6.00,4.5
 8.7/15 kV,35,Induscabos,Epronax 105,17.3,7.10,4.5
 8.7/15 kV,50,Induscabos,Epronax 105,18.5,8.30,4.5
