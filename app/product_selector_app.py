@@ -1,168 +1,161 @@
 # Streamlit Product Configurator for Chardon - UNIFIED & FIXED VERSION
-# This app acts as a router for different product line selectors.
-# It uses a "database" of CSV files from the /data directory.
-
 import streamlit as st
 import pandas as pd
 from pathlib import Path
 from typing import Dict, Optional
 import re
 import unicodedata
-st.set_page_config(page_title="Chardon Product Configurator", page_icon="🛠️", layout="wide")
+st.set_page_config(page_title="Chardon Product Configurator", page_icon=None, layout="wide")
+import base64
 
-# Define paths for data and images
+def _read_file_as_b64(path: Path) -> str:
+    if not path.exists():
+        return ""
+    return base64.b64encode(path.read_bytes()).decode()
+
+def inject_global_css(bg_image: Path | None = None):
+    st.markdown(
+        """
+        <style>
+        .appview-container .main .block-container{ padding-top:2rem; padding-bottom:2rem; }
+        .glass{ background:rgba(255,255,255,.66); border:1px solid rgba(0,0,0,.06);
+                border-radius:16px; padding:18px 18px 12px; box-shadow:0 6px 18px rgba(0,0,0,.06);
+                margin-bottom:12px; }
+        .section-title{ font-weight:700; font-size:1.15rem; letter-spacing:.01em; margin:0 0 8px 0; }
+        .section-sub{ margin-top:-6px; margin-bottom:8px; font-size:.9rem; opacity:.8; }
+        .stButton>button{ border-radius:999px !important; padding:.55rem 1.05rem !important; }
+        .chip{ display:inline-block; padding:.32rem .6rem; border-radius:999px; font-weight:700;
+               letter-spacing:.02em; color:#fff; background:#10B981; margin-right:.5rem; }
+        .code-pill{ display:inline-block; padding:.28rem .55rem; border-radius:10px;
+                    background:rgba(0,0,0,.04); border:1px solid rgba(0,0,0,.08);
+                    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+
+def glass_header(title: str, subtitle: str = "", logo_b64: str | None = None):
+    logo_html = f'<img src="data:image/png;base64,{logo_b64}" style="height:40px;margin-right:12px;border-radius:6px;" />' if logo_b64 else ""
+    st.markdown(
+        f"""
+        <div class="glass" style="display:flex;align-items:center;gap:12px;">
+            {logo_html}
+            <div>
+                <div class="section-title">{title}</div>
+                {f'<div class="section-sub">{subtitle}</div>' if subtitle else ''}
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+def section(title: str, subtitle: str = ""):
+    st.markdown(
+        f"""
+        <div class="glass">
+            <div class="section-title">{title}</div>
+            {f'<div class="section-sub">{subtitle}</div>' if subtitle else ''}
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+def chip_result(label: str, value: str):
+    st.markdown(
+        f"""
+        <div class="glass">
+            <span class="chip">{label}</span>
+            <span class="code-pill">{value}</span>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
 DATA_DIR = Path(__file__).parent.parent / "data"
 IMAGES_DIR = Path(__file__).parent.parent / "images"
 
+inject_global_css(IMAGES_DIR / "bg-grid-dark.png")
+logo64 = _read_file_as_b64(IMAGES_DIR / "logo-chardon.png")
+glass_header("Chardon Product Configurator", "Conectores Separáveis · Terminações", logo64)
 
-# --- Database Loading ---
-@st.cache_data
-# --- Helpers de normalização de schema ---
-
-
+# ----------------------------- normalização -----------------------------
 def _norm(s: str) -> str:
     s = unicodedata.normalize("NFKD", str(s)).encode("ascii","ignore").decode()
     return re.sub(r"[^a-z0-9]+", "", s.lower())
 
 def _rename_like(df: pd.DataFrame, canonical: str, aliases: list[str]) -> None:
-    """Se alguma coluna bater com algum alias (normalizado), renomeia para o nome canônico."""
     current = { _norm(c): c for c in df.columns }
     canon_norm = _norm(canonical)
     for a in aliases:
         if _norm(a) in current:
             df.rename(columns={ current[_norm(a)]: canonical }, inplace=True)
             return
-    # se já tiver a canônica, nada a fazer
     if canon_norm in current and current[canon_norm] != canonical:
         df.rename(columns={ current[canon_norm]: canonical }, inplace=True)
 
 def _normalize_bitola_to_od(df: pd.DataFrame) -> pd.DataFrame:
-    """
-    Garante colunas canônicas esperadas pelo seletor de terminações:
-    ['Cable Voltage','S_mm2','Brand','Cable','OD_iso_mm','D_cond_mm','T_iso_mm']
-    Aceita vários sinônimos/PT-PT/PT-BR.
-    """
     df = df.copy()
-    # Mapear sinônimos -> nomes canônicos
     _rename_like(df, "Cable Voltage", [
-        "Cable Voltage", "Voltage Class", "Classe de Tensão do Cabo", "Classe de Tensão",
-        "Tensão do Cabo", "Tensao do Cabo", "Classe de tensao", "Classe tensão"
+        "Cable Voltage","Voltage Class","Classe de Tensão do Cabo","Classe de Tensão",
+        "Tensão do Cabo","Tensao do Cabo","Classe de tensao","Classe tensão"
     ])
-    _rename_like(df, "S_mm2", [
-        "S_mm2", "S (mm2)", "Seção (mm²)", "Secao (mm2)", "Seção nominal (mm²)",
-        "Secao nominal (mm2)", "secao_mm2", "Bitola (mm2)"
-    ])
-    _rename_like(df, "Brand", ["Brand", "Marca", "Fabricante"])
-    _rename_like(df, "Cable", ["Cable", "Modelo", "Tipo de Cabo", "Cabo"])
-    _rename_like(df, "OD_iso_mm", [
-        "OD_iso_mm", "OD sobre isolação (mm)", "OD sobre isolacao (mm)",
-        "O.D. sobre isolação (mm)", "Ø sobre isolação (mm)", "OD_isol_mm", "OD isol mm"
-    ])
-    _rename_like(df, "D_cond_mm", ["D_cond_mm", "Øcond (mm)", "Diametro condutor (mm)", "Diâmetro do condutor (mm)"])
-    _rename_like(df, "T_iso_mm", ["T_iso_mm", "Espessura Isol (mm)", "Espessura de isolação (mm)", "Espessura de isolacao (mm)"])
-
-    # Tipagem numérica onde necessário
-    for c in ["S_mm2", "OD_iso_mm", "D_cond_mm", "T_iso_mm"]:
-        if c in df.columns:
-            df[c] = pd.to_numeric(df[c], errors="coerce")
-
-    # Tira espaços
+    _rename_like(df, "S_mm2", ["S_mm2","S (mm2)","Seção (mm²)","Secao (mm2)","Seção nominal (mm²)","Secao nominal (mm2)","secao_mm2","Bitola (mm2)"])
+    _rename_like(df, "Brand", ["Brand","Marca","Fabricante"])
+    _rename_like(df, "Cable", ["Cable","Modelo","Tipo de Cabo","Cabo"])
+    _rename_like(df, "OD_iso_mm", ["OD_iso_mm","OD sobre isolação (mm)","OD sobre isolacao (mm)","O.D. sobre isolação (mm)","Ø sobre isolação (mm)","OD_isol_mm","OD isol mm"])
+    _rename_like(df, "D_cond_mm", ["D_cond_mm","Øcond (mm)","Diametro condutor (mm)","Diâmetro do condutor (mm)"])
+    _rename_like(df, "T_iso_mm", ["T_iso_mm","Espessura Isol (mm)","Espessura de isolação (mm)","Espessura de isolacao (mm)"])
+    for c in ["S_mm2","OD_iso_mm","D_cond_mm","T_iso_mm"]:
+        if c in df.columns: df[c] = pd.to_numeric(df[c], errors="coerce")
     df.columns = df.columns.str.strip()
     return df
 
 def _normalize_connector_table(df: pd.DataFrame) -> pd.DataFrame:
-    """Normaliza nomes e tipos da tabela de lugs/conectores para colunas canônicas."""
     df = df.copy()
-
-    # Canônicos finais que vamos usar:
-    # Type | Material | Conductor Min (mm2) | Conductor Max (mm2)
-
-    _rename_like(df, "Type", [
-        "Type", "Tipo", "Categoria", "Connector Type", "Tipo de Terminal"
-    ])
-
-    _rename_like(df, "Material", [
-        "Material", "Material do Terminal", "Material Terminal"
-    ])
-
-    # MIN - inclua todas as variantes que você tem no CSV
-    _rename_like(df, "Conductor Min (mm2)", [
-        "Conductor Min (mm2)", "Min (mm2)", "Min Conductor (mm2)",
-        "Min Conductor (mm²)", "Min(mm2)", "Seção Min (mm²)", "Secao Min (mm2)",
-        "Conductor_Min_mm2", "Conductor_Min_(mm2)"
-    ])
-
-    # MAX
-    _rename_like(df, "Conductor Max (mm2)", [
-        "Conductor Max (mm2)", "Max (mm2)", "Max Conductor (mm2)",
-        "Max Conductor (mm²)", "Max(mm2)", "Seção Max (mm²)", "Secao Max (mm2)",
-        "Conductor_Max_mm2", "Conductor_Max_(mm2)"
-    ])
-
-    # Tipagem: garanta string para filtros por .str e numérico para faixas
-    if "Type" in df.columns:
-        df["Type"] = df["Type"].astype(str)
-    if "Material" in df.columns:
-        df["Material"] = df["Material"].astype(str)
-
-    for c in ["Conductor Min (mm2)", "Conductor Max (mm2)"]:
-        if c in df.columns:
-            df[c] = pd.to_numeric(df[c], errors="coerce")
-
+    _rename_like(df, "Type", ["Type","Tipo","Categoria","Connector Type","Tipo de Terminal"])
+    _rename_like(df, "Material", ["Material","Material do Terminal","Material Terminal"])
+    _rename_like(df, "Conductor Min (mm2)", ["Conductor Min (mm2)","Min (mm2)","Min Conductor (mm2)","Min Conductor (mm²)","Min(mm2)","Seção Min (mm²)","Secao Min (mm2)","Conductor_Min_mm2","Conductor_Min_(mm2)"])
+    _rename_like(df, "Conductor Max (mm2)", ["Conductor Max (mm2)","Max (mm2)","Max Conductor (mm2)","Max Conductor (mm²)","Max(mm2)","Seção Max (mm²)","Secao Max (mm2)","Conductor_Max_mm2","Conductor_Max_(mm2)"])
+    if "Type" in df.columns: df["Type"] = df["Type"].astype(str)
+    if "Material" in df.columns: df["Material"] = df["Material"].astype(str)
+    for c in ["Conductor Min (mm2)","Conductor Max (mm2)"]:
+        if c in df.columns: df[c] = pd.to_numeric(df[c], errors="coerce")
     df.columns = df.columns.str.strip()
     return df
 
-
 @st.cache_data
 def load_database() -> Dict[str, pd.DataFrame]:
-    """
-    Carrega todos os CSVs de /data em um dict, normaliza headers e schemas
-    para evitar KeyError por nomes diferentes de colunas.
-    """
     if not DATA_DIR.exists():
         st.error(f"Diretório de dados não encontrado em: {DATA_DIR}")
         st.stop()
-
     db: Dict[str, pd.DataFrame] = {}
     for csv_file in DATA_DIR.glob("*.csv"):
         key = csv_file.stem
         try:
-            df = pd.read_csv(csv_file)
-            df.columns = df.columns.str.strip()
+            df = pd.read_csv(csv_file); df.columns = df.columns.str.strip()
             db[key] = df
         except Exception as e:
-            st.error(f"Erro ao carregar ou processar o arquivo {csv_file.name}: {e}")
-
-    # Essenciais
-    required_files = [
-        "produtos_base", "bitola_to_od",
-        "csto_selection_table", "csti_selection_table", "connector_selection_table"
-    ]
-    for f in required_files:
+            st.error(f"Erro ao carregar {csv_file.name}: {e}")
+    required = ["produtos_base","bitola_to_od","csto_selection_table","csti_selection_table","connector_selection_table"]
+    for f in required:
         if f not in db:
-            st.error(f"Arquivo de dados essencial não encontrado: {f}.csv na pasta 'data'.")
-            st.stop()
-
-    # Normalizações específicas
+            st.error(f"Arquivo essencial ausente: {f}.csv"); st.stop()
     db["bitola_to_od"] = _normalize_bitola_to_od(db["bitola_to_od"])
     db["connector_selection_table"] = _normalize_connector_table(db["connector_selection_table"])
-
-    # Sanidade mínima para evitar KeyError no seletor de terminações
-    missing_cols = [c for c in ["Cable Voltage", "S_mm2", "OD_iso_mm"] if c not in db["bitola_to_od"].columns]
-    if missing_cols:
-        st.error(f"O arquivo 'bitola_to_od.csv' está sem as colunas necessárias (faltam: {missing_cols}). "
-                 f"Após normalização, ainda não foi possível inferir esses nomes.")
-        st.stop()
-
+    missing = [c for c in ["Cable Voltage","S_mm2","OD_iso_mm"] if c not in db["bitola_to_od"].columns]
+    if missing:
+        st.error(f"'bitola_to_od.csv' faltando colunas: {missing}"); st.stop()
     return db
 
-
-# --- ################################################################## ---
-# --- ### LOGIC AND UI FOR SEPARABLE CONNECTORS                      ### ---
-# --- ################################################################## ---
-
-def find_cable_range_code(diameter: float, voltage: int, current: int, db: Dict[str, pd.DataFrame]) -> str:
-    table_name = f"opcoes_range_cabo_{voltage}kv_600a" if current >= 600 else f"opcoes_range_cabo_{voltage}kv"
+# ----------------------------- lógica comum -----------------------------
+def find_cable_range_code(diameter: float, voltage: int, current: int, db: Dict[str, pd.DataFrame], table_basename: str | None = None) -> str:
+    table_name = table_basename if table_basename else (f"opcoes_range_cabo_{voltage}kv_600a" if current >= 600 else f"opcoes_range_cabo_{voltage}kv")
+    # alias: 15 kV / 600A usa mesma de 25 kV / 600A
+    aliases = {
+        "opcoes_range_cabo_15kv_600a": "opcoes_range_cabo_25kv_600a",
+    }
+    if table_name not in db and table_name in aliases:
+        table_name = aliases[table_name]
     if table_name not in db:
         st.warning(f"Tabela de range ('{table_name}.csv') não encontrada.")
         return "ERR"
@@ -173,35 +166,56 @@ def find_cable_range_code(diameter: float, voltage: int, current: int, db: Dict[
     return "N/A"
 
 def find_conductor_code_200a(cond_type: str, cond_size: int, db: Dict[str, pd.DataFrame]) -> str:
-    table_name = "opcoes_condutores_v1"
-    if table_name not in db: return "ER"
-    df_cond = db[table_name]
+    if "opcoes_condutores_v1" not in db: return "ER"
+    df_cond = db["opcoes_condutores_v1"]
     match = df_cond[(df_cond["tipo_condutor"] == cond_type) & (df_cond["secao_mm2"] == cond_size)]
     return str(int(match.iloc[0]["codigo_retorno"])).zfill(2) if not match.empty else "NA"
 
 def find_compression_lug_600a(cond_type: str, cond_size: int, db: Dict[str, pd.DataFrame]) -> str:
-    table_name = "opcoes_condutores_600a_v1"
-    if table_name not in db: return "ER"
-    df_cond = db[table_name]
+    if "opcoes_condutores_600a_v1" not in db: return "ER"
+    df_cond = db["opcoes_condutores_600a_v1"]
     match = df_cond[(df_cond["tipo_condutor"] == cond_type) & (df_cond["secao_mm2"] == cond_size)]
     return str(int(match.iloc[0]["codigo_retorno"])).zfill(4) if not match.empty else "NA"
 
-def find_shear_bolt_lug(cond_size: float, db: Dict[str, pd.DataFrame]) -> str:
-    table_name = "opcoes_shear_bolt_v1"
-    if table_name not in db: return "ER"
-    df_shear = db[table_name]
+def find_shear_bolt_lug(
+    cond_size: float,
+    db: Dict[str, pd.DataFrame],
+    table_name: str | None = None
+) -> str:
+    """
+    Busca o código do shear-bolt pela seção (mm²).
+    table_name permite escolher a tabela (ex.: 'opcoes_shear_bolt_tb15_25' ou 'opcoes_shear_bolt_tb35').
+    Se não for informado, cai no padrão 'opcoes_shear_bolt_v1'.
+    """
+    tn = table_name or "opcoes_shear_bolt_v1"
+    if tn not in db:
+        st.warning(f"Tabela de shear-bolt ('{tn}.csv') não encontrada.")
+        return "ER"
+
+    df_shear = db[tn].copy()
+    for c in ["min_mm2", "max_mm2"]:
+        if c in df_shear.columns:
+            df_shear[c] = pd.to_numeric(df_shear[c], errors="coerce")
+
     for _, row in df_shear.iterrows():
         if row["min_mm2"] <= cond_size <= row["max_mm2"]:
             return str(row["codigo_retorno"])
+
     return "N/A"
 
 def _hifen_join(*parts) -> str:
-    parts = [str(p).strip("-") for p in parts if p and str(p).upper() not in {"NA", "N/A", "ER", "ERR"}]
+    parts = [str(p).strip("-") for p in parts if p and str(p).upper() not in {"NA","N/A","ER","ERR"}]
     return "-".join(parts)
 
+def _is_deadbreak(selected_product: pd.Series) -> bool:
+    txt = (str(selected_product.get("padrao","")) + " " +
+           str(selected_product.get("nome_exibicao","")) + " " +
+           str(selected_product.get("range_tabela_tipo",""))).lower()
+    return "deadbreak" in txt
+
+# ----------------------------- UI: Conectores separáveis -----------------------------
 def render_separable_connector_configurator(db: Dict[str, pd.DataFrame]):
-    """UI completa do configurador de Conectores Separáveis (200A e 600A)"""
-    st.header("1. Seleção Inicial do Conector")
+    section("1. Seleção Inicial do Conector")
     df_base = db["produtos_base"].copy()
 
     col1, col2, col3 = st.columns(3)
@@ -213,62 +227,61 @@ def render_separable_connector_configurator(db: Dict[str, pd.DataFrame]):
     with col2:
         voltages = sorted(df_filtered["classe_tensao"].dropna().unique())
         voltage = st.selectbox("Classe de Tensão (kV)", voltages)
-    df_filtered = df_filtered[df_filtered["classe_tensao"] == voltage]
 
     with col3:
         currents = sorted(df_filtered["classe_corrente"].dropna().unique())
         current = st.selectbox("Classe de Corrente (A)", currents)
-    df_filtered = df_filtered[df_filtered["classe_corrente"] == current]
 
-    st.header("2. Seleção do Produto")
+    # Deadbreak 600A em 15 kV deve enxergar os itens 25 kV (15/25-TB600)
+    if "deadbreak" in standard.lower() and int(current) >= 600 and int(voltage) == 15:
+        df_filtered = df_filtered[(df_filtered["classe_corrente"] == current) & (df_filtered["classe_tensao"].isin([15, 25]))]
+    else:
+        df_filtered = df_filtered[(df_filtered["classe_tensao"] == voltage) & (df_filtered["classe_corrente"] == current)]
+
+    section("2. Seleção do Produto")
     if df_filtered.empty:
         st.warning("Nenhum produto encontrado para a combinação inicial selecionada.")
         return
 
     product_options = df_filtered["nome_exibicao"].dropna().unique()
     product_name = st.selectbox("Família do Produto", product_options)
-
-    if not product_name:
-        return
+    if not product_name: return
 
     selected_product_series = df_filtered[df_filtered["nome_exibicao"] == product_name]
-    if selected_product_series.empty:
-        return
-
+    if selected_product_series.empty: return
     selected_product = selected_product_series.iloc[0]
 
-    st.header("3. Configuração do Produto")
+    section("3. Configuração do Produto")
     col_config, col_img = st.columns([2, 1])
 
     with col_img:
         image_filename = selected_product.get("imagem_arquivo")
         if image_filename and isinstance(image_filename, str):
             image_path = IMAGES_DIR / image_filename
-            if image_path.exists():
-                st.image(str(image_path), caption=product_name)
-            else:
-                st.warning(f"Imagem '{image_filename}' não encontrada.")
+            if image_path.exists(): st.image(str(image_path), caption=product_name)
+            else: st.warning(f"Imagem '{image_filename}' não encontrada.")
         else:
             st.info("Sem imagem cadastrada.")
 
     with col_config:
-        base_code = selected_product.get("codigo_base", "")
-        logic_id = selected_product.get("id_logica", "")
-        st.info(f"Configurando produto: **{product_name}**  \nBase: `{base_code}`  \nLógica: `{logic_id}`")
+        base_code_raw = str(selected_product.get("codigo_base", "")).strip()
+        logic_id  = selected_product.get("id_logica", "")
 
-        # Entradas comuns
         v_int = int(float(voltage)) if pd.notna(voltage) else 0
         i_int = int(float(current)) if pd.notna(current) else 0
-
-        # Campos de diâmetro sobre isolação (faixa de cabo)
         d_iso = st.number_input("Ø sobre isolação do cabo (mm)", min_value=0.0, step=0.1, value=25.0)
 
-        # Seleção de tipo de condutor e seção (para formar sufixos/códigos)
-        # Para 200A usamos opcoes_condutores_v1; para 600A, opcoes_condutores_600a_v1
+        # Se entrar por 15 kV em TB600, usar 15/25-TB600 no PN
+        if ("deadbreak" in standard.lower() and i_int >= 600 and "t-body" in product_name.lower() and v_int in (15, 25)):
+            base_code = "15/25-TB600"
+        else:
+            base_code = base_code_raw
+
         df_cond_200 = db.get("opcoes_condutores_v1")
         df_cond_600 = db.get("opcoes_condutores_600a_v1")
 
-        if logic_id == "LOGICA_COTOVELO_200A":
+        # ----------------- ELBOW 200A (Loadbreak e Deadbreak) -----------------
+        if logic_id in {"LOGICA_COTOVELO_200A","LOGICA_DEADBREAK_ELBOW_200A","LOGICA_ELBOW_200A"}:
             if df_cond_200 is None:
                 st.error("Tabela 'opcoes_condutores_v1.csv' não encontrada em /data.")
                 return
@@ -278,140 +291,120 @@ def render_separable_connector_configurator(db: Dict[str, pd.DataFrame]):
             tamanhos = sorted(df_cond_200[df_cond_200["tipo_condutor"] == tipo_cond]["secao_mm2"].dropna().astype(int).unique())
             secao = st.selectbox("Seção (mm²)", tamanhos)
 
-            if st.button("Gerar Código do Cotovelo 200A"):
-                range_code = find_cable_range_code(d_iso, v_int, i_int, db)   # usa tabelas opcoes_range_cabo_XXkv
-                cond_code  = find_conductor_code_200a(tipo_cond, int(secao), db)  # 2 dígitos
+            # Opções do elbow (reativas)
+            add_test_point = st.checkbox("Capacitive Test Point (W = T)", value=False)
+            connector_material = st.radio(
+                "Tipo de Conector",
+                ["Nenhum", "Cobre estanhado (Z = C)", "Bi-metal (Z = B)"],
+                horizontal=True
+            )
 
-                # Montagem do PN: Base + range + código condutor
-                # Ex.: 15-LE200 + - + A/B/C... + - + 01/02...
-                part_number = _hifen_join(base_code, range_code, cond_code)
+            # --- PN reativo ---
+            table_base = f"opcoes_range_cabo_{v_int}kv_deadbreak" if _is_deadbreak(selected_product) else None
+            range_code = find_cable_range_code(d_iso, v_int, i_int, db, table_basename=table_base)
+            cond_code  = find_conductor_code_200a(tipo_cond, int(secao), db)
 
-                # Saída
-                st.success(f"**Código final sugerido:** `{part_number}`")
-                with st.expander("Detalhes da composição"):
-                    st.write(f"- Base: `{base_code}`")
-                    st.write(f"- Range (por Ø {d_iso:.1f} mm @ {v_int} kV): `{range_code}`")
-                    st.write(f"- Condutor ({tipo_cond} {secao} mm²): `{cond_code}`")
+            w_code = "T" if add_test_point else ""
+            if connector_material.startswith("Cobre"): z_code = "C"
+            elif connector_material.startswith("Bi-metal"): z_code = "B"
+            else: z_code = ""
 
-                # Alertas de consistência
-                if range_code in {"N/A", "ERR"}:
-                    st.warning("Não foi possível determinar o **range de cabo** para o diâmetro informado.")
-                if cond_code in {"NA", "ER"}:
-                    st.warning("Não foi possível determinar o **código do condutor** com os parâmetros escolhidos.")
+            part_number = _hifen_join(base_code, w_code, range_code, cond_code, z_code)
+            chip_result("Código sugerido", part_number)
 
+            if range_code in {"N/A","ERR"}:
+                st.warning("Não foi possível determinar o **range de cabo** para o diâmetro informado.")
+            if cond_code in {"NA","ER"}:
+                st.warning("Não foi possível determinar o **código do condutor** com os parâmetros escolhidos.")
+
+        # ----------------- Corpo T 600A -----------------
         elif logic_id == "LOGICA_CORPO_T_600A":
             if df_cond_600 is None:
                 st.error("Tabela 'opcoes_condutores_600a_v1.csv' não encontrada em /data.")
                 return
-
             tipos = sorted(df_cond_600["tipo_condutor"].dropna().unique())
             tipo_cond = st.selectbox("Tipo de Condutor", tipos)
             tamanhos = sorted(df_cond_600[df_cond_600["tipo_condutor"] == tipo_cond]["secao_mm2"].dropna().astype(int).unique())
             secao = st.selectbox("Seção (mm²)", tamanhos)
 
-            if st.button("Gerar Código do Corpo em T 600A"):
-                range_code = find_cable_range_code(d_iso, v_int, i_int, db)   # usa tabelas _600a quando corrente>=600
-                lug_code   = find_compression_lug_600a(tipo_cond, int(secao), db)  # 4 dígitos
+            # Opções reativas
+            add_test_point = st.checkbox("Capacitive Test Point (W = T)", value=False)
+            connector_type = st.radio("Tipo de Conector", ["Compressão", "Shear-Bolt"], horizontal=True)
 
-                # Montagem do PN: Base + range + código do lug
-                part_number = _hifen_join(base_code, range_code, lug_code)
+            # --- PN reativo ---
+            range_code = find_cable_range_code(d_iso, v_int, i_int, db)
+            w_code = "T" if add_test_point else ""
 
-                st.success(f"**Código final sugerido:** `{part_number}`")
-                with st.expander("Detalhes da composição"):
-                    st.write(f"- Base: `{base_code}`")
-                    st.write(f"- Range (por Ø {d_iso:.1f} mm @ {v_int} kV / {i_int} A): `{range_code}`")
-                    st.write(f"- Lug ({tipo_cond} {secao} mm²): `{lug_code}`")
+            if connector_type == "Compressão":
+                lug_code = find_compression_lug_600a(tipo_cond, int(secao), db)
+                part_number = _hifen_join(base_code, w_code, range_code, lug_code)
+                chip_result("Código sugerido", part_number)
+            else:
+                sb_table = "opcoes_shear_bolt_tb15_25" if v_int in {15, 25} else "opcoes_shear_bolt_tb35"
+                sb_code = find_shear_bolt_lug(float(secao), db, table_name=sb_table)
+                sb_table = "opcoes_shear_bolt_tb15_25" if v_int in {15, 25} else "opcoes_shear_bolt_tb35"
+                sb_code = find_shear_bolt_lug(float(secao), db, table_name=sb_table)
+                part_number = _hifen_join(base_code, w_code, range_code, sb_code)
+                chip_result("Código sugerido", part_number)
+                if sb_code in {"N/A","ER"}:
+                    st.warning("Não foi possível determinar o **código do shear-bolt** para a seção escolhida.")
 
-                if range_code in {"N/A", "ERR"}:
-                    st.warning("Não foi possível determinar o **range de cabo** para o diâmetro informado.")
-                if lug_code in {"NA", "ER"}:
-                    st.warning("Não foi possível determinar o **código do lug** com os parâmetros escolhidos.")
+            if range_code in {"N/A","ERR"}:
+                st.warning("Não foi possível determinar o **range de cabo** para o diâmetro informado.")
 
         else:
-            st.warning(f"A lógica de configuração para '{logic_id}' ainda não foi implementada.\n"
-                       f"Cadastre o campo `id_logica` no 'produtos_base.csv' como "
-                       f"`LOGICA_COTOVELO_200A` ou `LOGICA_CORPO_T_600A` para ativar as UIs acima.")
+            st.warning(
+                f"Lógica '{logic_id}' ainda não implementada. "
+                "Use `LOGICA_ELBOW_200A` (ou `LOGICA_COTOVELO_200A`/`LOGICA_DEADBREAK_ELBOW_200A`) ou `LOGICA_CORPO_T_600A`."
+            )
 
-
-# --- ################################################################## ---
-# --- ### LOGIC AND UI FOR TERMINATIONS                            ### ---
-# --- ################################################################## ---
-
+# ----------------------------- UI: Terminações -----------------------------
 def termination_tol(tensao_term: str) -> float:
     return 2.0 if "15 kV" in tensao_term else 3.0
 
 def suggest_termination_connector(s_mm2: int, kind: str, db: Dict[str, pd.DataFrame], material: Optional[str] = None) -> pd.DataFrame:
-    """Sugere lugs para a seção informada."""
     df_conn = db["connector_selection_table"].copy()
     df_conn.columns = df_conn.columns.str.strip()
-
-    # Garante colunas esperadas (após a normalização feita no load_database)
-    need = ["Type", "Conductor Min (mm2)", "Conductor Max (mm2)"]
+    need = ["Type","Conductor Min (mm2)","Conductor Max (mm2)"]
     missing = [c for c in need if c not in df_conn.columns]
     if missing:
         st.error(f"connector_selection_table.csv sem colunas: {missing}. Colunas: {list(df_conn.columns)}")
         return pd.DataFrame()
-
-    # Tipos seguros
     df_conn["Type"] = df_conn["Type"].astype(str).str.lower()
-    if "Material" in df_conn.columns:
-        df_conn["Material"] = df_conn["Material"].astype(str).str.lower()
+    if "Material" in df_conn.columns: df_conn["Material"] = df_conn["Material"].astype(str).str.lower()
     df_conn["Conductor Min (mm2)"] = pd.to_numeric(df_conn["Conductor Min (mm2)"], errors="coerce")
     df_conn["Conductor Max (mm2)"] = pd.to_numeric(df_conn["Conductor Max (mm2)"], errors="coerce")
-
-    # Filtros
     filtered = df_conn[df_conn["Type"] == kind.lower()]
     if kind.lower() == "compression" and material:
         filtered = filtered[filtered["Material"] == str(material).lower()]
-
-    matches = filtered[
-        (filtered["Conductor Min (mm2)"] <= s_mm2) &
-        (filtered["Conductor Max (mm2)"] >= s_mm2)
-    ].copy()
-
+    matches = filtered[(filtered["Conductor Min (mm2)"] <= s_mm2) & (filtered["Conductor Max (mm2)"] >= s_mm2)].copy()
     if not matches.empty:
         matches["_span"] = matches["Conductor Max (mm2)"] - matches["Conductor Min (mm2)"]
-        matches = matches.sort_values(by=["_span", "Conductor Min (mm2)"]).drop(columns=["_span"], errors="ignore")
-
+        matches = matches.sort_values(by=["_span","Conductor Min (mm2)"]).drop(columns=["_span"], errors="ignore")
     return matches
 
 def render_termination_selector(db: Dict[str, pd.DataFrame]):
-    """UI do seletor de terminações com estado de 'busca feita' persistente."""
-    # Estado inicial
     st.session_state.setdefault("term_searched", False)
     st.session_state.setdefault("term_query_signature", "")
 
-    st.header("1. Seleção do Cabo e Aplicação")
-
-    df_cable = db["bitola_to_od"]
-    CABLE_VOLTAGE_COL = "Cable Voltage"
-
+    section("1. Seleção do Cabo e Aplicação")
+    df_cable = db["bitola_to_od"]; CABLE_VOLTAGE_COL = "Cable Voltage"
     if CABLE_VOLTAGE_COL not in df_cable.columns:
-        st.error(f"Coluna '{CABLE_VOLTAGE_COL}' não encontrada em bitola_to_od.csv.")
-        return
-
-    TENS_MAP = {"8.7/15 kV":"15 kV", "12/20 kV":"25 kV", "15/25 kV":"25 kV", "20/35 kV":"35 kV"}
+        st.error(f"Coluna '{CABLE_VOLTAGE_COL}' não encontrada em bitola_to_od.csv."); return
+    TENS_MAP = {"8.7/15 kV":"15 kV","12/20 kV":"25 kV","15/25 kV":"25 kV","20/35 kV":"35 kV"}
     def _order_kv(t: str) -> float:
         m = re.match(r"([\d.]+)", t); return float(m.group(1)) if m else 1e9
     CABLE_VOLTAGES = sorted(df_cable[CABLE_VOLTAGE_COL].unique(), key=_order_kv)
 
-    # Entradas (com keys para manter estado)
-    env_choice = st.radio("Aplicação da terminação:", ("Externa (Outdoor)", "Interna (Indoor)"),
-                          horizontal=True, key="env_term")
-    know_iso = st.radio("Você já sabe o Ø sobre isolação do cabo?",
-                        ("Não, preciso estimar pela bitola", "Sim, digitar valor real"),
-                        key="know_iso")
+    env_choice = st.radio("Aplicação da terminação:", ("Externa (Outdoor)","Interna (Indoor)"), horizontal=True, key="env_term")
+    know_iso   = st.radio("Você já sabe o Ø sobre isolação do cabo?", ("Não, preciso estimar pela bitola","Sim, digitar valor real"), key="know_iso")
     cabo_tensao = st.selectbox("Classe de tensão do cabo:", CABLE_VOLTAGES, key="volt_term")
-    tensao_term = TENS_MAP.get(cabo_tensao, "")
-    tolerance = termination_tol(tensao_term)
+    tensao_term = TENS_MAP.get(cabo_tensao, ""); tolerance = termination_tol(tensao_term)
 
-    # Derivados
     d_iso, s_mm2 = 0.0, 0.0
     if know_iso.startswith("Sim"):
         d_iso = st.number_input("Ø sobre isolação (mm)", min_value=0.0, step=0.1, key="dia_term")
-        s_mm2 = st.selectbox("Seção nominal (mm²) para escolher lug:",
-                             sorted(df_cable["S_mm2"].astype(float).unique()),
-                             key="s_mm2_term_real")
+        s_mm2 = st.selectbox("Seção nominal (mm²) para escolher lug:", sorted(df_cable["S_mm2"].astype(float).unique()), key="s_mm2_term_real")
         st.info(f"Ø sobre isolação informado: **{d_iso:.1f} mm**")
     else:
         filtro = df_cable[df_cable[CABLE_VOLTAGE_COL] == cabo_tensao]
@@ -422,88 +415,59 @@ def render_termination_selector(db: Dict[str, pd.DataFrame]):
             d_iso = float(linha.iloc[0]["OD_iso_mm"])
             st.info(f"Ø sobre isolação ESTIMADA: **{d_iso:.1f} mm ± {tolerance} mm**")
         else:
-            st.warning("Não foi possível estimar o diâmetro para a bitola selecionada.")
-            return
+            st.warning("Não foi possível estimar o diâmetro para a bitola selecionada."); return
 
-    # Assinatura dos parâmetros que DEFINEM a busca (não inclui material)
     signature = f"{env_choice}|{cabo_tensao}|{know_iso}|{s_mm2}|{d_iso:.3f}"
-
-    # Se o usuário mudou algum parâmetro base, resetamos o estado da busca
-    if signature != st.session_state.get("term_query_signature", ""):
+    if signature != st.session_state.get("term_query_signature",""):
         st.session_state["term_query_signature"] = signature
         st.session_state["term_searched"] = False
 
     col_a, col_b = st.columns([1,1])
     with col_a:
-        if st.button("Buscar Terminação", key="btn_buscar"):
-            st.session_state["term_searched"] = True
+        if st.button("Buscar Terminação", key="btn_buscar"): st.session_state["term_searched"] = True
     with col_b:
-        if st.button("Alterar parâmetros / Limpar resultados", key="btn_reset"):
-            st.session_state["term_searched"] = False
+        if st.button("Alterar parâmetros / Limpar resultados", key="btn_reset"): st.session_state["term_searched"] = False
 
-    # RESULTADOS — ficam visíveis enquanto term_searched=True,
-    # mesmo quando o usuário muda "Material" depois.
     if st.session_state["term_searched"]:
-        st.header("2. Resultados da Busca")
+        section("2. Resultados da Busca")
         df_term = db["csto_selection_table"] if env_choice.startswith("Externa") else db["csti_selection_table"]
         family = "CSTO" if env_choice.startswith("Externa") else "CSTI"
-
-        matches = df_term[
-            (df_term["Voltage Class"] == tensao_term) &
-            (df_term["OD Min (mm)"] <= d_iso + tolerance) &
-            (df_term["OD Max (mm)"] >= d_iso - tolerance)
-        ]
-
+        matches = df_term[(df_term["Voltage Class"] == tensao_term) &
+                          (df_term["OD Min (mm)"] <= d_iso + tolerance) &
+                          (df_term["OD Max (mm)"] >= d_iso - tolerance)]
         if matches.empty:
-            st.error(f"Nenhuma terminação {family} encontrada para ~{d_iso:.1f} mm.")
-            return
+            st.error(f"Nenhuma terminação {family} encontrada para ~{d_iso:.1f} mm."); return
+        chip_result("Terminações compatíveis", str(len(matches)))
+        st.table(matches[["Part Number","OD Min (mm)","OD Max (mm)"]])
 
-        st.success(f"{len(matches)} terminação(ões) {family} compatível(is):")
-        st.table(matches[["Part Number", "OD Min (mm)", "OD Max (mm)"]])
-
-        st.header("3. Sugestão de Terminais (Lugs)")
+        section("3. Sugestão de Terminais (Lugs)")
         df_conn_table = db["connector_selection_table"].copy()
-
-        # Opções de material só para compressão
         if "Type" in df_conn_table.columns:
             mask_comp = df_conn_table["Type"].astype(str).str.lower() == "compression"
-            LUG_MATERIALS = sorted(df_conn_table.loc[mask_comp, "Material"].dropna().astype(str).unique())
+            LUG_MATERIALS = sorted(df_conn_table.loc[mask_comp,"Material"].dropna().astype(str).unique())
         else:
             LUG_MATERIALS = sorted(df_conn_table.get("Material", pd.Series([], dtype=str)).dropna().astype(str).unique())
 
-        conn_ui = st.selectbox("Tipo de Terminal:", ["Compressão", "Torquimétrico"], key="lug_type_term")
+        conn_ui = st.selectbox("Tipo de Terminal:", ["Compressão","Torquimétrico"], key="lug_type_term")
         kind = "compression" if conn_ui == "Compressão" else "shear-bolt"
-        mat = st.selectbox("Material do terminal:", LUG_MATERIALS, key="lug_mat_term") if kind == "compression" else None
+        mat  = st.selectbox("Material do terminal:", LUG_MATERIALS, key="lug_mat_term") if kind=="compression" else None
 
-        # Chamada permanece estável — mudar 'mat' não derruba o bloco
         conn_df = suggest_termination_connector(int(float(s_mm2)), kind, db, mat)
-        if conn_df.empty:
-            st.error("Nenhum terminal/lug encontrado para a seção selecionada.")
+        if conn_df.empty: st.error("Nenhum terminal/lug encontrado para a seção selecionada.")
         else:
+            st.info("Sugestões de terminais (faixa mais próxima primeiro):")
             st.table(conn_df)
 
-
-# --- ################################################################## ---
-# --- ### MAIN APP ROUTER                                          ### ---
-# --- ################################################################## ---
-
-st.title("🛠️ Chardon Product Configurator Unificado")
-# Simple text logo if image is not found
-st.markdown("### Chardon")
-
+# ----------------------------- router -----------------------------
 try:
     db = load_database()
 except Exception as e:
     st.error(f"Falha crítica ao carregar os arquivos de dados. Verifique a pasta 'data'. Erro: {e}")
     st.stop()
 
-product_line = st.selectbox(
-    "**Selecione a Linha de Produto:**",
-    ["Conectores Separáveis", "Terminações"]
-)
-
+section("Selecione a Linha de Produto")
+product_line = st.selectbox("**Selecione a Linha de Produto:**", ["Conectores Separáveis","Terminações"])
 if product_line == "Conectores Separáveis":
-    render_separable_connector_configurator(db) 
+    render_separable_connector_configurator(db)
 else:
     render_termination_selector(db)
-
