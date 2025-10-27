@@ -1,5 +1,5 @@
 padrao,classe_tensao,classe_corrente,nome_exibicao,imagem_arquivo,codigo_base,id_logica
-IEEE/ANSI Loadbreak,15,200,Loadbreak Elbow 200A,15-LE200_img.jpg,15-LE200,LOGICA_COTOVELO_200A
+IEEE/ANSI Loadbreak,15,200,Loadbreak Elbow 200A,15-LE200_IMG.jpg,15-LE200,LOGICA_COTOVELO_200A
 IEEE/ANSI Loadbreak,25,200,Loadbreak Elbow 200A,25-LE200_IMG.jpg,25-LE200,LOGICA_COTOVELO_200A
 IEEE/ANSI Loadbreak,35,200,Loadbreak Elbow 200A,35-LE200_IMG.jpg,35-LE200,LOGICA_COTOVELO_200A
 
