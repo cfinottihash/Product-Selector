@@ -1,13 +1,13 @@
 tipo_condutor,secao_mm2,codigo_retorno
-Concentric ou Compressed,25,03
-Compacto ou Sólido,25,02
-Concentric ou Compressed,35,04
-Compacto ou Sólido,35,03
-Concentric ou Compressed,50,06
-Compacto ou Sólido,50,05
-Concentric ou Compressed,70,07
-Compacto ou Sólido,70,06
-Concentric ou Compressed,95,09
-Compacto ou Sólido,95,08
-Concentric ou Compressed,120,10
-Compacto ou Sólido,120,09
+Concentric or Compressed,25,03
+Compact or Solid,25,02
+Concentric or Compressed,35,04
+Compact or Solid,35,03
+Concentric or Compressed,50,06
+Compact or Solid,50,05
+Concentric or Compressed,70,07
+Compact or Solid,70,06
+Concentric or Compressed,95,09
+Compact or Solid,95,08
+Concentric or Compressed,120,10
+Compact or Solid,120,09
