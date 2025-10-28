@@ -355,8 +355,25 @@ def render_separable_connector_configurator(db: Dict[str, pd.DataFrame]):
 
             tipos = sorted(df_cond_200["tipo_condutor"].dropna().unique())
             tipo_cond = st.selectbox("Conductor Type", tipos)
-            tamanhos = sorted(df_cond_200[df_cond_200["tipo_condutor"] == tipo_cond]["secao_mm2"].dropna().astype(int).unique())
-            secao = st.selectbox("Cross-section (mm²)", tamanhos)
+            tamanhos_series = df_cond_200[df_cond_200["tipo_condutor"] == tipo_cond]["secao_mm2"]
+            tamanhos = sorted(tamanhos_series.dropna().astype(int).unique())
+
+            if tamanhos:
+                secao = st.selectbox("Cross-section (mm²)", tamanhos)
+            else:
+                st.warning(
+                    "No conductor cross-sections found for the selected type. "
+                    "Please enter the value manually."
+                )
+                secao = int(
+                    st.number_input(
+                        "Cross-section (mm²)",
+                        min_value=1,
+                        step=1,
+                        value=95,
+                        key="manual_cross_section_200a",
+                    )
+                )
 
             # Reactive elbow options
             add_test_point = st.checkbox("Capacitive Test Point (W = T)", value=False)
@@ -391,8 +408,25 @@ def render_separable_connector_configurator(db: Dict[str, pd.DataFrame]):
                 return
             tipos = sorted(df_cond_600["tipo_condutor"].dropna().unique())
             tipo_cond = st.selectbox("Conductor Type", tipos)
-            tamanhos = sorted(df_cond_600[df_cond_600["tipo_condutor"] == tipo_cond]["secao_mm2"].dropna().astype(int).unique())
-            secao = st.selectbox("Cross-section (mm²)", tamanhos)
+            tamanhos_series = df_cond_600[df_cond_600["tipo_condutor"] == tipo_cond]["secao_mm2"]
+            tamanhos = sorted(tamanhos_series.dropna().astype(int).unique())
+
+            if tamanhos:
+                secao = st.selectbox("Cross-section (mm²)", tamanhos)
+            else:
+                st.warning(
+                    "No conductor cross-sections found for the selected type. "
+                    "Please enter the value manually."
+                )
+                secao = int(
+                    st.number_input(
+                        "Cross-section (mm²)",
+                        min_value=1,
+                        step=1,
+                        value=185,
+                        key="manual_cross_section_600a",
+                    )
+                )
 
             # Reactive options
             add_test_point = st.checkbox("Capacitive Test Point (W = T)", value=False)
