@@ -151,11 +151,28 @@ def load_database() -> Dict[str, pd.DataFrame]:
 def find_cable_range_code(diameter: float, voltage: int, current: int, db: Dict[str, pd.DataFrame], table_basename: str | None = None) -> str:
     table_name = table_basename if table_basename else (f"opcoes_range_cabo_{voltage}kv_600a" if current >= 600 else f"opcoes_range_cabo_{voltage}kv")
     # alias: 15 kV / 600A uses the same as 25 kV / 600A
-    aliases = {
+    alias_redirects = {
         "opcoes_range_cabo_15kv_600a": "opcoes_range_cabo_25kv_600a",
     }
-    if table_name not in db and table_name in aliases:
-        table_name = aliases[table_name]
+    # alternative filenames that might appear in the data folder
+    alternative_candidates = {
+        "opcoes_range_cabo_iec_36kv_400a": [
+            "options_range_cable_iec_36kv_400a",
+            "option_range_cable_iec_36kv_400a",
+        ],
+    }
+
+    if table_name not in db and table_name in alias_redirects:
+        redirected = alias_redirects[table_name]
+        if redirected in db:
+            table_name = redirected
+
+    if table_name not in db:
+        for alt in alternative_candidates.get(table_name, []):
+            if alt in db:
+                table_name = alt
+                break
+
     if table_name not in db:
         st.warning(f"Range table ('{table_name}.csv') not found.")
         return "ERR"
@@ -202,6 +219,56 @@ def find_shear_bolt_lug(
             return str(row["codigo_retorno"])
 
     return "N/A"
+
+def find_tsbc_lug_iec_36kv_400a(cond_size: float, db: Dict[str, pd.DataFrame]) -> str:
+    """Return the TSBC lug code for the IEC 36 kV / 400 A product range."""
+    table_candidates = [
+        "opcoes_lugs_tsbc_iec_36kv_400a",
+        "options_lugs_tsbc_iec_36kv_400a",
+        "options_lugs_iec_36kv_400a",
+    ]
+    table_name = next((name for name in table_candidates if name in db), table_candidates[0])
+    if table_name not in db:
+        st.warning(f"TSBC table ('{table_name}.csv') not found.")
+        return "ER"
+
+    df = db[table_name].copy()
+    for col in ("min_mm2", "max_mm2"):
+        if col in df.columns:
+            df[col] = pd.to_numeric(df[col], errors="coerce")
+
+    for _, row in df.iterrows():
+        if row["min_mm2"] <= float(cond_size) <= row["max_mm2"]:
+            return str(row["codigo_retorno"])
+
+    return "N/A"
+
+def find_conductor_code_iec_400a(cond_type: Optional[str], cond_size: float, db: Dict[str, pd.DataFrame]) -> str:
+    """Optional helper to fetch the IEC-specific conductor code (if available)."""
+    table_candidates = [
+        "opcoes_condutores_iec_400a_v1",
+        "opcoes_condutores_iec_400a",
+        "options_condutores_iec_400a_v1",
+    ]
+    table_name = next((name for name in table_candidates if name in db), table_candidates[0])
+    if table_name not in db:
+        return "NA"
+
+    df = db[table_name].copy()
+    if "secao_mm2" in df.columns:
+        df["secao_mm2"] = pd.to_numeric(df["secao_mm2"], errors="coerce")
+
+    candidates = df[df["secao_mm2"] == float(cond_size)] if "secao_mm2" in df.columns else df
+    if cond_type and "tipo_condutor" in candidates.columns:
+        candidates = candidates[candidates["tipo_condutor"] == cond_type]
+
+    if candidates.empty:
+        return "NA"
+
+    code = candidates.iloc[0].get("codigo_retorno")
+    if pd.isna(code):
+        return "NA"
+    return str(code).strip()
 
 def _hifen_join(*parts) -> str:
     parts = [str(p).strip("-") for p in parts if p and str(p).upper() not in {"NA","N/A","ER","ERR"}]
@@ -288,8 +355,25 @@ def render_separable_connector_configurator(db: Dict[str, pd.DataFrame]):
 
             tipos = sorted(df_cond_200["tipo_condutor"].dropna().unique())
             tipo_cond = st.selectbox("Conductor Type", tipos)
-            tamanhos = sorted(df_cond_200[df_cond_200["tipo_condutor"] == tipo_cond]["secao_mm2"].dropna().astype(int).unique())
-            secao = st.selectbox("Cross-section (mm²)", tamanhos)
+            tamanhos_series = df_cond_200[df_cond_200["tipo_condutor"] == tipo_cond]["secao_mm2"]
+            tamanhos = sorted(tamanhos_series.dropna().astype(int).unique())
+
+            if tamanhos:
+                secao = st.selectbox("Cross-section (mm²)", tamanhos)
+            else:
+                st.warning(
+                    "No conductor cross-sections found for the selected type. "
+                    "Please enter the value manually."
+                )
+                secao = int(
+                    st.number_input(
+                        "Cross-section (mm²)",
+                        min_value=1,
+                        step=1,
+                        value=95,
+                        key="manual_cross_section_200a",
+                    )
+                )
 
             # Reactive elbow options
             add_test_point = st.checkbox("Capacitive Test Point (W = T)", value=False)
@@ -324,8 +408,25 @@ def render_separable_connector_configurator(db: Dict[str, pd.DataFrame]):
                 return
             tipos = sorted(df_cond_600["tipo_condutor"].dropna().unique())
             tipo_cond = st.selectbox("Conductor Type", tipos)
-            tamanhos = sorted(df_cond_600[df_cond_600["tipo_condutor"] == tipo_cond]["secao_mm2"].dropna().astype(int).unique())
-            secao = st.selectbox("Cross-section (mm²)", tamanhos)
+            tamanhos_series = df_cond_600[df_cond_600["tipo_condutor"] == tipo_cond]["secao_mm2"]
+            tamanhos = sorted(tamanhos_series.dropna().astype(int).unique())
+
+            if tamanhos:
+                secao = st.selectbox("Cross-section (mm²)", tamanhos)
+            else:
+                st.warning(
+                    "No conductor cross-sections found for the selected type. "
+                    "Please enter the value manually."
+                )
+                secao = int(
+                    st.number_input(
+                        "Cross-section (mm²)",
+                        min_value=1,
+                        step=1,
+                        value=185,
+                        key="manual_cross_section_600a",
+                    )
+                )
 
             # Reactive options
             add_test_point = st.checkbox("Capacitive Test Point (W = T)", value=False)
@@ -349,6 +450,112 @@ def render_separable_connector_configurator(db: Dict[str, pd.DataFrame]):
 
             if range_code in {"N/A","ERR"}:
                 st.warning("Could not determine the **cable range** for the specified diameter.")
+
+        elif logic_id == "LOGICA_TBODY_IEC_400A":
+            df_cond_iec = (
+                db.get("opcoes_condutores_iec_400a_v1")
+                or db.get("opcoes_condutores_iec_400a")
+                or db.get("options_condutores_iec_400a_v1")
+            )
+
+            secao: float
+            tipo_cond: Optional[str]
+
+            if df_cond_iec is not None and not df_cond_iec.empty:
+                df_cond_iec = df_cond_iec.copy()
+                if "secao_mm2" in df_cond_iec.columns:
+                    df_cond_iec["secao_mm2"] = pd.to_numeric(df_cond_iec["secao_mm2"], errors="coerce")
+                    df_cond_iec = df_cond_iec.dropna(subset=["secao_mm2"])
+
+                size_options = []
+                if "secao_mm2" in df_cond_iec.columns:
+                    size_options = sorted(df_cond_iec["secao_mm2"].dropna().astype(float).unique())
+
+                def _format_mm2(value: float) -> str:
+                    return f"{int(value)}" if float(value).is_integer() else f"{value:.1f}".rstrip("0").rstrip(".")
+
+                if size_options:
+                    secao = float(
+                        st.selectbox(
+                            "Conductor Size (mm²)",
+                            options=size_options,
+                            format_func=_format_mm2,
+                        )
+                    )
+                else:
+                    secao = float(
+                        st.number_input(
+                            "Conductor Size (mm²)",
+                            min_value=16.0,
+                            step=1.0,
+                            value=95.0,
+                        )
+                    )
+
+                tipo_cond = None
+                if "tipo_condutor" in df_cond_iec.columns:
+                    cond_options = (
+                        df_cond_iec[df_cond_iec["secao_mm2"] == float(secao)]["tipo_condutor"].dropna().astype(str).unique()
+                        if "secao_mm2" in df_cond_iec.columns
+                        else df_cond_iec["tipo_condutor"].dropna().astype(str).unique()
+                    )
+                    if len(cond_options) > 1:
+                        tipo_cond = st.selectbox("Conductor Type", sorted(cond_options))
+                    elif len(cond_options) == 1:
+                        tipo_cond = cond_options[0]
+                        st.caption(f"Conductor Type: {tipo_cond}")
+            else:
+                secao = float(
+                    st.number_input(
+                        "Conductor Size (mm²)",
+                        min_value=16.0,
+                        step=1.0,
+                        value=95.0,
+                    )
+                )
+                tipo_cond = None
+
+            material_cols = st.columns(2)
+            selected_materials: list[tuple[str, str]] = []
+            with material_cols[0]:
+                if st.checkbox("B – Bi-metal (Al & Cu)", value=True, key="iec_mat_b"):
+                    selected_materials.append(("B", "Bi-metal (Al & Cu)"))
+            with material_cols[1]:
+                if st.checkbox("C – Copper", value=False, key="iec_mat_c"):
+                    selected_materials.append(("C", "Copper"))
+
+            range_code = find_cable_range_code(
+                d_iso,
+                v_int,
+                i_int,
+                db,
+                table_basename="opcoes_range_cabo_iec_36kv_400a",
+            )
+            tsbc_code = find_tsbc_lug_iec_36kv_400a(float(secao), db)
+            conductor_code = find_conductor_code_iec_400a(tipo_cond, float(secao), db)
+
+            def _materialize_tsbc(base_code: str, material_code: str) -> str:
+                if not base_code or base_code.upper() in {"NA", "N/A", "ER", "ERR"}:
+                    return base_code
+                normalized = str(base_code).strip()
+                if normalized.upper().startswith("TSBC"):
+                    return normalized.replace("TSBC", f"TSBC-{material_code}", 1)
+                return f"{material_code}-{normalized}"
+
+            if not selected_materials:
+                st.info("Select at least one lug material (B or C) to build the part number.")
+            else:
+                for material_code, material_label in selected_materials:
+                    tsbc_final = _materialize_tsbc(tsbc_code, material_code)
+                    part_number = _hifen_join(base_code, range_code, conductor_code, tsbc_final)
+                    chip_result(f"Suggested Code ({material_label})", part_number)
+
+            if range_code in {"N/A", "ERR"}:
+                st.warning("Could not determine the **cable range** for the specified diameter.")
+            if tsbc_code in {"N/A", "ER", "ERR"}:
+                st.warning("Could not determine the **TSBC lug** for the selected cross-section.")
+            if conductor_code in {"NA", "ER"}:
+                st.info("No IEC conductor catalog code was matched. It will be omitted from the part number.")
 
         else:
             st.warning(
