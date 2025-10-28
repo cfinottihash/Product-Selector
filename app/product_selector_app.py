@@ -203,6 +203,46 @@ def find_shear_bolt_lug(
 
     return "N/A"
 
+def find_tsbc_lug_iec_36kv_400a(cond_size: float, db: Dict[str, pd.DataFrame]) -> str:
+    """Return the TSBC lug code for the IEC 36 kV / 400 A product range."""
+    table_name = "opcoes_lugs_tsbc_iec_36kv_400a"
+    if table_name not in db:
+        st.warning(f"TSBC table ('{table_name}.csv') not found.")
+        return "ER"
+
+    df = db[table_name].copy()
+    for col in ("min_mm2", "max_mm2"):
+        if col in df.columns:
+            df[col] = pd.to_numeric(df[col], errors="coerce")
+
+    for _, row in df.iterrows():
+        if row["min_mm2"] <= float(cond_size) <= row["max_mm2"]:
+            return str(row["codigo_retorno"])
+
+    return "N/A"
+
+def find_conductor_code_iec_400a(cond_type: Optional[str], cond_size: float, db: Dict[str, pd.DataFrame]) -> str:
+    """Optional helper to fetch the IEC-specific conductor code (if available)."""
+    table_name = "opcoes_condutores_iec_400a_v1"
+    if table_name not in db:
+        return "NA"
+
+    df = db[table_name].copy()
+    if "secao_mm2" in df.columns:
+        df["secao_mm2"] = pd.to_numeric(df["secao_mm2"], errors="coerce")
+
+    candidates = df[df["secao_mm2"] == float(cond_size)] if "secao_mm2" in df.columns else df
+    if cond_type and "tipo_condutor" in candidates.columns:
+        candidates = candidates[candidates["tipo_condutor"] == cond_type]
+
+    if candidates.empty:
+        return "NA"
+
+    code = candidates.iloc[0].get("codigo_retorno")
+    if pd.isna(code):
+        return "NA"
+    return str(code).strip()
+
 def _hifen_join(*parts) -> str:
     parts = [str(p).strip("-") for p in parts if p and str(p).upper() not in {"NA","N/A","ER","ERR"}]
     return "-".join(parts)
@@ -349,6 +389,70 @@ def render_separable_connector_configurator(db: Dict[str, pd.DataFrame]):
 
             if range_code in {"N/A","ERR"}:
                 st.warning("Could not determine the **cable range** for the specified diameter.")
+
+        elif logic_id == "LOGICA_TBODY_IEC_400A":
+            df_cond_iec = db.get("opcoes_condutores_iec_400a_v1")
+            if df_cond_iec is not None and not df_cond_iec.empty:
+                df_cond_iec = df_cond_iec.copy()
+                if "secao_mm2" in df_cond_iec.columns:
+                    df_cond_iec["secao_mm2"] = pd.to_numeric(df_cond_iec["secao_mm2"], errors="coerce")
+                df_cond_iec = df_cond_iec.dropna(subset=["secao_mm2"]) if "secao_mm2" in df_cond_iec.columns else df_cond_iec
+
+                available_sizes = sorted(df_cond_iec["secao_mm2"].unique()) if "secao_mm2" in df_cond_iec.columns else []
+                secao = st.selectbox("Conductor Size (mm²)", available_sizes) if available_sizes else st.number_input(
+                    "Conductor Size (mm²)", min_value=16.0, step=1.0, value=95.0
+                )
+
+                tipo_cond_opcoes = []
+                if "tipo_condutor" in df_cond_iec.columns:
+                    tipo_cond_opcoes = (
+                        df_cond_iec[df_cond_iec["secao_mm2"] == float(secao)]["tipo_condutor"].dropna().astype(str).unique()
+                        if "secao_mm2" in df_cond_iec.columns else df_cond_iec["tipo_condutor"].dropna().astype(str).unique()
+                    )
+                if len(tipo_cond_opcoes) > 1:
+                    tipo_cond = st.selectbox("Conductor Type", sorted(tipo_cond_opcoes))
+                elif len(tipo_cond_opcoes) == 1:
+                    tipo_cond = tipo_cond_opcoes[0]
+                    st.caption(f"Conductor Type: {tipo_cond}")
+                else:
+                    tipo_cond = None
+            else:
+                secao = st.number_input("Conductor Size (mm²)", min_value=16.0, step=1.0, value=95.0)
+                tipo_cond = None
+
+            connector_material = st.radio(
+                "Shear-bolt connector material",
+                ("B – Bi-metal (Al & Cu)", "C – Copper"),
+                horizontal=True,
+            )
+            material_code = connector_material.split("–")[0].strip()
+
+            range_code = find_cable_range_code(
+                d_iso,
+                v_int,
+                i_int,
+                db,
+                table_basename="opcoes_range_cabo_iec_36kv_400a",
+            )
+            tsbc_code = find_tsbc_lug_iec_36kv_400a(float(secao), db)
+            conductor_code = find_conductor_code_iec_400a(tipo_cond, float(secao), db)
+
+            tsbc_final = tsbc_code
+            if tsbc_code not in {"N/A", "ER", "ERR"}:
+                if tsbc_code.upper().startswith("TSBC"):
+                    tsbc_final = tsbc_code.replace("TSBC", f"TSBC-{material_code}", 1)
+                else:
+                    tsbc_final = f"{material_code}-{tsbc_code}"
+
+            part_number = _hifen_join(base_code, range_code, conductor_code, tsbc_final)
+            chip_result("Suggested Code", part_number)
+
+            if range_code in {"N/A", "ERR"}:
+                st.warning("Could not determine the **cable range** for the specified diameter.")
+            if tsbc_code in {"N/A", "ER", "ERR"}:
+                st.warning("Could not determine the **TSBC lug** for the selected cross-section.")
+            if conductor_code in {"NA", "ER"}:
+                st.info("No IEC conductor catalog code was matched. It will be omitted from the part number.")
 
         else:
             st.warning(
