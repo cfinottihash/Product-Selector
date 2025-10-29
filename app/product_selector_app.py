@@ -178,10 +178,65 @@ def find_cable_range_code(diameter: float, voltage: int, current: int, db: Dict[
     if table_name not in db:
         st.warning(f"Range table ('{table_name}.csv') not found.")
         return "ERR"
-    df_range = db[table_name]
+    df_range = db[table_name].copy()
+
+    _rename_like(
+        df_range,
+        "min_mm",
+        [
+            "min_mm",
+            "min (mm)",
+            "minimo_mm",
+            "min diameter",
+            "diametro minimo (mm)",
+            "diametro_min_mm",
+        ],
+    )
+    _rename_like(
+        df_range,
+        "max_mm",
+        [
+            "max_mm",
+            "max (mm)",
+            "maximo_mm",
+            "max diameter",
+            "diametro maximo (mm)",
+            "diametro_max_mm",
+        ],
+    )
+    _rename_like(
+        df_range,
+        "codigo_retorno",
+        [
+            "codigo_retorno",
+            "codigo",
+            "code",
+            "range_code",
+        ],
+    )
+
+    missing_cols = [c for c in ("min_mm", "max_mm", "codigo_retorno") if c not in df_range.columns]
+    if missing_cols:
+        st.warning(
+            "Range table is missing required columns: "
+            + ", ".join(missing_cols)
+            + ". Please update the CSV with diameter bounds in millimeters."
+        )
+        return "ERR"
+
+    for col in ("min_mm", "max_mm"):
+        df_range[col] = pd.to_numeric(df_range[col], errors="coerce")
+
+    df_range = df_range.dropna(subset=["min_mm", "max_mm", "codigo_retorno"])
+
     for _, row in df_range.iterrows():
-        if row["min_mm"] <= diameter <= row["max_mm"]:
-            return str(row["codigo_retorno"])
+        try:
+            min_val = float(row["min_mm"])
+            max_val = float(row["max_mm"])
+        except (TypeError, ValueError):
+            continue
+        if min_val <= diameter <= max_val:
+            return str(row["codigo_retorno"]).strip()
     return "N/A"
 
 def find_conductor_code_200a(cond_type: str, cond_size: int, db: Dict[str, pd.DataFrame]) -> str:
