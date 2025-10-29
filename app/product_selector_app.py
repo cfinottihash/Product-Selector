@@ -148,7 +148,15 @@ def load_database() -> Dict[str, pd.DataFrame]:
     return db
 
 # ----------------------------- common logic -----------------------------
-def find_cable_range_code(diameter: float, voltage: int, current: int, db: Dict[str, pd.DataFrame], table_basename: str | None = None) -> str:
+def find_cable_range_code(
+    diameter: float,
+    voltage: int,
+    current: int,
+    db: Dict[str, pd.DataFrame],
+    table_basename: str | None = None,
+    *,
+    cross_section_mm2: float | None = None,
+) -> str:
     table_name = table_basename if table_basename else (f"opcoes_range_cabo_{voltage}kv_600a" if current >= 600 else f"opcoes_range_cabo_{voltage}kv")
     # alias: 15 kV / 600A uses the same as 25 kV / 600A
     alias_redirects = {
@@ -206,6 +214,30 @@ def find_cable_range_code(diameter: float, voltage: int, current: int, db: Dict[
     )
     _rename_like(
         df_range,
+        "min_mm2",
+        [
+            "min_mm2",
+            "min (mm2)",
+            "min_mm^2",
+            "minimo_mm2",
+            "secao_min_mm2",
+            "bitola_min_mm2",
+        ],
+    )
+    _rename_like(
+        df_range,
+        "max_mm2",
+        [
+            "max_mm2",
+            "max (mm2)",
+            "max_mm^2",
+            "maximo_mm2",
+            "secao_max_mm2",
+            "bitola_max_mm2",
+        ],
+    )
+    _rename_like(
+        df_range,
         "codigo_retorno",
         [
             "codigo_retorno",
@@ -215,27 +247,45 @@ def find_cable_range_code(diameter: float, voltage: int, current: int, db: Dict[
         ],
     )
 
-    missing_cols = [c for c in ("min_mm", "max_mm", "codigo_retorno") if c not in df_range.columns]
-    if missing_cols:
+    has_diameter_bounds = {"min_mm", "max_mm"}.issubset(df_range.columns)
+    has_cross_section_bounds = {"min_mm2", "max_mm2"}.issubset(df_range.columns)
+
+    if "codigo_retorno" not in df_range.columns:
         st.warning(
-            "Range table is missing required columns: "
-            + ", ".join(missing_cols)
-            + ". Please update the CSV with diameter bounds in millimeters."
+            "Range table is missing the 'codigo_retorno' column. Please update the CSV."
         )
         return "ERR"
 
-    for col in ("min_mm", "max_mm"):
+    if not has_diameter_bounds and not has_cross_section_bounds:
+        st.warning(
+            "Range table is missing required bounds (expected 'min_mm'/'max_mm' or 'min_mm2'/'max_mm2')."
+        )
+        return "ERR"
+
+    if has_cross_section_bounds and not has_diameter_bounds:
+        if cross_section_mm2 is None:
+            st.warning(
+                "This range table is defined in mm², but no conductor cross-section was provided."
+            )
+            return "ERR"
+        comparison_value = cross_section_mm2
+        min_col, max_col = "min_mm2", "max_mm2"
+    else:
+        comparison_value = diameter
+        min_col, max_col = "min_mm", "max_mm"
+
+    for col in (min_col, max_col):
         df_range[col] = pd.to_numeric(df_range[col], errors="coerce")
 
-    df_range = df_range.dropna(subset=["min_mm", "max_mm", "codigo_retorno"])
+    df_range = df_range.dropna(subset=[min_col, max_col, "codigo_retorno"])
 
     for _, row in df_range.iterrows():
         try:
-            min_val = float(row["min_mm"])
-            max_val = float(row["max_mm"])
+            min_val = float(row[min_col])
+            max_val = float(row[max_col])
         except (TypeError, ValueError):
             continue
-        if min_val <= diameter <= max_val:
+        if min_val <= comparison_value <= max_val:
             return str(row["codigo_retorno"]).strip()
     return "N/A"
 
@@ -290,13 +340,43 @@ def find_tsbc_lug_iec_36kv_400a(cond_size: float, db: Dict[str, pd.DataFrame]) -
         return "ER"
 
     df = db[table_name].copy()
+    _rename_like(df, "codigo_retorno", ["codigo_retorno", "codigo", "code", "tsbc_code"])
+    _rename_like(
+        df,
+        "min_mm2",
+        [
+            "min_mm2",
+            "min (mm2)",
+            "minimo_mm2",
+            "secao_min_mm2",
+            "bitola_min_mm2",
+        ],
+    )
+    _rename_like(
+        df,
+        "max_mm2",
+        [
+            "max_mm2",
+            "max (mm2)",
+            "maximo_mm2",
+            "secao_max_mm2",
+            "bitola_max_mm2",
+        ],
+    )
+
     for col in ("min_mm2", "max_mm2"):
         if col in df.columns:
             df[col] = pd.to_numeric(df[col], errors="coerce")
 
-    for _, row in df.iterrows():
+    if not {"min_mm2", "max_mm2", "codigo_retorno"}.issubset(df.columns):
+        st.warning(
+            "TSBC table is missing required columns ('min_mm2', 'max_mm2', 'codigo_retorno')."
+        )
+        return "ER"
+
+    for _, row in df.dropna(subset=["min_mm2", "max_mm2", "codigo_retorno"]).iterrows():
         if row["min_mm2"] <= float(cond_size) <= row["max_mm2"]:
-            return str(row["codigo_retorno"])
+            return str(row["codigo_retorno"]).strip()
 
     return "N/A"
 
@@ -581,6 +661,7 @@ def render_separable_connector_configurator(db: Dict[str, pd.DataFrame]):
                 i_int,
                 db,
                 table_basename="opcoes_range_cabo_iec_36kv_400a",
+                cross_section_mm2=secao,
             )
             tsbc_code = find_tsbc_lug_iec_36kv_400a(float(secao), db)
             conductor_code = find_conductor_code_iec_400a(tipo_cond, float(secao), db)
