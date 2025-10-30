@@ -167,8 +167,6 @@ def find_cable_range_code(
         "opcoes_range_cabo_iec_36kv_400a": [
             "options_range_cable_iec_36kv_400a",
             "option_range_cable_iec_36kv_400a",
-            "options_range_cable_iec_36kV_400A",
-            "option_range_cable_iec_36kV_400A",
         ],
     }
 
@@ -340,43 +338,13 @@ def find_tsbc_lug_iec_36kv_400a(cond_size: float, db: Dict[str, pd.DataFrame]) -
         return "ER"
 
     df = db[table_name].copy()
-    _rename_like(df, "codigo_retorno", ["codigo_retorno", "codigo", "code", "tsbc_code"])
-    _rename_like(
-        df,
-        "min_mm2",
-        [
-            "min_mm2",
-            "min (mm2)",
-            "minimo_mm2",
-            "secao_min_mm2",
-            "bitola_min_mm2",
-        ],
-    )
-    _rename_like(
-        df,
-        "max_mm2",
-        [
-            "max_mm2",
-            "max (mm2)",
-            "maximo_mm2",
-            "secao_max_mm2",
-            "bitola_max_mm2",
-        ],
-    )
-
     for col in ("min_mm2", "max_mm2"):
         if col in df.columns:
             df[col] = pd.to_numeric(df[col], errors="coerce")
 
-    if not {"min_mm2", "max_mm2", "codigo_retorno"}.issubset(df.columns):
-        st.warning(
-            "TSBC table is missing required columns ('min_mm2', 'max_mm2', 'codigo_retorno')."
-        )
-        return "ER"
-
-    for _, row in df.dropna(subset=["min_mm2", "max_mm2", "codigo_retorno"]).iterrows():
+    for _, row in df.iterrows():
         if row["min_mm2"] <= float(cond_size) <= row["max_mm2"]:
-            return str(row["codigo_retorno"]).strip()
+            return str(row["codigo_retorno"])
 
     return "N/A"
 
@@ -496,7 +464,7 @@ def render_separable_connector_configurator(db: Dict[str, pd.DataFrame]):
             tamanhos = sorted(tamanhos_series.dropna().astype(int).unique())
 
             if tamanhos:
-                secao = st.selectbox("Conductor Cross Section (mm²)", tamanhos)
+                secao = st.selectbox("Cross-section (mm²)", tamanhos)
             else:
                 st.warning(
                     "No conductor cross-sections found for the selected type. "
@@ -504,7 +472,7 @@ def render_separable_connector_configurator(db: Dict[str, pd.DataFrame]):
                 )
                 secao = int(
                     st.number_input(
-                        "Conductor Cross Section (mm²)",
+                        "Cross-section (mm²)",
                         min_value=1,
                         step=1,
                         value=95,
@@ -549,7 +517,7 @@ def render_separable_connector_configurator(db: Dict[str, pd.DataFrame]):
             tamanhos = sorted(tamanhos_series.dropna().astype(int).unique())
 
             if tamanhos:
-                secao = st.selectbox("Conductor Cross Section (mm²)", tamanhos)
+                secao = st.selectbox("Cross-section (mm²)", tamanhos)
             else:
                 st.warning(
                     "No conductor cross-sections found for the selected type. "
@@ -598,53 +566,59 @@ def render_separable_connector_configurator(db: Dict[str, pd.DataFrame]):
             secao: float
             tipo_cond: Optional[str]
 
-            DEFAULT_IEC_SIZES = [25, 35, 50, 70, 95, 120, 150, 185, 240, 300, 400]
-            size_options: list[float] = []
-
             if df_cond_iec is not None and not df_cond_iec.empty:
                 df_cond_iec = df_cond_iec.copy()
                 if "secao_mm2" in df_cond_iec.columns:
                     df_cond_iec["secao_mm2"] = pd.to_numeric(df_cond_iec["secao_mm2"], errors="coerce")
                     df_cond_iec = df_cond_iec.dropna(subset=["secao_mm2"])
 
-                if "tipo_condutor" in df_cond_iec.columns:
-                    df_cond_iec["tipo_condutor"] = df_cond_iec["tipo_condutor"].astype(str)
-                    cond_types = sorted(df_cond_iec["tipo_condutor"].dropna().unique())
-                else:
-                    cond_types = []
+                size_options = []
+                if "secao_mm2" in df_cond_iec.columns:
+                    size_options = sorted(df_cond_iec["secao_mm2"].dropna().astype(float).unique())
 
-                if cond_types:
-                    tipo_cond = st.selectbox("Conductor Type", cond_types)
-                    filtered = df_cond_iec[df_cond_iec["tipo_condutor"] == tipo_cond]
-                else:
-                    tipo_cond = None
-                    filtered = df_cond_iec
+                def _format_mm2(value: float) -> str:
+                    return f"{int(value)}" if float(value).is_integer() else f"{value:.1f}".rstrip("0").rstrip(".")
 
-                if "secao_mm2" in filtered.columns:
-                    size_options = sorted(filtered["secao_mm2"].dropna().astype(float).unique())
-            else:
+                if size_options:
+                    secao = float(
+                        st.selectbox(
+                            "Conductor Size (mm²)",
+                            options=size_options,
+                            format_func=_format_mm2,
+                        )
+                    )
+                else:
+                    secao = float(
+                        st.number_input(
+                            "Conductor Size (mm²)",
+                            min_value=16.0,
+                            step=1.0,
+                            value=95.0,
+                        )
+                    )
+
                 tipo_cond = None
-
-            if not size_options:
-                st.warning(
-                    "No IEC conductor catalog sizes found. Showing a default list of cross-sections."
+                if "tipo_condutor" in df_cond_iec.columns:
+                    cond_options = (
+                        df_cond_iec[df_cond_iec["secao_mm2"] == float(secao)]["tipo_condutor"].dropna().astype(str).unique()
+                        if "secao_mm2" in df_cond_iec.columns
+                        else df_cond_iec["tipo_condutor"].dropna().astype(str).unique()
+                    )
+                    if len(cond_options) > 1:
+                        tipo_cond = st.selectbox("Conductor Type", sorted(cond_options))
+                    elif len(cond_options) == 1:
+                        tipo_cond = cond_options[0]
+                        st.caption(f"Conductor Type: {tipo_cond}")
+            else:
+                secao = float(
+                    st.number_input(
+                        "Conductor Size (mm²)",
+                        min_value=16.0,
+                        step=1.0,
+                        value=95.0,
+                    )
                 )
-                size_options = DEFAULT_IEC_SIZES
-
-            def _format_mm2(value: float) -> str:
-                return (
-                    f"{int(value)}"
-                    if float(value).is_integer()
-                    else f"{value:.1f}".rstrip("0").rstrip(".")
-                )
-
-            secao = float(
-                st.selectbox(
-                    "Conductor Cross Section (mm²)",
-                    options=size_options,
-                    format_func=_format_mm2,
-                )
-            )
+                tipo_cond = None
 
             material_cols = st.columns(2)
             selected_materials: list[tuple[str, str]] = []
@@ -661,7 +635,6 @@ def render_separable_connector_configurator(db: Dict[str, pd.DataFrame]):
                 i_int,
                 db,
                 table_basename="opcoes_range_cabo_iec_36kv_400a",
-                cross_section_mm2=secao,
             )
             tsbc_code = find_tsbc_lug_iec_36kv_400a(float(secao), db)
             conductor_code = find_conductor_code_iec_400a(tipo_cond, float(secao), db)
