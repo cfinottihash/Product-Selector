@@ -148,7 +148,15 @@ def load_database() -> Dict[str, pd.DataFrame]:
     return db
 
 # ----------------------------- common logic -----------------------------
-def find_cable_range_code(diameter: float, voltage: int, current: int, db: Dict[str, pd.DataFrame], table_basename: str | None = None) -> str:
+def find_cable_range_code(
+    diameter: float,
+    voltage: int,
+    current: int,
+    db: Dict[str, pd.DataFrame],
+    table_basename: str | None = None,
+    *,
+    cross_section_mm2: float | None = None,
+) -> str:
     table_name = table_basename if table_basename else (f"opcoes_range_cabo_{voltage}kv_600a" if current >= 600 else f"opcoes_range_cabo_{voltage}kv")
     # alias: 15 kV / 600A uses the same as 25 kV / 600A
     alias_redirects = {
@@ -176,10 +184,107 @@ def find_cable_range_code(diameter: float, voltage: int, current: int, db: Dict[
     if table_name not in db:
         st.warning(f"Range table ('{table_name}.csv') not found.")
         return "ERR"
-    df_range = db[table_name]
+    df_range = db[table_name].copy()
+
+    _rename_like(
+        df_range,
+        "min_mm",
+        [
+            "min_mm",
+            "min (mm)",
+            "minimo_mm",
+            "min diameter",
+            "diametro minimo (mm)",
+            "diametro_min_mm",
+        ],
+    )
+    _rename_like(
+        df_range,
+        "max_mm",
+        [
+            "max_mm",
+            "max (mm)",
+            "maximo_mm",
+            "max diameter",
+            "diametro maximo (mm)",
+            "diametro_max_mm",
+        ],
+    )
+    _rename_like(
+        df_range,
+        "min_mm2",
+        [
+            "min_mm2",
+            "min (mm2)",
+            "min_mm^2",
+            "minimo_mm2",
+            "secao_min_mm2",
+            "bitola_min_mm2",
+        ],
+    )
+    _rename_like(
+        df_range,
+        "max_mm2",
+        [
+            "max_mm2",
+            "max (mm2)",
+            "max_mm^2",
+            "maximo_mm2",
+            "secao_max_mm2",
+            "bitola_max_mm2",
+        ],
+    )
+    _rename_like(
+        df_range,
+        "codigo_retorno",
+        [
+            "codigo_retorno",
+            "codigo",
+            "code",
+            "range_code",
+        ],
+    )
+
+    has_diameter_bounds = {"min_mm", "max_mm"}.issubset(df_range.columns)
+    has_cross_section_bounds = {"min_mm2", "max_mm2"}.issubset(df_range.columns)
+
+    if "codigo_retorno" not in df_range.columns:
+        st.warning(
+            "Range table is missing the 'codigo_retorno' column. Please update the CSV."
+        )
+        return "ERR"
+
+    if not has_diameter_bounds and not has_cross_section_bounds:
+        st.warning(
+            "Range table is missing required bounds (expected 'min_mm'/'max_mm' or 'min_mm2'/'max_mm2')."
+        )
+        return "ERR"
+
+    if has_cross_section_bounds and not has_diameter_bounds:
+        if cross_section_mm2 is None:
+            st.warning(
+                "This range table is defined in mm², but no conductor cross-section was provided."
+            )
+            return "ERR"
+        comparison_value = cross_section_mm2
+        min_col, max_col = "min_mm2", "max_mm2"
+    else:
+        comparison_value = diameter
+        min_col, max_col = "min_mm", "max_mm"
+
+    for col in (min_col, max_col):
+        df_range[col] = pd.to_numeric(df_range[col], errors="coerce")
+
+    df_range = df_range.dropna(subset=[min_col, max_col, "codigo_retorno"])
+
     for _, row in df_range.iterrows():
-        if row["min_mm"] <= diameter <= row["max_mm"]:
-            return str(row["codigo_retorno"])
+        try:
+            min_val = float(row[min_col])
+            max_val = float(row[max_col])
+        except (TypeError, ValueError):
+            continue
+        if min_val <= comparison_value <= max_val:
+            return str(row["codigo_retorno"]).strip()
     return "N/A"
 
 def find_conductor_code_200a(cond_type: str, cond_size: int, db: Dict[str, pd.DataFrame]) -> str:
