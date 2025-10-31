@@ -596,12 +596,12 @@ def render_separable_connector_configurator(db: Dict[str, pd.DataFrame]):
                 # Add conductor size to part number
                 secao_str = str(int(secao)) if float(secao).is_integer() else str(secao)
                 part_number = _hifen_join(base_code, range_code, secao_str, mat_code)
-                chip_result("Suggested Code (Compression)", part_number)
+                chip_result("Suggested Code", part_number)
             else:
                 # Shear-Bolt: no material selection needed
                 tsbc_code = find_tsbc_lug_iec_36kv_400a(float(secao), db)
                 part_number = _hifen_join(base_code, range_code, tsbc_code)
-                chip_result("Suggested Code (Shear-Bolt)", part_number)
+                chip_result("Suggested Code", part_number)
 
             if range_code in {"N/A","ERR"}:
                 st.warning("Could not determine the **cable range** for the specified diameter.")
