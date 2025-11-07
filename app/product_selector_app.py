@@ -400,8 +400,14 @@ def render_separable_connector_configurator(db: Dict[str, pd.DataFrame]):
         voltages = sorted(df_filtered["classe_tensao"].dropna().unique())
         voltage = st.selectbox("Voltage Class (kV)", voltages)
 
+    # 🔥 Novo filtro dependente — mostra só correntes que existem para a tensão escolhida
     with col3:
-        currents = sorted(df_filtered["classe_corrente"].dropna().unique())
+        current_options = (
+            df_filtered[df_filtered["classe_tensao"] == voltage]["classe_corrente"]
+            .dropna()
+            .unique()
+        )
+        currents = sorted(current_options)
         current = st.selectbox("Current Rating (A)", currents)
 
     # Deadbreak 600A at 15 kV should see 25 kV items (15/25-TB600)
@@ -629,7 +635,7 @@ def render_separable_connector_configurator(db: Dict[str, pd.DataFrame]):
                 # Add conductor size to part number
                 secao_str = str(int(secao)) if float(secao).is_integer() else str(secao)
                 part_number = _hifen_join(base_code, range_code, secao_str, mat_code)
-                chip_result("Suggested Code (Compression)", part_number)
+                chip_result("Suggested Code", part_number)
             else:
                 # Shear-Bolt: no material selection needed
                 table_name = "opcoes_lugs_sbc_iec_36kv_630a"
@@ -650,10 +656,68 @@ def render_separable_connector_configurator(db: Dict[str, pd.DataFrame]):
                             break
                 
                 part_number = _hifen_join(base_code, range_code, sbc_code)
-                chip_result("Suggested Code (Shear-Bolt)", part_number)
+                chip_result("Suggested Code", part_number)
 
             if range_code in {"N/A","ERR"}:
                 st.warning("Could not determine the **cable range** for the specified diameter.")
+# ----------------- IEC Interface C – T-Body 1250A (42 kV) -----------------
+        elif logic_id == "LOGICA_TBODY_IEC_1250A":
+
+            df_cond_iec = db.get("opcoes_condutores_iec_1250a_v1")
+
+            # Conductor size dropdown
+            if df_cond_iec is not None and not df_cond_iec.empty and "secao_mm2" in df_cond_iec.columns:
+                df_cond_iec = df_cond_iec.copy()
+                df_cond_iec["secao_mm2"] = pd.to_numeric(df_cond_iec["secao_mm2"], errors="coerce")
+                size_options = sorted(df_cond_iec["secao_mm2"].dropna().astype(float).unique())
+
+                def _fmt_mm2(x: float) -> str:
+                    return f"{int(x)}" if float(x).is_integer() else f"{x:.1f}".rstrip("0").rstrip(".")
+
+                secao = float(st.selectbox("Conductor Size (mm²)", options=size_options, format_func=_fmt_mm2))
+            else:
+                secao = float(st.number_input("Conductor Size (mm²)", min_value=240.0, step=10.0, value=400.0))
+
+            # Connector kind
+            conn_kind = st.radio("Connector type", ["Compression (B/C)", "Shear-Bolt (SBC)"], horizontal=True)
+
+            # Cable range (specific for IEC 42 kV / 1250 A)
+            range_code = find_cable_range_code(
+                d_iso, v_int, i_int, db, table_basename="opcoes_range_cabo_iec_42kv_1250a"
+            )
+
+            if conn_kind.startswith("Compression"):
+                mat = st.selectbox("Compression connector material", ["B (Bi-metal Al&Cu)", "C (Copper)"])
+                mat_code = "B" if mat.startswith("B") else "C"
+                # Add conductor size to part number
+                secao_str = str(int(secao)) if float(secao).is_integer() else str(secao)
+                part_number = _hifen_join(base_code, range_code, secao_str, mat_code)
+                chip_result("Suggested Code", part_number)
+            else:
+                # Shear-Bolt: no material selection needed
+                table_name = "opcoes_lugs_sbc_iec_42kv_1250a"
+
+                if table_name not in db:
+                    st.warning(f"SBC table ('{table_name}.csv') not found.")
+                    sbc_code = "ER"
+                else:
+                    df_sbc = db[table_name].copy()
+                    for col in ("min_mm2", "max_mm2"):
+                        if col in df_sbc.columns:
+                            df_sbc[col] = pd.to_numeric(df_sbc[col], errors="coerce")
+
+                    sbc_code = "N/A"
+                    for _, row in df_sbc.iterrows():
+                        if row["min_mm2"] <= float(secao) <= row["max_mm2"]:
+                            sbc_code = str(row["codigo_retorno"])
+                            break
+
+                part_number = _hifen_join(base_code, range_code, sbc_code)
+                chip_result("Suggested Code", part_number)
+
+            if range_code in {"N/A", "ERR"}:
+                st.warning("Could not determine the **cable range** for the specified diameter.")
+
 
 # ----------------------------- UI: Terminations -----------------------------
 def termination_tol(tensao_term: str) -> float:
