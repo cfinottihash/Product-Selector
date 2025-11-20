@@ -983,7 +983,7 @@ def render_termination_selector(db: Dict[str, pd.DataFrame]):
             LUG_MATERIALS = sorted(df_conn_table.loc[mask_comp,"Material"].dropna().astype(str).unique())
         else:
             LUG_MATERIALS = sorted(df_conn_table.get("Material", pd.Series([], dtype=str)).dropna().astype(str).unique())
-
+        
         conn_ui = st.selectbox("Terminal Type:", ["Compression","Shear-Bolt"], key="lug_type_term")
         kind = "compression" if conn_ui == "Compression" else "shear-bolt"
         mat  = st.selectbox("Terminal Material:", LUG_MATERIALS, key="lug_mat_term") if kind=="compression" else None
@@ -993,7 +993,7 @@ def render_termination_selector(db: Dict[str, pd.DataFrame]):
         else:
             st.info("Suggested terminals (closest range first):")
             st.table(conn_df)
-
+    caution_notice()
 # ----------------------------- router -----------------------------
 try:
     db = load_database()
