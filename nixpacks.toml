@@ -2,7 +2,7 @@
 nixPkgs = ["python3", "gcc"]
 
 [phases.install]
-cmds = ["pip install -r requirements.txt"]
+cmds = ["python3 -m pip install -r requirements.txt"]
 
 [start]
 cmd = "streamlit run app/product_selector_app.py --server.port $PORT --server.address 0.0.0.0"
