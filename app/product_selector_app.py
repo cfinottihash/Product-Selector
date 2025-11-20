@@ -516,7 +516,7 @@ def render_separable_connector_configurator(db: Dict[str, pd.DataFrame]):
             cond_code  = find_conductor_code_200a(tipo_cond, int(secao), db)
 
             w_code = "T" if add_test_point else ""
-            if connector_material.startswith("Tinned Copper"): z_code = "C"
+            if connector_material.startswith("Copper"): z_code = "C"
             elif connector_material.startswith("Bi-metal"): z_code = "B"
             else: z_code = ""
 
