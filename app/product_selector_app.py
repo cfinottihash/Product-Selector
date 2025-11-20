@@ -78,6 +78,22 @@ inject_global_css(IMAGES_DIR / "bg-grid-dark.png")
 logo64 = _read_file_as_b64(IMAGES_DIR / "logo-chardon.png")
 glass_header("Chardon Product Configurator", "Separable Connectors · Terminations", logo64)
 
+def caution_notice():
+    st.markdown(
+        """
+        <div class="glass" style="border-left: 4px solid #F59E0B; background-color: rgba(245, 158, 11, 0.05);">
+            <div class="section-title" style="color: #D97706; display: flex; align-items: center; gap: 8px;">
+                ⚠️ Important Caution
+            </div>
+            <div class="section-sub" style="font-size: 0.95rem; opacity: 0.9;">
+                Calculated results are suggestions. 
+                Please always <b>double check cable details</b> (Insulation O.D., Conductor Size) 
+                and the <b>final part numbers</b> against official Chardon datasheets before ordering.
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 # ----------------------------- normalization -----------------------------
 def _norm(s: str) -> str:
     s = unicodedata.normalize("NFKD", str(s)).encode("ascii","ignore").decode()
@@ -506,7 +522,7 @@ def render_separable_connector_configurator(db: Dict[str, pd.DataFrame]):
 
             part_number = _hifen_join(base_code, w_code, range_code, cond_code, z_code)
             chip_result("Suggested Code", part_number)
-
+            caution_notice()
             if range_code in {"N/A","ERR"}:
                 st.warning("Could not determine the **cable range** for the specified diameter.")
             if cond_code in {"NA","ER"}:
@@ -551,11 +567,13 @@ def render_separable_connector_configurator(db: Dict[str, pd.DataFrame]):
                 lug_code = find_compression_lug_600a(tipo_cond, int(secao), db)
                 part_number = _hifen_join(base_code, w_code, range_code, lug_code)
                 chip_result("Suggested Code", part_number)
+                caution_notice()
             else:
                 sb_table = "opcoes_shear_bolt_tb15_25" if v_int in {15, 25} else "opcoes_shear_bolt_tb35"
                 sb_code = find_shear_bolt_lug(float(secao), db, table_name=sb_table)
                 part_number = _hifen_join(base_code, w_code, range_code, sb_code)
                 chip_result("Suggested Code", part_number)
+                caution_notice()
                 if sb_code in {"N/A","ER"}:
                     st.warning("Could not determine the **shear-bolt code** for the chosen cross-section.")
 
@@ -594,11 +612,13 @@ def render_separable_connector_configurator(db: Dict[str, pd.DataFrame]):
                 secao_str = str(int(secao)) if float(secao).is_integer() else str(secao)
                 part_number = _hifen_join(base_code, range_code, secao_str, mat_code)
                 chip_result("Suggested Code", part_number)
+                caution_notice()
             else:
                 # Shear-Bolt: no material selection needed
                 tsbc_code = find_tsbc_lug_iec_36kv_400a(float(secao), db)
                 part_number = _hifen_join(base_code, range_code, tsbc_code)
                 chip_result("Suggested Code", part_number)
+                caution_notice()
 
             if range_code in {"N/A","ERR"}:
                 st.warning("Could not determine the **cable range** for the specified diameter.")
@@ -636,6 +656,7 @@ def render_separable_connector_configurator(db: Dict[str, pd.DataFrame]):
                 secao_str = str(int(secao)) if float(secao).is_integer() else str(secao)
                 part_number = _hifen_join(base_code, range_code, secao_str, mat_code)
                 chip_result("Suggested Code", part_number)
+                caution_notice()
             else:
                 # Shear-Bolt: no material selection needed
                 table_name = "opcoes_lugs_sbc_iec_36kv_630a"
@@ -657,6 +678,7 @@ def render_separable_connector_configurator(db: Dict[str, pd.DataFrame]):
                 
                 part_number = _hifen_join(base_code, range_code, sbc_code)
                 chip_result("Suggested Code", part_number)
+                caution_notice()
 
             if range_code in {"N/A","ERR"}:
                 st.warning("Could not determine the **cable range** for the specified diameter.")
@@ -719,6 +741,7 @@ def render_separable_connector_configurator(db: Dict[str, pd.DataFrame]):
                 secao_str = str(int(secao)) if float(secao).is_integer() else str(secao)
                 part_number = _hifen_join(base_code, range_code, secao_str, mat_code)
                 chip_result("Suggested Code", part_number)
+                caution_notice()
             else:
                 # Shear-bolt SBC lugs – table specific for 24 kV / 630 A
                 table_name = "opcoes_lugs_sbc_iec_24kv_630a"
@@ -740,6 +763,8 @@ def render_separable_connector_configurator(db: Dict[str, pd.DataFrame]):
 
                 part_number = _hifen_join(base_code, range_code, sbc_code)
                 chip_result("Suggested Code", part_number)
+                caution_notice()
+
 
             if range_code in {"N/A", "ERR"}:
                 st.warning(
@@ -779,6 +804,7 @@ def render_separable_connector_configurator(db: Dict[str, pd.DataFrame]):
                 secao_str = str(int(secao)) if float(secao).is_integer() else str(secao)
                 part_number = _hifen_join(base_code, range_code, secao_str, mat_code)
                 chip_result("Suggested Code", part_number)
+                caution_notice()
             else:
                 # Shear-Bolt: no material selection needed
                 table_name = "opcoes_lugs_sbc_iec_42kv_1250a"
@@ -800,6 +826,7 @@ def render_separable_connector_configurator(db: Dict[str, pd.DataFrame]):
 
                 part_number = _hifen_join(base_code, range_code, sbc_code)
                 chip_result("Suggested Code", part_number)
+                caution_notice()
 
             if range_code in {"N/A", "ERR"}:
                 st.warning("Could not determine the **cable range** for the specified diameter.")
@@ -837,6 +864,7 @@ def render_separable_connector_configurator(db: Dict[str, pd.DataFrame]):
                 secao_str = str(int(secao)) if float(secao).is_integer() else str(secao)
                 part_number = _hifen_join(base_code_adj, range_code, secao_str, mat_code)
                 chip_result("Suggested Code (Compression)", part_number)
+                caution_notice()
 
             # --- Shear-bolt option ---
             else:
