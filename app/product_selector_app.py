@@ -432,20 +432,35 @@ def render_separable_connector_configurator(db: Dict[str, pd.DataFrame]):
     else:
         df_filtered = df_filtered[(df_filtered["classe_tensao"] == voltage) & (df_filtered["classe_corrente"] == current)]
 
-    section("2. Product Selection")
+# ------------------ Step 2: Product Confirmation ------------------
+
     if df_filtered.empty:
         st.warning("No products found for the selected initial combination.")
         return
 
-    product_options = df_filtered["nome_exibicao"].dropna().unique()
-    product_name = st.selectbox("Product Family", product_options)
-    if not product_name: return
+    # Always pick the first matching product (since selection is determined by Step 1)
+    selected_product = df_filtered.iloc[0]
 
-    selected_product_series = df_filtered[df_filtered["nome_exibicao"] == product_name]
-    if selected_product_series.empty: return
-    selected_product = selected_product_series.iloc[0]
+    product_name = str(selected_product.get("nome_exibicao", "Unknown Product"))
+    base_code = str(selected_product.get("codigo_base", ""))
 
-    section("3. Product Configuration")
+    st.markdown(
+        f"""
+        <div class="glass" style="padding:12px 16px;">
+            <div class="section-title" style="margin-bottom:4px;">Product Selected</div>
+            <div style="font-size:1rem; font-weight:600; margin-bottom:4px;">
+                {product_name}
+            </div>
+            <div style="font-size:0.9rem; opacity:0.75;">
+                Code: <span class="code-pill">{base_code}</span>
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
+    section("2. Product Configuration")
     col_config, col_img = st.columns([2, 1])
 
     with col_img:
@@ -863,7 +878,7 @@ def render_separable_connector_configurator(db: Dict[str, pd.DataFrame]):
                 mat_code = "B" if mat.startswith("B") else "C"
                 secao_str = str(int(secao)) if float(secao).is_integer() else str(secao)
                 part_number = _hifen_join(base_code_adj, range_code, secao_str, mat_code)
-                chip_result("Suggested Code (Compression)", part_number)
+                chip_result("Suggested Code", part_number)
                 caution_notice()
 
             # --- Shear-bolt option ---
@@ -888,7 +903,7 @@ def render_separable_connector_configurator(db: Dict[str, pd.DataFrame]):
                     st.error("No shear-bolt (SBC) lugs available for this conductor size.")
                 else:
                     part_number = _hifen_join(base_code_adj, range_code, sbc_code)
-                    chip_result("Suggested Code (Shear-Bolt)", part_number)
+                    chip_result("Suggested Code", part_number)
 
             # Warnings for missing matches
             if range_code in {"N/A", "ERR"}:
