@@ -5,7 +5,11 @@ from pathlib import Path
 from typing import Dict, Optional
 import re
 import unicodedata
-st.set_page_config(page_title="Chardon Product Configurator", page_icon=None, layout="wide")
+st.set_page_config(
+    page_title="Chardon Product Configurator",
+    page_icon="images/logo-chardon.png",
+    layout="wide"
+)
 import base64
 
 def _read_file_as_b64(path: Path) -> str:
