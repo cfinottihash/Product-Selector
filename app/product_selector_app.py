@@ -7,7 +7,7 @@ import re
 import unicodedata
 st.set_page_config(
     page_title="Chardon Product Configurator",
-    page_icon="images/logo-chardon.png",
+    page_icon="images/favicon.png",
     layout="wide"
 )
 import base64
