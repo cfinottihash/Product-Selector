@@ -987,13 +987,40 @@ def render_termination_selector(db: Dict[str, pd.DataFrame]):
         section("2. Search Results")
         df_term = db["csto_selection_table"] if env_choice.startswith("Outdoor") else db["csti_selection_table"]
         family = "CSTO" if env_choice.startswith("Outdoor") else "CSTI"
-        matches = df_term[(df_term["Voltage Class"] == tensao_term) &
-                          (df_term["OD Min (mm)"] <= d_iso + tolerance) &
-                          (df_term["OD Max (mm)"] >= d_iso - tolerance)]
-        if matches.empty:
-            st.error(f"No {family} termination found for ~{d_iso:.1f} mm."); return
+
+        # Different logic depending on how the diameter was obtained
+        if know_iso.startswith("Yes"):
+            # Exact value: only products whose OD range truly contains d_iso
+            base_matches = df_term[
+                (df_term["Voltage Class"] == tensao_term) &
+                (df_term["OD Min (mm)"] <= d_iso) &
+                (df_term["OD Max (mm)"] >= d_iso)
+            ]
+        else:
+            # Estimated value: keep a tolerance band
+            base_matches = df_term[
+                (df_term["Voltage Class"] == tensao_term) &
+                (df_term["OD Min (mm)"] <= d_iso + tolerance) &
+                (df_term["OD Max (mm)"] >= d_iso - tolerance)
+            ]
+
+        if base_matches.empty:
+            approx = f"~{d_iso:.1f} mm" if not know_iso.startswith("Yes") else f"{d_iso:.1f} mm"
+            st.error(f"No {family} termination found for {approx}.")
+            return
+
+        # If the user entered the diameter and multiple parts still match,
+        # automatically pick the tightest range (smallest span).
+        if know_iso.startswith("Yes") and len(base_matches) > 1:
+            tmp = base_matches.copy()
+            tmp["_span"] = tmp["OD Max (mm)"] - tmp["OD Min (mm)"]
+            tmp = tmp.sort_values(by=["_span", "OD Min (mm)"])
+            matches = tmp.head(1).drop(columns=["_span"])
+        else:
+            matches = base_matches
+
         chip_result("Compatible Terminations", str(len(matches)))
-        st.table(matches[["Part Number","OD Min (mm)","OD Max (mm)"]])
+        st.table(matches[["Part Number", "OD Min (mm)", "OD Max (mm)"]])
 
         section("3. Suggested Terminals (Lugs)")
         df_conn_table = db["connector_selection_table"].copy()
