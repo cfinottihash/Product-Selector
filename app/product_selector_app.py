@@ -1009,13 +1009,23 @@ def render_termination_selector(db: Dict[str, pd.DataFrame]):
             st.error(f"No {family} termination found for {approx}.")
             return
 
-        # If the user entered the diameter and multiple parts still match,
-        # automatically pick the tightest range (smallest span).
-        if know_iso.startswith("Yes") and len(base_matches) > 1:
+        # LOGIC FIX: Always pick the SINGLE BEST match (smallest span/tightest fit),
+        # regardless of whether the user provided an Exact or Estimated value.
+        if len(base_matches) > 1:
             tmp = base_matches.copy()
+            
+            # Calculate the range span (Max - Min)
             tmp["_span"] = tmp["OD Max (mm)"] - tmp["OD Min (mm)"]
-            tmp = tmp.sort_values(by=["_span", "OD Min (mm)"])
-            matches = tmp.head(1).drop(columns=["_span"])
+            
+            if not know_iso.startswith("Yes"):
+                tmp["_strict_fit"] = (tmp["OD Min (mm)"] <= d_iso) & (tmp["OD Max (mm)"] >= d_iso)
+                # Sort: Strict Fit first (True), then Tightest Span (Smallest), then Min OD
+                tmp = tmp.sort_values(by=["_strict_fit", "_span", "OD Min (mm)"], ascending=[False, True, True])
+                matches = tmp.head(1).drop(columns=["_span", "_strict_fit"])
+            else:
+                # For exact values, just pick the tightest span
+                tmp = tmp.sort_values(by=["_span", "OD Min (mm)"])
+                matches = tmp.head(1).drop(columns=["_span"])
         else:
             matches = base_matches
 
