@@ -1,18 +1,17 @@
-padrao,classe_tensao,classe_corrente,nome_exibicao,imagem_arquivo,codigo_base,id_logica
-IEEE/ANSI Loadbreak,15,200,Loadbreak Elbow 200A,15-LE200_IMG.jpg,15-LE200,LOGICA_COTOVELO_200A
-IEEE/ANSI Loadbreak,25,200,Loadbreak Elbow 200A,25-LE200_IMG.jpg,25-LE200,LOGICA_COTOVELO_200A
-IEEE/ANSI Loadbreak,35,200,Loadbreak Elbow 200A,35-LE200_IMG.jpg,35-LE200,LOGICA_COTOVELO_200A
+padrao,classe_tensao,classe_corrente,nome_exibicao,imagem_arquivo,codigo_base,id_logica, url_website
+IEEE/ANSI Loadbreak,15,200,Loadbreak Elbow 200A,15-LE200_IMG.jpg,15-LE200,LOGICA_COTOVELO_200A, https://www.chardongroup.com/products/15-kv-200a-loadbreak-elbow/
+IEEE/ANSI Loadbreak,25,200,Loadbreak Elbow 200A,25-LE200_IMG.jpg,25-LE200,LOGICA_COTOVELO_200A, https://www.chardongroup.com/products/25-kv-200a-loadbreak-elbow/
+IEEE/ANSI Loadbreak,35,200,Loadbreak Elbow 200A,35-LE200_IMG.jpg,35-LE200,LOGICA_COTOVELO_200A, https://www.chardongroup.com/products/35-kv-200a-loadbreak-elbow/
 
-IEEE/ANSI Deadbreak,25,200,Deadbreak Elbow 200A,deadbreak_elbow.jpg,25-DE200,LOGICA_DEADBREAK_ELBOW_200A
-IEEE/ANSI Deadbreak,25,600,T-Body 600A,25TB-600_IMG.jpg,15/25-TB600,LOGICA_CORPO_T_600A
-IEEE/ANSI Deadbreak,25,600,T-Body 600A,25TB-600_IMG.jpg,15/25-TB600,LOGICA_CORPO_T_600A   
-IEEE/ANSI Deadbreak,35,600,T-Body 600A,35-TB600_IMG.jpg,35-TB600,LOGICA_CORPO_T_600A
+IEEE/ANSI Deadbreak,25,200,Deadbreak Elbow 200A,deadbreak_elbow.jpg,25-DE200,LOGICA_DEADBREAK_ELBOW_200A, https://www.chardongroup.com/products/25-kv-200a-deadbreak-elbow/
+IEEE/ANSI Deadbreak,25,600,T-Body 600A,25TB-600_IMG.jpg,15/25-TB600,LOGICA_CORPO_T_600A, https://www.chardongroup.com/products/15-25-kv-600a-900a-t-body/
+IEEE/ANSI Deadbreak,35,600,T-Body 600A,35-TB600_IMG.jpg,35-TB600,LOGICA_CORPO_T_600A, https://www.chardongroup.com/products/35-kv-600a-deadbreak-t-body/
 
-IEC,36,400,Interface B – T-Body 400A (IEC),iec_tb400b.jpg,36-TB400,LOGICA_TBODY_IEC_400A
-IEC,36,630,Interface C – T-Body 630A (IEC),iec_tb630.jpg,36-TB630,LOGICA_TBODY_IEC_630A
-IEC,42,1250,Interface C – T-Body 1250A (IEC),iec_tb1250.jpg,42-FDT1250,LOGICA_TBODY_IEC_1250A
-IEC,24,630,Interface C – T-Body 630A 24 kV (IEC),24-fdt630.png,24-FDT630,LOGICA_TBODY_IEC_24KV_630A
-IEC,72,1250,Interface C – T-Body 1250A (IEC – 72 kV),iec_tb1250_72kv.jpg,72-FDT1250,LOGICA_TBODY_IEC_72KV_1250A
+IEC,36,400,Interface B – T-Body 400A (IEC),iec_tb400b.jpg,36-TB400,LOGICA_TBODY_IEC_400A, https://www.chardongroup.com/products/36kv-400a-front-t-body/
+IEC,36,630,Interface C – T-Body 630A (IEC),iec_tb630.jpg,36-TB630,LOGICA_TBODY_IEC_630A, https://www.chardongroup.com/products/36-kv-630a-front-t-body-36-kv-630a-rear-t-body/
+IEC,42,1250,Interface C – T-Body 1250A (IEC),iec_tb1250.jpg,42-FDT1250,LOGICA_TBODY_IEC_1250A, https://www.chardongroup.com/products/42-kv-1250a-front-t-body-42-kv-1250a-rear-t-body/
+IEC,24,630,Interface C – T-Body 630A 24 kV (IEC),24-fdt630.png,24-FDT630,LOGICA_TBODY_IEC_24KV_630A, https://www.chardongroup.com/products/17-5-kv-24-kv-630a-front-t-body-17-5-kv-24-kv-630a-rear-t-body/
+IEC,72,1250,Interface C – T-Body 1250A (IEC – 72 kV),iec_tb1250_72kv.jpg,72-FDT1250,LOGICA_TBODY_IEC_72KV_1250A, https://www.chardongroup.com/products/72-kv-1250a-t-body-72-frdt1250/
 
 
 

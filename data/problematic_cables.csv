@@ -8,6 +8,8 @@ Cable Voltage,S_mm2,Brand,Cable,Reason
 12/20 kV,50,Prysmian,Ecoplus Compact Aluminum,Too Thick
 12/20 kV,70,Prysmian,Ecoplus Compact Copper,Too Thick
 12/20 kV,70,Prysmian,Ecoplus Compact Aluminum,Too Thick
+12/20 kV,70,Nexans,XLPE-PVC,Too Thick
+12/20 kV,70,Nexans,XLPE-PVC AL,Too Thick
 12/20 kV,240,Prysmian,Ecoplus Compact Copper,Too Thick
 12/20 kV,240,Prysmian,Ecoplus Compact Aluminum,Too Thick
 12/20 kV,300,Prysmian,Ecoplus Compact Copper,Too Thick
@@ -38,6 +40,9 @@ Cable Voltage,S_mm2,Brand,Cable,Reason
 20/35 kV,185,Prysmian,Ecoplus Compact Copper,Too Thick
 20/35 kV,185,Prysmian,Ecoplus Compact Aluminum,Too Thick
 20/35 kV,185,Conduspar,MTX GRID,Too Thick
+20/35 kV,185,Nexans,XLPE-PVC,Too Thick
+20/35 kV,185,Nexans,XLPE-PVC AL,Too Thick
+20/35 kV,185,Cobremack,XLPE 90,Too Thick
 20/35 kV,240,Induscabos,Epronax AL 105,Too Thin
 20/35 kV,240,Conduspar,MTS Toxfree,Too Thin
 20/35 kV,240,Conduspar,MTS105 GRID,Too Thin
@@ -68,3 +73,4 @@ Cable Voltage,S_mm2,Brand,Cable,Reason
 8.7/15 kV,150,Prysmian,Ecoplus Compact Aluminum,Too Thick
 8.7/15 kV,185,Prysmian,Ecoplus Compact Copper,Too Thick
 8.7/15 kV,185,Prysmian,Ecoplus Compact Aluminum,Too Thick
+8.7/15 kV,185,Cobremack,XLPE 90,Too Thick

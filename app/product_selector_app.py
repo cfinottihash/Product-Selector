@@ -90,7 +90,7 @@ def caution_notice():
                 ⚠️ Important Caution
             </div>
             <div class="section-sub" style="font-size: 0.95rem; opacity: 0.9;">
-                The results are suggestions. 
+                Calculated results are ESTIMATIONS. 
                 Please always <b>double check cable details</b> (Insulation O.D., Conductor Size) 
                 and the <b>final part numbers</b> against official Chardon datasheets before ordering.
             </div>
@@ -974,7 +974,7 @@ def render_termination_selector(db: Dict[str, pd.DataFrame]):
     # 3-Way Selection Method
     method = st.radio(
         "How do you want to specify the cable?",
-        ("Enter Insulation Diameter manually","Select Cable Brand & Model","Estimate by Size (Generic)"),
+        ("Enter Insulation Diameter manually","Select Cable Brand & Model","Estimate by Size (Simulation)"),
         key="sel_method"
     )
 
