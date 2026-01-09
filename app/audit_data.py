@@ -12,7 +12,7 @@ def _norm_voltage(v_str):
     return v_str
 
 def run_audit():
-    print("--- GERANDO LISTA DE CABOS PROBLEMÁTICOS ---")
+    print("--- AUDITORIA: GERANDO ARQUIVO DE RISCOS + ESTATÍSTICAS ---")
     
     try:
         df_cabos = pd.read_csv("data/bitola_to_od.csv").rename(columns=lambda x: x.strip())
@@ -23,6 +23,10 @@ def run_audit():
 
     lista_negra = [] 
     grupos = df_cabos.groupby(['Cable Voltage', 'S_mm2'])
+    
+    # Contadores para estatística
+    total_linhas_db = len(df_cabos)
+    total_erros = 0
 
     for (voltagem, bitola), grupo_df in grupos:
         od_med = grupo_df['OD_iso_mm'].median()
@@ -36,7 +40,16 @@ def run_audit():
         ]
 
         if pecas.empty:
-            continue # Se não tem peça, não adiciona ao alerta específico (é outro tipo de erro)
+            # Se não achou peça, todos os cabos desse grupo são considerados erro
+            for _, row in grupo_df.iterrows():
+                lista_negra.append({
+                    "Cable Voltage": voltagem,
+                    "S_mm2": bitola,
+                    "Brand": row.get('Brand', 'Unknown'),
+                    "Cable": row.get('Cable', 'Unknown'),
+                    "Reason": "No Termination Found"
+                })
+            continue 
 
         # Pega a peça escolhida
         pecas = pecas.copy()
@@ -51,24 +64,36 @@ def run_audit():
             od_real = row['OD_iso_mm']
             if not (t_min <= od_real <= t_max):
                 lista_negra.append({
-                    "Cable Voltage": voltagem, # Manter nome exato da coluna original
-                    "S_mm2": bitola,           # Manter nome exato
+                    "Cable Voltage": voltagem, 
+                    "S_mm2": bitola,           
                     "Brand": row.get('Brand', 'Unknown'),
                     "Cable": row.get('Cable', 'Unknown'),
                     "Reason": "Too Thin" if od_real < t_min else "Too Thick"
                 })
+
+    # --- CÁLCULO ESTATÍSTICO ---
+    total_erros = len(lista_negra)
+    total_acertos = total_linhas_db - total_erros
+    taxa_acerto = (total_acertos / total_linhas_db) * 100
+
+    print("-" * 60)
+    print(f"📊 RELATÓRIO FINAL:")
+    print(f"   Total de Cabos no Banco de Dados: {total_linhas_db}")
+    print(f"   Total Coberto pelo Modelo:        {total_acertos}")
+    print(f"   Total Fora do Range (Riscos):     {total_erros}")
+    print(f"   ✅ TAXA DE SUCESSO DO MODELO:     {taxa_acerto:.2f}%")
+    print("-" * 60)
 
     # SALVAR O ARQUIVO CSV
     file_path = Path("data/problematic_cables.csv")
     if lista_negra:
         df_out = pd.DataFrame(lista_negra)
         df_out.to_csv(file_path, index=False)
-        print(f"✅ ARQUIVO GERADO: {file_path} com {len(df_out)} alertas.")
-        print(df_out.head())
+        print(f"⚠️  ARQUIVO 'problematic_cables.csv' ATUALIZADO COM {len(df_out)} ALERTAS.")
     else:
-        # Se não houver problemas, cria um arquivo vazio com cabeçalho para não quebrar o app
+        # Se não houver problemas, cria um arquivo vazio com cabeçalho
         pd.DataFrame(columns=["Cable Voltage", "S_mm2", "Brand", "Cable", "Reason"]).to_csv(file_path, index=False)
-        print("✅ NENHUM PROBLEMA ENCONTRADO. Arquivo vazio gerado.")
+        print("✅ ARQUIVO GERADO (VAZIO). NENHUM PROBLEMA ENCONTRADO.")
 
 if __name__ == "__main__":
     run_audit()

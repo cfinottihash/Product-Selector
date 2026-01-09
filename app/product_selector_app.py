@@ -90,7 +90,7 @@ def caution_notice():
                 ⚠️ Important Caution
             </div>
             <div class="section-sub" style="font-size: 0.95rem; opacity: 0.9;">
-                Calculated results are suggestions. 
+                The results are suggestions. 
                 Please always <b>double check cable details</b> (Insulation O.D., Conductor Size) 
                 and the <b>final part numbers</b> against official Chardon datasheets before ordering.
             </div>
@@ -954,61 +954,121 @@ def render_termination_selector(db: Dict[str, pd.DataFrame]):
     st.session_state.setdefault("term_query_signature", "")
 
     section("1. Cable and Application Selection")
-    df_cable = db["bitola_to_od"]; CABLE_VOLTAGE_COL = "Cable Voltage"
+    
+    # --- Load Data ---
+    df_cable = db["bitola_to_od"]
+    CABLE_VOLTAGE_COL = "Cable Voltage"
     if CABLE_VOLTAGE_COL not in df_cable.columns:
         st.error(f"Column '{CABLE_VOLTAGE_COL}' not found in bitola_to_od.csv."); return
-    TENS_MAP = {"8.7/15 kV":"15 kV","12/20 kV":"25 kV","15/25 kV":"25 kV","20/35 kV":"35 kV"}
+    
+    # Sort Voltages naturally
     def _order_kv(t: str) -> float:
         m = re.match(r"([\d.]+)", t); return float(m.group(1)) if m else 1e9
     CABLE_VOLTAGES = sorted(df_cable[CABLE_VOLTAGE_COL].unique(), key=_order_kv)
+    
+    TENS_MAP = {"8.7/15 kV":"15 kV","12/20 kV":"25 kV","15/25 kV":"25 kV","20/35 kV":"35 kV"}
 
+    # --- UI Inputs ---
     env_choice = st.radio("Termination Application:", ("Outdoor","Indoor"), horizontal=True, key="env_term")
-    know_iso   = st.radio("Do you know the cable insulation diameter?", ("No, estimate by size","Yes, enter value"), key="know_iso")
-    cabo_tensao = st.selectbox("Cable voltage class:", CABLE_VOLTAGES, key="volt_term")
-    tensao_term = TENS_MAP.get(cabo_tensao, ""); tolerance = termination_tol(tensao_term)
+    
+    # 3-Way Selection Method
+    method = st.radio(
+        "How do you want to specify the cable?",
+        ("Enter Insulation Diameter manually","Select Cable Brand & Model","Estimate by Size (Generic)"),
+        key="sel_method"
+    )
 
-    d_iso, s_mm2 = 0.0, 0.0
-    if know_iso.startswith("Yes"):
+    # Common Input: Voltage
+    cabo_tensao = st.selectbox("Cable voltage class:", CABLE_VOLTAGES, key="volt_term")
+    tensao_term = TENS_MAP.get(cabo_tensao, "")
+    tolerance = termination_tol(tensao_term)
+
+    # Variables
+    d_iso = 0.0
+    s_mm2 = 0.0
+    risk_alert_html = None
+    is_exact_value = False 
+
+    # --- LOGIC BRANCHES ---
+    
+    # BRANCH A: Select Brand & Model (The "Gold Standard")
+    if method == "Select Cable Brand & Model":
+        is_exact_value = True
+        
+        # 1. Filter by Voltage first
+        df_v = df_cable[df_cable[CABLE_VOLTAGE_COL] == cabo_tensao]
+        
+        # 2. Select Cross-Section
+        avail_sizes = sorted(df_v["S_mm2"].astype(float).unique())
+        s_mm2 = st.selectbox("Nominal cross-section (mm²):", avail_sizes, key="s_mm2_brand")
+        
+        # 3. Select Brand (filtered by Voltage + Size)
+        df_s = df_v[df_v["S_mm2"].astype(float) == float(s_mm2)]
+        avail_brands = sorted(df_s["Brand"].astype(str).unique())
+        brand = st.selectbox("Cable Manufacturer:", avail_brands, key="sel_brand")
+        
+        # 4. Select Model (filtered by Brand)
+        df_b = df_s[df_s["Brand"] == brand]
+        avail_models = sorted(df_b["Cable"].astype(str).unique())
+        model = st.selectbox("Cable Model:", avail_models, key="sel_model")
+        
+        # 5. Get Exact OD
+        if model:
+            row = df_b[df_b["Cable"] == model].iloc[0]
+            d_iso = float(row["OD_iso_mm"])
+            # st.success(f"✅ Selected: **{brand} - {model}**")
+            st.info(f"Estimated Insulation Diameter: **{d_iso:.1f} mm**")
+
+    # BRANCH B: Manual Input
+    elif method == "Enter Insulation Diameter manually":
+        is_exact_value = True
         d_iso = st.number_input("Insulation diameter (mm)", min_value=0.0, step=0.1, key="dia_term")
-        s_mm2 = st.selectbox("Nominal cross-section (mm²) to select lug:", sorted(df_cable["S_mm2"].astype(float).unique()), key="s_mm2_term_real")
-        st.info(f"Provided insulation diameter: **{d_iso:.1f} mm**")
+        # We still need size for the Lug selection later
+        s_mm2 = st.selectbox("Nominal cross-section (mm²) to select lug:", sorted(df_cable["S_mm2"].astype(float).unique()), key="s_mm2_manual")
+        st.info(f"Using provided diameter: **{d_iso:.1f} mm**")
+
+    # BRANCH C: Estimate (Median) - The "Fallback"
     else:
+        is_exact_value = False
         filtro = df_cable[df_cable[CABLE_VOLTAGE_COL] == cabo_tensao]
         bitolas = sorted(filtro["S_mm2"].astype(float).unique())
-        s_mm2 = st.selectbox("Nominal cross-section (mm²):", bitolas, key="s_mm2_term_est")
+        s_mm2 = st.selectbox("Nominal cross-section (mm²):", bitolas, key="s_mm2_est")
+        
         linha = filtro[filtro["S_mm2"].astype(float) == float(s_mm2)]
+        
         if not linha.empty:
-            # 1. Lógica Existente (Mediana)
             d_iso = float(linha["OD_iso_mm"].median())
             st.info(f"ESTIMATED insulation diameter: **{d_iso:.1f} mm ± {tolerance} mm**")
 
-            # 2. NOVO BLOCO DE ALERTA DE RISCO (Inserir aqui)
-            # Verifica se o arquivo de auditoria gerou alertas para este cabo
+            # --- RISK CHECK ---
             if "problematic_cables" in db:
                 df_prob = db["problematic_cables"]
-                
-                # Filtra a tabela de riscos para a Tensão e Bitola atuais
-                # Convertemos para string (astype(str)) para garantir que números batam (ex: 185 vs "185")
-                mask = (
-                    (df_prob["Cable Voltage"] == cabo_tensao) & 
-                    (df_prob["S_mm2"].astype(str) == str(s_mm2))
-                )
-                riscos = df_prob[mask]
-
-                if not riscos.empty:
-                    # Pega as marcas únicas que deram problema
-                    marcas_afetadas = sorted(riscos["Brand"].dropna().unique())
-                    lista_marcas = ", ".join(marcas_afetadas)
+                try:
+                    bitola_user = float(s_mm2)
+                    df_prob["S_mm2_float"] = pd.to_numeric(df_prob["S_mm2"], errors='coerce')
+                    mask = ((df_prob["Cable Voltage"] == cabo_tensao) & (df_prob["S_mm2_float"] == bitola_user))
+                    riscos = df_prob[mask]
                     
-                    st.warning(
-                        f"⚠️ **Caution:** Historical data indicates that specific models from "
-                        f"**{lista_marcas}** in this size ({s_mm2} mm²) often fall outside the estimated range. "
-                        f"\n\nIt is **highly recommended** to confirm the actual cable insulation diameter before ordering."
-                    )
+                    if not riscos.empty:
+                        def fmt_model(row):
+                            b = str(row['Brand']); c = str(row['Cable']) if pd.notna(row['Cable']) else "General"
+                            return f"{b} ({c})"
+                        riscos = riscos.copy(); riscos['display'] = riscos.apply(fmt_model, axis=1)
+                        lista_models = ", ".join(sorted(riscos['display'].unique()))
+                        
+                        risk_alert_html = f"""
+                        <div style="margin-top:10px;padding:8px 12px;background-color:#FEF3C7;border:1px solid #F59E0B;border-radius:8px;color:#92400E;font-size:0.9rem;display:flex;align-items:center;gap:8px;">
+                            <span style="font-size:1.2rem;">⚠️</span>
+                            <div><b>Caution:</b> Historical data shows specific models often fall outside this estimated range: <br>
+                            <span style="font-family:monospace;font-size:0.85em;">{lista_models}</span><br>
+                            <i>Consider using "Select Cable Brand & Model" option if yours is listed.</i></div>
+                        </div>"""
+                except Exception: pass
         else:
             st.warning("Could not estimate the diameter for the selected size."); return
 
-    signature = f"{env_choice}|{cabo_tensao}|{know_iso}|{s_mm2}|{d_iso:.3f}"
+    # --- ACTION BUTTON ---
+    signature = f"{env_choice}|{cabo_tensao}|{method}|{s_mm2}|{d_iso:.3f}"
     if signature != st.session_state.get("term_query_signature",""):
         st.session_state["term_query_signature"] = signature
         st.session_state["term_searched"] = False
@@ -1017,23 +1077,21 @@ def render_termination_selector(db: Dict[str, pd.DataFrame]):
     with col_a:
         if st.button("Search for Termination", key="btn_buscar"): st.session_state["term_searched"] = True
     with col_b:
-        if st.button("Change parameters / Clear results", key="btn_reset"): st.session_state["term_searched"] = False
+        if st.button("Reset / Change", key="btn_reset"): st.session_state["term_searched"] = False
 
+    # --- SEARCH EXECUTION ---
     if st.session_state["term_searched"]:
         section("2. Search Results")
         df_term = db["csto_selection_table"] if env_choice.startswith("Outdoor") else db["csti_selection_table"]
-        family = "CSTO" if env_choice.startswith("Outdoor") else "CSTI"
-
-        # Different logic depending on how the diameter was obtained
-        if know_iso.startswith("Yes"):
-            # Exact value: only products whose OD range truly contains d_iso
+        
+        # Search Strategy
+        if is_exact_value:
             base_matches = df_term[
                 (df_term["Voltage Class"] == tensao_term) &
                 (df_term["OD Min (mm)"] <= d_iso) &
                 (df_term["OD Max (mm)"] >= d_iso)
             ]
         else:
-            # Estimated value: keep a tolerance band
             base_matches = df_term[
                 (df_term["Voltage Class"] == tensao_term) &
                 (df_term["OD Min (mm)"] <= d_iso + tolerance) &
@@ -1041,33 +1099,40 @@ def render_termination_selector(db: Dict[str, pd.DataFrame]):
             ]
 
         if base_matches.empty:
-            approx = f"~{d_iso:.1f} mm" if not know_iso.startswith("Yes") else f"{d_iso:.1f} mm"
-            st.error(f"No {family} termination found for {approx}.")
+            approx = f"{d_iso:.1f} mm"
+            st.error(f"No termination found for {approx} ({env_choice}).")
+            if risk_alert_html: st.markdown(risk_alert_html, unsafe_allow_html=True)
             return
 
-        # LOGIC FIX: Always pick the SINGLE BEST match (smallest span/tightest fit),
-        # regardless of whether the user provided an Exact or Estimated value.
+        # Optimization: Pick Single Best Match
         if len(base_matches) > 1:
             tmp = base_matches.copy()
-            
-            # Calculate the range span (Max - Min)
             tmp["_span"] = tmp["OD Max (mm)"] - tmp["OD Min (mm)"]
             
-            if not know_iso.startswith("Yes"):
+            if not is_exact_value:
                 tmp["_strict_fit"] = (tmp["OD Min (mm)"] <= d_iso) & (tmp["OD Max (mm)"] >= d_iso)
-                # Sort: Strict Fit first (True), then Tightest Span (Smallest), then Min OD
                 tmp = tmp.sort_values(by=["_strict_fit", "_span", "OD Min (mm)"], ascending=[False, True, True])
                 matches = tmp.head(1).drop(columns=["_span", "_strict_fit"])
             else:
-                # For exact values, just pick the tightest span
                 tmp = tmp.sort_values(by=["_span", "OD Min (mm)"])
                 matches = tmp.head(1).drop(columns=["_span"])
         else:
             matches = base_matches
 
-        chip_result("Compatible Terminations", str(len(matches)))
+        # --- RESULT DISPLAY FIX ---
+        # 1. Get the actual part number string (e.g. "15-CSTO-B")
+        best_part = matches.iloc[0]["Part Number"]
+        
+        # 2. Show it in the green Chip/Pill
+        chip_result("Suggested Termination", best_part)
+        
+        # 3. Show the Table INCLUDING "Part Number" column
         st.table(matches[["Part Number", "OD Min (mm)", "OD Max (mm)"]])
 
+        # Risk Alert (Only for Estimation)
+        if risk_alert_html and not is_exact_value:
+            st.markdown(risk_alert_html, unsafe_allow_html=True)
+        caution_notice()
         section("3. Suggested Terminals (Lugs)")
         df_conn_table = db["connector_selection_table"].copy()
         if "Type" in df_conn_table.columns:
@@ -1083,9 +1148,12 @@ def render_termination_selector(db: Dict[str, pd.DataFrame]):
         conn_df = suggest_termination_connector(int(float(s_mm2)), kind, db, mat)
         if conn_df.empty: st.error("No terminal/lug found for the selected cross-section.")
         else:
-            st.info("Suggested terminals (closest range first):")
+            st.info("Suggested terminals:")
             st.table(conn_df)
-    caution_notice()
+    
+    # Only show caution notice if estimating
+    if method == "Estimate by Size (Simulation)":
+        caution_notice()
 # ----------------------------- router -----------------------------
 try:
     db = load_database()
