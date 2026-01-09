@@ -1056,13 +1056,6 @@ def render_termination_selector(db: Dict[str, pd.DataFrame]):
                         riscos = riscos.copy(); riscos['display'] = riscos.apply(fmt_model, axis=1)
                         lista_models = ", ".join(sorted(riscos['display'].unique()))
                         
-                        risk_alert_html = f"""
-                        <div style="margin-top:10px;padding:8px 12px;background-color:#FEF3C7;border:1px solid #F59E0B;border-radius:8px;color:#92400E;font-size:0.9rem;display:flex;align-items:center;gap:8px;">
-                            <span style="font-size:1.2rem;">⚠️</span>
-                            <div><b>Caution:</b> Historical data shows specific models often fall outside this estimated range: <br>
-                            <span style="font-family:monospace;font-size:0.85em;">{lista_models}</span><br>
-                            <i>Consider using "Select Cable Brand & Model" option if yours is listed.</i></div>
-                        </div>"""
                 except Exception: pass
         else:
             st.warning("Could not estimate the diameter for the selected size."); return
