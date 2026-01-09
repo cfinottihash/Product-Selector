@@ -165,6 +165,17 @@ def load_database() -> Dict[str, pd.DataFrame]:
     missing = [c for c in ["Cable Voltage","S_mm2","OD_iso_mm"] if c not in db["bitola_to_od"].columns]
     if missing:
         st.error(f"'bitola_to_od.csv' is missing columns: {missing}"); st.stop()
+
+    # --- NOVO BLOCO COMEÇA AQUI ---
+    # Tenta carregar a lista de cabos problemáticos gerada pelo audit_data.py
+    path_prob = DATA_DIR / "problematic_cables.csv"
+    if path_prob.exists():
+        try:
+            db["problematic_cables"] = pd.read_csv(path_prob)
+        except Exception:
+            pass # Se falhar ou arquivo não existir, segue a vida sem o alerta
+    # --- NOVO BLOCO TERMINA AQUI ---
+
     return db
 
 # ----------------------------- common logic -----------------------------
@@ -967,8 +978,33 @@ def render_termination_selector(db: Dict[str, pd.DataFrame]):
         s_mm2 = st.selectbox("Nominal cross-section (mm²):", bitolas, key="s_mm2_term_est")
         linha = filtro[filtro["S_mm2"].astype(float) == float(s_mm2)]
         if not linha.empty:
-            d_iso = float(linha.iloc[0]["OD_iso_mm"])
+            # 1. Lógica Existente (Mediana)
+            d_iso = float(linha["OD_iso_mm"].median())
             st.info(f"ESTIMATED insulation diameter: **{d_iso:.1f} mm ± {tolerance} mm**")
+
+            # 2. NOVO BLOCO DE ALERTA DE RISCO (Inserir aqui)
+            # Verifica se o arquivo de auditoria gerou alertas para este cabo
+            if "problematic_cables" in db:
+                df_prob = db["problematic_cables"]
+                
+                # Filtra a tabela de riscos para a Tensão e Bitola atuais
+                # Convertemos para string (astype(str)) para garantir que números batam (ex: 185 vs "185")
+                mask = (
+                    (df_prob["Cable Voltage"] == cabo_tensao) & 
+                    (df_prob["S_mm2"].astype(str) == str(s_mm2))
+                )
+                riscos = df_prob[mask]
+
+                if not riscos.empty:
+                    # Pega as marcas únicas que deram problema
+                    marcas_afetadas = sorted(riscos["Brand"].dropna().unique())
+                    lista_marcas = ", ".join(marcas_afetadas)
+                    
+                    st.warning(
+                        f"⚠️ **Caution:** Historical data indicates that specific models from "
+                        f"**{lista_marcas}** in this size ({s_mm2} mm²) often fall outside the estimated range. "
+                        f"\n\nIt is **highly recommended** to confirm the actual cable insulation diameter before ordering."
+                    )
         else:
             st.warning("Could not estimate the diameter for the selected size."); return
 
